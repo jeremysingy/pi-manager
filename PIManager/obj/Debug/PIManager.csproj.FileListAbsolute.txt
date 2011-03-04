@@ -1,0 +1,5 @@
+D:\Visual_Studio_Projects\PIManager\PIManager\bin\PIManager.dll
+D:\Visual_Studio_Projects\PIManager\PIManager\bin\PIManager.pdb
+D:\Visual_Studio_Projects\PIManager\PIManager\obj\Debug\ResolveAssemblyReference.cache
+D:\Visual_Studio_Projects\PIManager\PIManager\obj\Debug\PIManager.dll
+D:\Visual_Studio_Projects\PIManager\PIManager\obj\Debug\PIManager.pdb
