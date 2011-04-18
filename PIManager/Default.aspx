@@ -8,7 +8,7 @@
         PI Manager
     </h2>
     <p>
-        Blabla blabla.
+        Blabla blabla. Test: <%= DateTime.Now.ToString() %>
     </p>
     <p>
         You can also find <a href="http://go.microsoft.com/fwlink/?LinkID=152368&amp;clcid=0x409"
