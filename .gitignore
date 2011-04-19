@@ -3,5 +3,5 @@ bin/
 obj/
 Debug/
 Release/
-*.suo
-*.cache
+.suo
+.cache
