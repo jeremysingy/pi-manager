@@ -56,7 +56,7 @@
     <Content Include="Account\ChangePasswordSuccess.aspx" />
     <Content Include="Account\Login.aspx" />
     <Content Include="Account\Register.aspx" />
-    <Content Include="PIVisualization\VisuProjectStudent.aspx" />
+    <Content Include="Visualization\VisuProjectStudent.aspx" />
     <Content Include="Styles\Site.css" />
     <Content Include="Default.aspx" />
     <Content Include="Global.asax" />
@@ -117,6 +117,8 @@
     <Compile Include="Code\DBManager.cs" />
     <Compile Include="Code\Project.cs" />
     <Compile Include="Code\ProjectsAccess.cs" />
+    <Compile Include="DataAccess\DBManager.cs" />
+    <Compile Include="DataAccess\ProjectAccess.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -127,11 +129,12 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="PIVisualization\VisuProjectStudent.aspx.cs">
+    <Compile Include="Management\Project.cs" />
+    <Compile Include="Visualization\VisuProjectStudent.aspx.cs">
       <DependentUpon>VisuProjectStudent.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="PIVisualization\VisuProjectStudent.aspx.designer.cs">
+    <Compile Include="Visualization\VisuProjectStudent.aspx.designer.cs">
       <DependentUpon>VisuProjectStudent.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />

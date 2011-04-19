@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace PIManager.PIVisualization
+namespace PIManager.Visualization
 {
     public partial class VisuProjectStudent : System.Web.UI.Page
     {

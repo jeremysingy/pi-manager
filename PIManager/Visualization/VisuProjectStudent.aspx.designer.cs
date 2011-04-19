@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace PIManager.PIVisualization {
+namespace PIManager.Visualization {
     
     
     public partial class VisuProjectStudent {

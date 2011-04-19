@@ -5,8 +5,9 @@ using System.Web;
 using System.Data.SqlClient;
 using System.Configuration;
 
-namespace PIManager.PIDataAccess
+namespace PIManager.DataAccess
 {
+
     /// <summary>
     /// This class manages accesses to the database.
     /// </summary>
@@ -19,7 +20,7 @@ namespace PIManager.PIDataAccess
             using (SqlConnection connection = new SqlConnection(DB_CONNECTION))
             {
                 connection.Open();
-                
+
                 // Because the comparison of XML content, we have to devide this transaction into two projections.
                 // First one is getting the projects that are still free.
                 // Second one is getting information of projects.

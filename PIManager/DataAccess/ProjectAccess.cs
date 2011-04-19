@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using PIManager.PIManagement;
+using PIManager.Management;
 
-namespace PIManager.PIDataAccess
+namespace PIManager.DataAccess
 {
     /// <summary>
     /// This class gets information about projects from the database.
