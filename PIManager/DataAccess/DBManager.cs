@@ -13,7 +13,7 @@ namespace PIManager.DataAccess
     /// </summary>
     public class DBManager
     {
-        static const string DB_CONNECTION = ConfigurationManager.ConnectionStrings["PIDBConnection"].ToString();
+        public readonly string DB_CONNECTION = ConfigurationManager.ConnectionStrings["PIDBConnection"].ToString();
 
         public SqlDataReader getProjectList()
         {

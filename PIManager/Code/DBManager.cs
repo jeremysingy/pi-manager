@@ -10,8 +10,7 @@ namespace PIManager.Code
 {
     public class DBManager
     {
-         string DB_CONNECTION = ConfigurationManager.ConnectionStrings["PIDBConnection"].ToString();
-
+        public readonly string DB_CONNECTION = ConfigurationManager.ConnectionStrings["PIDBConnection"].ToString();
 
         public SqlDataReader getProject(int id)
         {
