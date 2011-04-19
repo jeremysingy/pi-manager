@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace PIManager.Code
+namespace PIManager.DataAccess
 {
     public class Project
     {
