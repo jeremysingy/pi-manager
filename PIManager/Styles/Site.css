@@ -292,3 +292,8 @@ div.accountInfo
     text-align: right;
     padding-right: 10px;
 }
+
+.tableAlternate tr:nth-child(2n-1)
+{
+    background-color:#b6b7bc;
+}
