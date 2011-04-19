@@ -114,9 +114,7 @@
     <Compile Include="Account\Register.aspx.designer.cs">
       <DependentUpon>Register.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Code\DBManager.cs" />
-    <Compile Include="Code\Project.cs" />
-    <Compile Include="Code\ProjectsAccess.cs" />
+    <Compile Include="DataAccess\Project.cs" />
     <Compile Include="DataAccess\DBManager.cs" />
     <Compile Include="DataAccess\ProjectAccess.cs" />
     <Compile Include="Default.aspx.cs">
@@ -129,7 +127,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Management\Project.cs" />
     <Compile Include="Visualization\VisuProjectStudent.aspx.cs">
       <DependentUpon>VisuProjectStudent.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

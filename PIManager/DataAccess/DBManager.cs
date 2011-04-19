@@ -41,14 +41,20 @@ namespace PIManager.DataAccess
             return null;
         }
 
-        public void getProjects()
+        public SqlDataReader getProjects()
         {
+            using (SqlConnection connection = new SqlConnection(DB_CONNECTION))
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand("SELECT * FROM Project WHERE pk_period IS NULL");
 
+                return command.ExecuteReader(CommandBehavior.CloseConnection);
+            }
         }
 
         public SqlDataReader getProject(int id)
         {
-            using (SqlConnection connection = new SqlConnection(DB_CONNECTION))
+            /*using (SqlConnection connection = new SqlConnection(DB_CONNECTION))
             {
                 SqlCommand command = new SqlCommand("SELECT * FROM Projects WHERE id='" + id + "'");
                 connection.Open();
@@ -56,7 +62,8 @@ namespace PIManager.DataAccess
                 reader.Read();
 
                 return reader;
-            }
+            }*/
+            return null;
         }
 
         public void addProject(string name, string desc, int nStudents)
