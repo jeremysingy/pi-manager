@@ -29,15 +29,36 @@ namespace PIManager.DataAccess
             return null;
         }
 
+        public List<Project> getProjects()
+        {
+            List<Project> list = new List<Project>();
+            SqlDataReader reader = myDBManager.getProjects();
+
+            while(reader.Read())
+            {
+                string name = reader.GetString(reader.GetOrdinal("title"));
+                string desc = "desc basdfads";
+                int nbStudents = int.Parse(reader.GetString(reader.GetOrdinal("nbstudents")));
+
+                list.Add(new Project(name, desc, nbStudents));
+            }
+
+            reader.Close();
+
+            return list;
+        }
+
         Project getProject(int id)
         {
-            SqlDataReader reader = myDBManager.getProject(id);
+            SqlDataReader reader = myDBManager.getProjects();
+            reader.Read();
 
             string name = reader.GetString(reader.GetOrdinal("name"));
             string desc = reader.GetString(reader.GetOrdinal("description"));
-            int nbStudents = int.Parse(reader.GetString(reader.GetOrdinal("students")));
+            //int nbStudents = int.Parse(reader.GetString(reader.GetOrdinal("students")));
+            int nbStudents = reader.GetInt32(reader.GetOrdinal("nb_students"));
 
-            return new Project(name, desc, 0);
+            return new Project(name, desc, nbStudents);
         }
     }
 }
