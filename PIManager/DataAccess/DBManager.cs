@@ -32,7 +32,7 @@ namespace PIManager.DataAccess
         /// <returns></returns>
         public SqlDataReader getProjectList()
         {
-            SqlConnection connection = new SqlConnection(DB_CONNECTION);
+            SqlConnection connection = new SqlConnection(DB_CONNECTION_STRING);
             connection.Open();
 
             // Gets the list of projects that are opened for inscription and still free.
