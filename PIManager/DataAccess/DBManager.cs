@@ -14,31 +14,36 @@ namespace PIManager.DataAccess
     public class DBManager
     {
         public readonly string DB_CONNECTION = ConfigurationManager.ConnectionStrings["PIDBConnection"].ToString();
+        
 
+        /*
+         * Example of prepared statement
+         * 
+         * SqlCommand command = new SqlCommand(null, connection);
+         * command.CommandText = "SELECT pk_project, description_xml from Project having count(select * from Person where fk_project = pk_project) < nbStudent;";
+         * command.Parameters.Add("@id", 20); // for example...
+         * command.Prepare();
+         */
+        
+
+        /// <summary>
+        /// Gets a list of projects opened for the inscription.
+        /// </summary>
+        /// <returns></returns>
         public SqlDataReader getProjectList()
         {
-            using (SqlConnection connection = new SqlConnection(DB_CONNECTION))
-            {
-                connection.Open();
+            SqlConnection connection = new SqlConnection(DB_CONNECTION);
+            connection.Open();
 
-                // Because the comparison of XML content, we have to devide this transaction into two projections.
-                // First one is getting the projects that are still free.
-                // Second one is getting information of projects.
-                SqlCommand projectFreeCommand = new SqlCommand(null, connection);
-                projectFreeCommand.CommandText = "SELECT pk_project, nbStudent FROM Project GROUP BY pk_project, nbStudent HAVING (SELECT count(*) FROM Person WHERE fk_project = pk_project) < nbStudent;";
-                projectFreeCommand.ExecuteReader();
+            // Gets the list of projects that are opened for inscription and still free.
+            SqlCommand projectFreeCommand = new SqlCommand(null, connection);
+            projectFreeCommand.CommandText = "SELECT pk_project, description_XML, nbStudent FROM Project WHERE nbStudent > (SELECT COUNT(*) FROM Person WHERE fk_project = pk_project);";
 
-                SqlCommand projectInfoCommand = new SqlCommand(null, connection);
-                projectInfoCommand.CommandText = "SELECT description_XML FROM Project WHERE";
+            SqlDataReader dataReader = projectFreeCommand.ExecuteReader();
 
-                /*SqlCommand command = new SqlCommand(null, connection);
-                command.CommandText = "SELECT pk_project, description_xml from Project having count(select * from Person where fk_project = pk_project) < nbStudent;";
-                command.Parameters.Add("@id", 20); // for example...
-                command.Prepare();*/
-                // select pk_project, nbStudent from project group by pk_project, nbStudent having ((select count(*) from Person where fk_project = pk_project) < nbStudent);
-                //command.execute();
-            }
-            return null;
+            //connection.Close();
+            
+            return dataReader;
         }
 
         public SqlDataReader getProjects()

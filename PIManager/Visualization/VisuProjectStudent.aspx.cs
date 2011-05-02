@@ -4,17 +4,25 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using PIManager.DataAccess;
 
 namespace PIManager.Visualization
 {
     public partial class VisuProjectStudent : System.Web.UI.Page
     {
+        ProjectAccess projectAccess;
+
         protected void Page_Load(object sender, EventArgs e)
         {
-            displayProjectList();
+            projectAccess = new ProjectAccess();
+            
+            // Gets the list of project
+            List<Project> projects = projectAccess.getProjectList();
+            Console.WriteLine(projects.ElementAt(0).Name);
+            //displayProjectList();
         }
 
-        private void displayProjectList()
+        /*private void displayProjectList()
         {
             int rows = 10;
             int cols = 3;
@@ -33,6 +41,6 @@ namespace PIManager.Visualization
                     newRow.Controls.Add(newCell);
                 }
             }
-        }
+        }*/
     }
 }
