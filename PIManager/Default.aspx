@@ -7,11 +7,6 @@
     <h2>
         PI Manager
     </h2>
-    <p>
-        Blabla blabla. Test: <%= DateTime.Now.ToString() %>
-    </p>
-    <p>
-        You can also find <a href="http://go.microsoft.com/fwlink/?LinkID=152368&amp;clcid=0x409"
-            title="MSDN ASP.NET Docs">documentation on ASP.NET at MSDN</a>.
-    </p>
+    <p>Bienvenue dans PI-Manager. Test: <%= DateTime.Now.ToString() %></p>
+    <p>TODO: login</p>
 </asp:Content>

@@ -48,9 +48,6 @@ namespace PIManager.DataAccess
 
         public SqlDataReader getProjects()
         {
-            //using (SqlConnection connection = new SqlConnection(DB_CONNECTION_STRING))
-            //using (SqlConnection connection = new SqlConnection("Server=160.98.60.31\\SQLPIMANAGER; Database=PIManager; User ID=sa; password=pipass.2011"))
-            //{
             SqlConnection connection = new SqlConnection(DB_CONNECTION_STRING);
 
             string query = "SELECT pk_project, " +
@@ -59,25 +56,28 @@ namespace PIManager.DataAccess
                             "description_xml.query('data(//student)') AS nbstudents " +
                             "FROM pimanager.dbo.Project";
 
-            SqlCommand command = new SqlCommand(query/*"SELECT * FROM Project WHERE pk_period IS NULL"*/, connection);
+            SqlCommand command = new SqlCommand(query, connection);
             connection.Open();
 
             return command.ExecuteReader(CommandBehavior.CloseConnection);
-            //}
         }
 
         public SqlDataReader getProject(int id)
         {
-            /*using (SqlConnection connection = new SqlConnection(DB_CONNECTION_STRING))
-            {
-                SqlCommand command = new SqlCommand("SELECT * FROM Projects WHERE id='" + id + "'");
-                connection.Open();
-                SqlDataReader reader = command.ExecuteReader(CommandBehavior.CloseConnection);
-                reader.Read();
+            SqlConnection connection = new SqlConnection(DB_CONNECTION_STRING);
 
-                return reader;
-            }*/
-            return null;
+            string query = "SELECT pk_project, " +
+                            "description_xml.query('data(//title)') AS title, " +
+                            "description_xml.query('data(//abreviation)') AS abreviation, " +
+                            "description_xml.query('data(//student)') AS nbstudents " +
+                            "FROM pimanager.dbo.Project " +
+                            "WHERE id = @id";
+
+            SqlCommand command = new SqlCommand(query, connection);
+            command.Parameters.Add("id", id);
+            connection.Open();
+
+            return command.ExecuteReader(CommandBehavior.CloseConnection);
         }
 
         public void addProject(string name, string desc, int nStudents)
