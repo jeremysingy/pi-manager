@@ -156,9 +156,9 @@ namespace PIManager.DataAccess
             SqlConnection connection = new SqlConnection(DB_CONNECTION_STRING);
 
             string query = "SELECT pk_project, " +
-                            "description_xml.query('data(//title)') AS title, " +
-                            "description_xml.query('data(//abreviation)') AS abreviation, " +
-                            "description_xml.query('data(//student)') AS nbstudents " +
+                            "description_xml.value('(//title)[1]', 'varchar(80)') AS title, " +
+                            "description_xml.value('(//abreviation)[1]', 'varchar(50)') AS abreviation, " +
+                            "description_xml.value('(//student)[1]', 'int') AS nbstudents " +
                             "FROM pimanager.dbo.Project";
 
             SqlCommand command = new SqlCommand(query, connection);
@@ -172,9 +172,9 @@ namespace PIManager.DataAccess
             SqlConnection connection = new SqlConnection(DB_CONNECTION_STRING);
 
             string query = "SELECT pk_project, " +
-                            "description_xml.query('data(//title)') AS title, " +
-                            "description_xml.query('data(//abreviation)') AS abreviation, " +
-                            "description_xml.query('data(//student)') AS nbstudents " +
+                            "description_xml.value('(//title)[1]', 'varchar(80)') AS title, " +
+                            "description_xml.value('(//abreviation)[1]', 'varchar(50)') AS abreviation, " +
+                            "description_xml.value('(//student)[1]', 'int') AS nbstudents " +
                             "FROM pimanager.dbo.Project " +
                             "WHERE pk_project = @id";
 
@@ -193,6 +193,26 @@ namespace PIManager.DataAccess
         public void openRegistration()
         {
 
+        }
+
+
+        private void insertQuery(string query, IsolationLevel isolationLevel, SqlTransaction transaction)
+        {
+            query += " SET @newId = SCOPE_IDENTITY()";
+
+            SqlConnection connection = new SqlConnection(DB_CONNECTION_STRING);
+            //SqlTransaction transaction = connection.BeginTransaction(isolationLevel);
+
+            SqlCommand command = new SqlCommand(query, connection, transaction);
+
+            SqlParameter idParam = new SqlParameter("@newId", SqlDbType.Int);
+            idParam.Direction = ParameterDirection.Output;
+            command.Parameters.Add(idParam);
+
+            command.Connection.Open();
+            command.ExecuteNonQuery();
+
+            //transaction.Commit();
         }
     }
 }
