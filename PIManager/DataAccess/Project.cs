@@ -7,6 +7,7 @@ namespace PIManager.DataAccess
 {
     public class Project
     {
+        private int myId;
         private string myName;
         private string myDescription;
         private int myNbStudents;
@@ -18,6 +19,20 @@ namespace PIManager.DataAccess
             myName = name;
             myDescription = desc;
             myNbStudents = nbStudents;
+        }
+
+        public Project(int id, string name, string desc, int nbStudents)
+        {
+            myId = id;
+            myName = name;
+            myDescription = desc;
+            myNbStudents = nbStudents;
+        }
+
+        public int Id
+        {
+            get { return myId; }
+            set { myId = value; }
         }
 
         public string Name
