@@ -76,6 +76,7 @@
     <Content Include="Images\Sheet-v.png" />
     <Content Include="Images\spacer.gif" />
     <Content Include="ManageProjects.aspx" />
+    <Content Include="ModifyProject.aspx" />
     <Content Include="Styles\styles.css" />
     <Content Include="Visualization\VisuProjectStudent.aspx" />
     <Content Include="Styles\Site.css" />
@@ -157,6 +158,13 @@
     </Compile>
     <Compile Include="ManageProjects.aspx.designer.cs">
       <DependentUpon>ManageProjects.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ModifyProject.aspx.cs">
+      <DependentUpon>ModifyProject.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ModifyProject.aspx.designer.cs">
+      <DependentUpon>ModifyProject.aspx</DependentUpon>
     </Compile>
     <Compile Include="Visualization\VisuProjectStudent.aspx.cs">
       <DependentUpon>VisuProjectStudent.aspx</DependentUpon>

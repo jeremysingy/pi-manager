@@ -21,8 +21,8 @@ namespace PIManager
             List<Project> projects = projectAccess.getProjects();
 
             // Bind the projects with the table
-            Test.DataSource = projects;
-            Test.DataBind();
+            ProjectsGrid.DataSource = projects;
+            ProjectsGrid.DataBind();
         }
     }
 }

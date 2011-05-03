@@ -16,6 +16,7 @@ namespace PIManager.DataAccess
 
         public Project(string name, string desc, int nbStudents)
         {
+            myId = -1;
             myName = name;
             myDescription = desc;
             myNbStudents = nbStudents;
