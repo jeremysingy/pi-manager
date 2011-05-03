@@ -71,10 +71,10 @@ namespace PIManager.DataAccess
                             "description_xml.query('data(//abreviation)') AS abreviation, " +
                             "description_xml.query('data(//student)') AS nbstudents " +
                             "FROM pimanager.dbo.Project " +
-                            "WHERE id = @id";
+                            "WHERE pk_project = @id";
 
             SqlCommand command = new SqlCommand(query, connection);
-            command.Parameters.Add("id", id);
+            command.Parameters.AddWithValue("@id", id);
             connection.Open();
 
             return command.ExecuteReader(CommandBehavior.CloseConnection);
