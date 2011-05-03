@@ -89,5 +89,87 @@ namespace PIManager.DataAccess
         {
 
         }
+
+        public int getPerson(string login, string pass)
+        {
+            int pk_person = -1;
+
+            string query = "SELECT pk_person FROM Person WHERE login like @login and password like @pass;";
+
+            SqlConnection connection = new SqlConnection(DB_CONNECTION_STRING); //TODO change with anonymous user with limited rigth
+
+            connection.Open();
+
+            SqlTransaction transaction = connection.BeginTransaction(IsolationLevel.ReadCommitted, "Login");
+
+            try
+            {
+
+                SqlCommand command = new SqlCommand(query, connection, transaction);
+
+                command.Parameters.AddWithValue("@login", login);
+                command.Parameters.AddWithValue("@pass", pass);
+
+                SqlDataReader sqldatareader = command.ExecuteReader();
+
+                while (sqldatareader.Read())
+                {
+                    pk_person = sqldatareader.GetInt32(0);
+                }
+
+
+            }
+            catch (SqlException sqlError)
+            {
+                transaction.Rollback();
+            }
+
+            connection.Close();
+
+
+            return pk_person;
+
+        }
+
+
+        public int getPersonType(int pk_person)
+        {
+            int person_type = -1;
+
+            string query = "SELECT role FROM Person WHERE pk_person = @pk_person;";
+
+            SqlConnection connection = new SqlConnection(DB_CONNECTION_STRING); //TODO change with anonymous user with limited rigth
+
+            connection.Open();
+
+            SqlTransaction transaction = connection.BeginTransaction(IsolationLevel.ReadCommitted, "getTypePerson");
+
+            try
+            {
+
+                SqlCommand command = new SqlCommand(query, connection, transaction);
+
+                command.Parameters.AddWithValue("@pk_person", pk_person);
+
+                SqlDataReader sqldatareader = command.ExecuteReader();
+
+                while (sqldatareader.Read())
+                {
+                    person_type = sqldatareader.GetInt32(0);
+                }
+
+
+            }
+            catch (SqlException sqlError)
+            {
+                transaction.Rollback();
+            }
+
+            connection.Close();
+
+
+            return person_type;
+
+        }
     }
 }
