@@ -566,6 +566,22 @@ a img
 	padding: 7px;
 }
 
+.tableAlternate 
+{
+    width:80%;
+    border:1px solid black;
+}
+
+.tableAlternate tr:nth-child(2n-2)
+{
+    background-color:#cccccc;
+}
+
+.tableAlternateHeader
+{
+    font-weight:bold;
+}
+
 /* Finish tables */
 
 pre
@@ -1083,3 +1099,15 @@ text-decoration: none;
 	width: 1004px;
 }
 /* end LayoutCell */
+
+/* begin error & message */
+.error 
+{
+    color:Red;
+}
+
+.message 
+{
+    
+}
+/* end error & message */

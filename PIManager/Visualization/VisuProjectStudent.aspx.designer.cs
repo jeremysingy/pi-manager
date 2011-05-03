@@ -22,6 +22,15 @@ namespace PIManager.Visualization {
         protected global::System.Web.UI.WebControls.Label errorLabel;
         
         /// <summary>
+        /// msgLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label msgLabel;
+        
+        /// <summary>
         /// ProjectTable control.
         /// </summary>
         /// <remarks>
