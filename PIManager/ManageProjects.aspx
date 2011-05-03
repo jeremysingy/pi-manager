@@ -1,23 +1,16 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ManageProjects.aspx.cs" Inherits="PIManager.ManageProjects" %>
+﻿<%@ Page Title="Modification / Suppression des projets" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true"
+    CodeBehind="ManageProjects.aspx.cs" Inherits="PIManager.ManageProjects" %>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-    <title></title>
-</head>
-<body>
-    <form id="form1" runat="server">
-    <div>
-        <asp:Table ID="ProjectsTable" runat="server">
-        </asp:Table>
-        <asp:GridView ID="Test" runat="server" AutoGenerateColumns="false">
-            <Columns>
-                <asp:BoundField DataField="Name" HeaderText="Name" />
-                <asp:BoundField DataField="NbStudents" HeaderText="Number of students" />
-            </Columns>
-        </asp:GridView>
-    </div>
-    </form>
-</body>
-</html>
+<asp:Content ID="HeaderContent" runat="server" ContentPlaceHolderID="HeadContent">
+</asp:Content>
+<asp:Content ID="BodyContent" runat="server" ContentPlaceHolderID="MainContent">
+    <h2>Modifier/Supprimer des projets</h2>
+    <asp:GridView ID="ProjectsGrid" runat="server" AutoGenerateColumns="false">
+        <Columns>
+            <asp:BoundField DataField="Name" HeaderText="Nom du projet" />
+            <asp:BoundField DataField="NbStudents" HeaderText="Nombre d'étudiants" />
+            <asp:HyperLinkField Text="Modifier" HeaderText="Modification" DataNavigateUrlFields="Id" DataNavigateUrlFormatString="ModifyProject.aspx?id={0}" />
+            <asp:HyperLinkField Text="Supprimer" HeaderText="Suppression" DataNavigateUrlFields="Id" DataNavigateUrlFormatString="DeleteProject.aspx?id={0}" />
+        </Columns>
+    </asp:GridView>
+</asp:Content>

@@ -101,11 +101,12 @@ namespace PIManager.DataAccess
 
             while(reader.Read())
             {
-                string name = reader.GetString(reader.GetOrdinal("title"));
-                string desc = "desc basdfads";
-                int nbStudents = int.Parse(reader.GetString(reader.GetOrdinal("nbstudents")));
+                int id         = (int)reader["pk_project"];
+                string name    = (string)reader["title"];
+                string desc    = "desc basdfads";
+                int nbStudents = (int)reader["nbstudents"];
 
-                list.Add(new Project(name, desc, nbStudents));
+                list.Add(new Project(id, name, desc, nbStudents));
             }
 
             reader.Close();

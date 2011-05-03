@@ -76,6 +76,7 @@
     <Content Include="Images\Sheet-v.png" />
     <Content Include="Images\spacer.gif" />
     <Content Include="ManageProjects.aspx" />
+    <Content Include="ModifyProject.aspx" />
     <Content Include="Styles\styles.css" />
     <Content Include="Visualization\VisuProjectStudent.aspx" />
     <Content Include="Styles\Site.css" />
@@ -150,12 +151,20 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Login\MemberShipPIProvider.cs" />
     <Compile Include="ManageProjects.aspx.cs">
       <DependentUpon>ManageProjects.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ManageProjects.aspx.designer.cs">
       <DependentUpon>ManageProjects.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ModifyProject.aspx.cs">
+      <DependentUpon>ModifyProject.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ModifyProject.aspx.designer.cs">
+      <DependentUpon>ModifyProject.aspx</DependentUpon>
     </Compile>
     <Compile Include="Visualization\VisuProjectStudent.aspx.cs">
       <DependentUpon>VisuProjectStudent.aspx</DependentUpon>
@@ -175,6 +184,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="PagesMembres\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Account\Web.config" />

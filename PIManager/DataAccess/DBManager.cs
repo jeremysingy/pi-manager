@@ -200,9 +200,9 @@ namespace PIManager.DataAccess
             SqlConnection connection = new SqlConnection(DB_CONNECTION_STRING);
 
             string query = "SELECT pk_project, " +
-                            "description_xml.query('data(//title)') AS title, " +
-                            "description_xml.query('data(//abreviation)') AS abreviation, " +
-                            "description_xml.query('data(//student)') AS nbstudents " +
+                            "description_xml.value('(//title)[1]', 'varchar(80)') AS title, " +
+                            "description_xml.value('(//abreviation)[1]', 'varchar(50)') AS abreviation, " +
+                            "description_xml.value('(//student)[1]', 'int') AS nbstudents " +
                             "FROM pimanager.dbo.Project";
 
             SqlCommand command = new SqlCommand(query, connection);
@@ -216,9 +216,9 @@ namespace PIManager.DataAccess
             SqlConnection connection = new SqlConnection(DB_CONNECTION_STRING);
 
             string query = "SELECT pk_project, " +
-                            "description_xml.query('data(//title)') AS title, " +
-                            "description_xml.query('data(//abreviation)') AS abreviation, " +
-                            "description_xml.query('data(//student)') AS nbstudents " +
+                            "description_xml.value('(//title)[1]', 'varchar(80)') AS title, " +
+                            "description_xml.value('(//abreviation)[1]', 'varchar(50)') AS abreviation, " +
+                            "description_xml.value('(//student)[1]', 'int') AS nbstudents " +
                             "FROM pimanager.dbo.Project " +
                             "WHERE pk_project = @id";
 
@@ -236,6 +236,108 @@ namespace PIManager.DataAccess
 
         public void openRegistration()
         {
+
+        }
+
+
+        private void insertQuery(string query, IsolationLevel isolationLevel, SqlTransaction transaction)
+        {
+            query += " SET @newId = SCOPE_IDENTITY()";
+
+            SqlConnection connection = new SqlConnection(DB_CONNECTION_STRING);
+            //SqlTransaction transaction = connection.BeginTransaction(isolationLevel);
+
+            SqlCommand command = new SqlCommand(query, connection, transaction);
+
+            SqlParameter idParam = new SqlParameter("@newId", SqlDbType.Int);
+            idParam.Direction = ParameterDirection.Output;
+            command.Parameters.Add(idParam);
+
+            command.Connection.Open();
+            command.ExecuteNonQuery();
+
+            //transaction.Commit();
+        }
+
+        public int getPerson(string login, string pass)
+        {
+            int pk_person = -1;
+
+            string query = "SELECT pk_person FROM Person WHERE login like @login and password like @pass;";
+
+            SqlConnection connection = new SqlConnection(DB_CONNECTION_STRING); //TODO change with anonymous user with limited rigth
+
+            connection.Open();
+
+            SqlTransaction transaction = connection.BeginTransaction(IsolationLevel.ReadCommitted, "Login");
+
+            try
+            {
+
+                SqlCommand command = new SqlCommand(query, connection, transaction);
+
+                command.Parameters.AddWithValue("@login", login);
+                command.Parameters.AddWithValue("@pass", pass);
+
+                SqlDataReader sqldatareader = command.ExecuteReader();
+
+                while (sqldatareader.Read())
+                {
+                    pk_person = sqldatareader.GetInt32(0);
+                }
+
+
+            }
+            catch (SqlException sqlError)
+            {
+                transaction.Rollback();
+            }
+
+            connection.Close();
+
+
+            return pk_person;
+
+        }
+
+
+        public int getPersonType(int pk_person)
+        {
+            int person_type = -1;
+
+            string query = "SELECT role FROM Person WHERE pk_person = @pk_person;";
+
+            SqlConnection connection = new SqlConnection(DB_CONNECTION_STRING); //TODO change with anonymous user with limited rigth
+
+            connection.Open();
+
+            SqlTransaction transaction = connection.BeginTransaction(IsolationLevel.ReadCommitted, "getTypePerson");
+
+            try
+            {
+
+                SqlCommand command = new SqlCommand(query, connection, transaction);
+
+                command.Parameters.AddWithValue("@pk_person", pk_person);
+
+                SqlDataReader sqldatareader = command.ExecuteReader();
+
+                while (sqldatareader.Read())
+                {
+                    person_type = sqldatareader.GetInt32(0);
+                }
+
+
+            }
+            catch (SqlException sqlError)
+            {
+                transaction.Rollback();
+            }
+
+            connection.Close();
+
+
+            return person_type;
 
         }
     }
