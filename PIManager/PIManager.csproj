@@ -151,6 +151,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Login\MemberShipPIProvider.cs" />
     <Compile Include="ManageProjects.aspx.cs">
       <DependentUpon>ManageProjects.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -183,6 +184,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="PagesMembres\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Account\Web.config" />
