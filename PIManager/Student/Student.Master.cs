@@ -5,14 +5,12 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace PIManager
+namespace PIManager.Student
 {
-    public partial class ModifyProject : System.Web.UI.Page
+    public partial class Student : System.Web.UI.MasterPage
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            string id = Request.QueryString["id"];
-
 
         }
     }

@@ -13,137 +13,176 @@ namespace PIManager.Login
         {
             get
             {
-                throw new NotImplementedException();
+                //throw new NotImplementedException();
+                return "Application Name";
             }
             set
             {
-                throw new NotImplementedException();
+                //throw new NotImplementedException();
             }
+            
         }
 
         public override bool ChangePassword(string username, string oldPassword, string newPassword)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+            return true;
         }
 
         public override bool ChangePasswordQuestionAndAnswer(string username, string password, string newPasswordQuestion, string newPasswordAnswer)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+            return true;
         }
 
         public override MembershipUser CreateUser(string username, string password, string email, string passwordQuestion, string passwordAnswer, bool isApproved, object providerUserKey, out MembershipCreateStatus status)
         {
-            throw new NotImplementedException();
+            throw new NotImplementedException(); //TODO return fake
         }
 
         public override bool DeleteUser(string username, bool deleteAllRelatedData)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+            return true;
         }
 
         public override bool EnablePasswordReset
         {
-            get { throw new NotImplementedException(); }
+            get
+            { //throw new NotImplementedException();
+                return true;
+            }
         }
 
         public override bool EnablePasswordRetrieval
         {
-            get { throw new NotImplementedException(); }
+            get
+            { //throw new NotImplementedException();
+                return true;
+            }
         }
 
         public override MembershipUserCollection FindUsersByEmail(string emailToMatch, int pageIndex, int pageSize, out int totalRecords)
         {
-            throw new NotImplementedException();
+            throw new NotImplementedException(); //TODO return fake
         }
 
         public override MembershipUserCollection FindUsersByName(string usernameToMatch, int pageIndex, int pageSize, out int totalRecords)
         {
-            throw new NotImplementedException();
+            throw new NotImplementedException(); //TODO return fake
         }
 
         public override MembershipUserCollection GetAllUsers(int pageIndex, int pageSize, out int totalRecords)
         {
-            throw new NotImplementedException();
+            throw new NotImplementedException(); //TODO return fake
         }
 
         public override int GetNumberOfUsersOnline()
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+            return 0;
         }
 
         public override string GetPassword(string username, string answer)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+            return "no pass";
         }
 
         public override MembershipUser GetUser(string username, bool userIsOnline)
         {
-            throw new NotImplementedException();
+            throw new NotImplementedException(); //TODO return fake
         }
 
         public override MembershipUser GetUser(object providerUserKey, bool userIsOnline)
         {
-            throw new NotImplementedException();
+            throw new NotImplementedException(); //TODO return fake
         }
 
         public override string GetUserNameByEmail(string email)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+            return "no username";
         }
 
         public override int MaxInvalidPasswordAttempts
         {
-            get { throw new NotImplementedException(); }
+            get
+            { //throw new NotImplementedException();
+                return 0;
+            }
         }
 
         public override int MinRequiredNonAlphanumericCharacters
         {
-            get { throw new NotImplementedException(); }
+            get
+            { //throw new NotImplementedException();
+                return 0;
+            }
         }
 
         public override int MinRequiredPasswordLength
         {
-            get { throw new NotImplementedException(); }
+            get
+            { //throw new NotImplementedException();
+                return 0;
+            }
         }
 
         public override int PasswordAttemptWindow
         {
-            get { throw new NotImplementedException(); }
+            get
+            { //throw new NotImplementedException();
+                return 0;
+            }
         }
 
         public override MembershipPasswordFormat PasswordFormat
         {
-            get { throw new NotImplementedException(); }
+            get { throw new NotImplementedException(); //TODO return fake
+            }
         }
 
         public override string PasswordStrengthRegularExpression
         {
-            get { throw new NotImplementedException(); }
+            get
+            { //throw new NotImplementedException();
+                return "---";
+            }
         }
 
         public override bool RequiresQuestionAndAnswer
         {
-            get { throw new NotImplementedException(); }
+            get
+            { //throw new NotImplementedException();
+                return true;
+            }
         }
 
         public override bool RequiresUniqueEmail
         {
-            get { throw new NotImplementedException(); }
+            get
+            { //throw new NotImplementedException();
+                return false;
+            }
         }
 
         public override string ResetPassword(string username, string answer)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+            return "---";
         }
 
         public override bool UnlockUser(string userName)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+            return true;
         }
 
         public override void UpdateUser(MembershipUser user)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+            
         }
 
         public override bool ValidateUser(string username, string password)
@@ -163,22 +202,25 @@ namespace PIManager.Login
 
                 roleID = dbmanager.getPersonType(pk_person);
 
-                //create role if not existe
+                
+
+                //add user in role if not in
                 if (roleID == 1)
                 {
-                    if (!Roles.RoleExists("Student"))
+                    if(!Roles.IsUserInRole(username, "student"))
                     {
-                        Roles.CreateRole("Student");
+                        Roles.AddUserToRole(username, "student");
                     }
-                    Roles.AddUserToRole(username, "Student");
+
+                    
                 }
                 else
                 {
-                    if (!Roles.RoleExists("Prof"))
+
+                    if (!Roles.IsUserInRole(username, "professor"))
                     {
-                        Roles.CreateRole("Prof");
+                        Roles.AddUserToRole(username, "professor");
                     }
-                    Roles.AddUserToRole(username, "Prof");
                     
                 }
                 

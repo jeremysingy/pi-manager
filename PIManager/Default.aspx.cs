@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -11,7 +12,14 @@ namespace PIManager
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+            if(Roles.IsUserInRole("student"))
+            {
+                Server.Transfer("Student/Default.aspx");
+            }
+            else if(Roles.IsUserInRole("professor"))
+            {
+                Server.Transfer("Professor/Default.aspx");
+            }
         }
 
 

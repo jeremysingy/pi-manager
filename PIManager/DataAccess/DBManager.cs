@@ -299,7 +299,7 @@ namespace PIManager.DataAccess
         }
 
 
-        private void insertQuery(string query, IsolationLevel isolationLevel, SqlTransaction transaction)
+        private void insertQuery(string query, SqlTransaction transaction)
         {
             query += " SET @newId = SCOPE_IDENTITY()";
 
@@ -316,6 +316,16 @@ namespace PIManager.DataAccess
             command.ExecuteNonQuery();
 
             //transaction.Commit();
+        }
+
+        private SqlDataReader selectQuery(string query, SqlTransaction transaction)
+        {
+            SqlConnection connection = new SqlConnection(DB_CONNECTION_STRING);
+            SqlCommand command = new SqlCommand(query, connection, transaction);
+
+            command.Connection.Open();
+
+            return command.ExecuteReader(CommandBehavior.CloseConnection);
         }
 
         public int getPerson(string login, string pass)
