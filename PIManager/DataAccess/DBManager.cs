@@ -5,6 +5,7 @@ using System.Web;
 using System.Data.SqlClient;
 using System.Configuration;
 using System.Data;
+using System.IO;
 
 namespace PIManager.DataAccess
 {
@@ -193,6 +194,64 @@ namespace PIManager.DataAccess
             }
 
             return cancelDone;
+        }
+
+        /// <summary>
+        /// Adds a document to a given project.
+        /// </summary>
+        /// <param name="pk_project">id of the project</param>
+        /// <param name="file">file to add</param>
+        /// <returns>true if add was done; otherwise false</returns>
+        public Boolean addDocumentTransaction(int pk_project, HttpPostedFile file)
+        {
+            Boolean addDone = false; // maintain result of the add
+            SqlConnection connection = null;
+            SqlTransaction transaction = null;
+
+            // conversion of HttpPostedFile into byte[]
+            byte[] fileData = null;
+            using (var binaryReader = new BinaryReader(file.InputStream)) {
+                fileData = binaryReader.ReadBytes(file.ContentLength);
+            }
+
+            try
+            {
+                connection = new SqlConnection(DB_CONNECTION_STRING);
+                connection.Open();
+                SqlCommand command = connection.CreateCommand();
+
+                string query = "UPDATE Project SET documents = @DOCUMENT WHERE pk_project = @PROJECTID";
+
+                // starts local transaction
+                transaction = connection.BeginTransaction(IsolationLevel.Serializable, "addProjectDocument");
+                command.Connection = connection;
+                command.Transaction = transaction;
+                command.CommandText = query;
+                command.Parameters.Add("@DOCUMENT", SqlDbType.VarBinary).Value = fileData;
+                command.Parameters.Add("@PROJECTID", SqlDbType.Int).Value = pk_project;
+
+                int affected = command.ExecuteNonQuery();
+                if (affected == 1)
+                {
+                    transaction.Commit();
+                    addDone = true;
+                }
+            }
+            catch (Exception)
+            {
+                try
+                {
+                    transaction.Rollback();
+                    if (connection != null)
+                        connection.Close();
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+            }
+
+            return addDone;
         }
 
         public SqlDataReader getProjects()
