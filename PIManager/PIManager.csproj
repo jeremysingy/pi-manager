@@ -184,7 +184,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="PagesMembres\" />
+    <Folder Include="Professor\" />
+    <Folder Include="Student\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Account\Web.config" />
