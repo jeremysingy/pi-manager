@@ -94,6 +94,17 @@ namespace PIManager.DataAccess
             return myDBManager.cancelInscriptionTransaction(idPerson);
         }
 
+        /// <summary>
+        /// Adds a document to a project
+        /// </summary>
+        /// <param name="pk_project">id of the project</param>
+        /// <param name="file">file to add</param>
+        /// <returns>true if adding has been done, otherwise false</returns>
+        public Boolean addDocument(int pk_project, HttpPostedFile file)
+        {
+            return myDBManager.addDocumentTransaction(pk_project, file);
+        }
+
         public List<Project> getProjects()
         {
             List<Project> list = new List<Project>();
@@ -114,9 +125,9 @@ namespace PIManager.DataAccess
             return list;
         }
 
-        Project getProject(int id)
+        public Project getProject(int id)
         {
-            SqlDataReader reader = myDBManager.getProjects();
+            SqlDataReader reader = myDBManager.getProject(id);
             reader.Read();
 
             string name = reader.GetString(reader.GetOrdinal("name"));
