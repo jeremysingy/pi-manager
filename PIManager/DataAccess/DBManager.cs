@@ -350,5 +350,10 @@ namespace PIManager.DataAccess
             return person_type;
 
         }
+
+        public SqlDataReader getProjectInscriptions()
+        {
+            return null;
+        }
     }
 }

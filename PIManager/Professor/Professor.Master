@@ -68,7 +68,7 @@
                                                 Visualiser
                                                 <ul>
                                                     <li><a href="#">Projet</a></li>
-                                                    <li><a href="#">Inscriptions</a></li>
+                                                    <li><a href="Professor/VisualizationInscription.aspx">Inscriptions</a></li>
                                                 </ul>
                                             </li>
                                             <li><a href="#">Saisir un projet</a></li>

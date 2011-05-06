@@ -126,5 +126,13 @@ namespace PIManager.DataAccess
 
             return new Project(name, desc, nbStudents);
         }
+
+        public List<Project> getProjectInscriptions()
+        {
+            List<Project> projects = new List<Project>();
+
+
+            return projects;
+        }
     }
 }

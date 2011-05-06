@@ -78,6 +78,7 @@
     <Content Include="ManageProjects.aspx" />
     <Content Include="ModifyProject.aspx" />
     <Content Include="Professor\Default.aspx" />
+    <Content Include="Professor\VisualizationInscription.aspx" />
     <Content Include="Student\Default.aspx" />
     <Content Include="Styles\styles.css" />
     <Content Include="Visualization\VisuProjectStudent.aspx" />
@@ -182,6 +183,13 @@
     <Compile Include="Professor\Professor.Master.designer.cs">
       <DependentUpon>Professor.Master</DependentUpon>
     </Compile>
+    <Compile Include="Professor\VisualizationInscription.aspx.cs">
+      <DependentUpon>VisualizationInscription.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Professor\VisualizationInscription.aspx.designer.cs">
+      <DependentUpon>VisualizationInscription.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Student\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -214,8 +222,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Professor\" />
-    <Folder Include="Student\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Account\Web.config" />
