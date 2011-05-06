@@ -110,11 +110,11 @@ namespace PIManager.DataAccess
             List<Project> list = new List<Project>();
             SqlDataReader reader = myDBManager.getProjects();
 
-            while(reader.Read())
+            while (reader.Read())
             {
-                int id         = (int)reader["pk_project"];
-                string name    = (string)reader["title"];
-                string desc    = "desc basdfads";
+                int id = (int)reader["pk_project"];
+                string name = (string)reader["title"];
+                string desc = "desc basdfads";
                 int nbStudents = (int)reader["nbstudents"];
 
                 list.Add(new Project(id, name, desc, nbStudents));
@@ -130,12 +130,11 @@ namespace PIManager.DataAccess
             SqlDataReader reader = myDBManager.getProject(id);
             reader.Read();
 
-            string name = reader.GetString(reader.GetOrdinal("name"));
-            string desc = reader.GetString(reader.GetOrdinal("description"));
-            //int nbStudents = int.Parse(reader.GetString(reader.GetOrdinal("students")));
-            int nbStudents = reader.GetInt32(reader.GetOrdinal("nb_students"));
+            string name = (string)reader["title"];
+            string desc = (string)reader["description"];
+            int nbStudents = (int)reader["nbstudents"];
 
-            return new Project(name, desc, nbStudents);
+            return new Project(id, name, desc, nbStudents);
         }
 
         public List<Project> getProjectInscriptions()

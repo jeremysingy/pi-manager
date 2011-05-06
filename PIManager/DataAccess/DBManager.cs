@@ -261,6 +261,7 @@ namespace PIManager.DataAccess
             string query = "SELECT pk_project, " +
                             "description_xml.value('(//title)[1]', 'varchar(80)') AS title, " +
                             "description_xml.value('(//abreviation)[1]', 'varchar(50)') AS abreviation, " +
+                            "description_xml.query('//description') AS description, " +
                             "description_xml.value('(//student)[1]', 'int') AS nbstudents " +
                             "FROM pimanager.dbo.Project";
 
@@ -277,6 +278,7 @@ namespace PIManager.DataAccess
             string query = "SELECT pk_project, " +
                             "description_xml.value('(//title)[1]', 'varchar(80)') AS title, " +
                             "description_xml.value('(//abreviation)[1]', 'varchar(50)') AS abreviation, " +
+                            "description_xml.query('//description') AS description, " +
                             "description_xml.value('(//student)[1]', 'int') AS nbstudents " +
                             "FROM pimanager.dbo.Project " +
                             "WHERE pk_project = @id";
@@ -408,6 +410,32 @@ namespace PIManager.DataAccess
 
             return person_type;
 
+        }
+
+        public SqlDataReader getTechnologies()
+        {
+            SqlConnection connection = new SqlConnection(DB_CONNECTION_STRING);
+
+            string query = "SELECT * FROM Technology";
+
+            SqlCommand command = new SqlCommand(query, connection);
+            connection.Open();
+
+            return command.ExecuteReader(CommandBehavior.CloseConnection);
+        }
+
+        public SqlDataReader getPersons(int role)
+        {
+            SqlConnection connection = new SqlConnection(DB_CONNECTION_STRING);
+
+            string query = "SELECT * FROM Person WHERE role = @role";
+
+            SqlCommand command = new SqlCommand(query, connection);
+            command.Parameters.AddWithValue("@role", role);
+
+            connection.Open();
+
+            return command.ExecuteReader(CommandBehavior.CloseConnection);
         }
 
         public SqlDataReader getProjectInscriptions()

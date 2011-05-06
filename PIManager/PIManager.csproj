@@ -149,9 +149,13 @@
     <Compile Include="AddDocument.aspx.designer.cs">
       <DependentUpon>AddDocument.aspx</DependentUpon>
     </Compile>
+    <Compile Include="DataAccess\Person.cs" />
+    <Compile Include="DataAccess\PersonAccess.cs" />
     <Compile Include="DataAccess\Project.cs" />
     <Compile Include="DataAccess\DBManager.cs" />
     <Compile Include="DataAccess\ProjectAccess.cs" />
+    <Compile Include="DataAccess\Technology.cs" />
+    <Compile Include="DataAccess\TechnologyAccess.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
