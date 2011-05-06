@@ -202,14 +202,25 @@ namespace PIManager.Login
 
                 roleID = dbmanager.getPersonType(pk_person);
 
-                //create role if not existe
+                
+
+                //add user in role if not in
                 if (roleID == 1)
                 {
-                    Roles.AddUserToRole(username, "student");
+                    if(!Roles.IsUserInRole(username, "student"))
+                    {
+                        Roles.AddUserToRole(username, "student");
+                    }
+
+                    
                 }
                 else
                 {
-                    Roles.AddUserToRole(username, "professor");
+
+                    if (!Roles.IsUserInRole(username, "professor"))
+                    {
+                        Roles.AddUserToRole(username, "professor");
+                    }
                     
                 }
                 

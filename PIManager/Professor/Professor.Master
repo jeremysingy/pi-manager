@@ -1,11 +1,11 @@
-﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="PIManager.SiteMaster" %>
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Professor.master.cs" Inherits="PIManager.Professor.Professor" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
-<head runat="server">
-    <title>Gestion des projets intégrés</title>
+<head id="Head1" runat="server">
+    <title>Gestion des projets intégrés - Professeur</title>
     <!--<link href="~/Styles/Site.css" rel="stylesheet" type="text/css" />-->
-    <link rel="stylesheet" href="Styles/styles.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="../Styles/styles.css" type="text/css" media="screen" />
     <asp:ContentPlaceHolder ID="HeadContent" runat="server">
     </asp:ContentPlaceHolder>
 </head>
@@ -64,6 +64,16 @@
                                             <li>
                                                 <asp:LoginStatus ID="LoginStatus" runat="server" LoginText="Connexion" LogoutText="Déconnexion" LogoutPageUrl="~/Account/Login.aspx" LogoutAction="Redirect" />
                                             </li>
+                                            <li>
+                                                Visualiser
+                                                <ul>
+                                                    <li><a href="#">Projet</a></li>
+                                                    <li><a href="#">Inscriptions</a></li>
+                                                </ul>
+                                            </li>
+                                            <li><a href="#">Saisir un projet</a></li>
+                                            <li><a href="#">Activer des projets</a></li>
+                                            <li><a href="#">Déconnexion</a></li>
                                         </ul>
                                     </div>
                                     <div class="cleared"></div>

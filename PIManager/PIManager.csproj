@@ -77,6 +77,8 @@
     <Content Include="Images\spacer.gif" />
     <Content Include="ManageProjects.aspx" />
     <Content Include="ModifyProject.aspx" />
+    <Content Include="Professor\Default.aspx" />
+    <Content Include="Student\Default.aspx" />
     <Content Include="Styles\styles.css" />
     <Content Include="Visualization\VisuProjectStudent.aspx" />
     <Content Include="Styles\Site.css" />
@@ -166,6 +168,34 @@
     <Compile Include="ModifyProject.aspx.designer.cs">
       <DependentUpon>ModifyProject.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Professor\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Professor\Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Professor\Professor.Master.cs">
+      <DependentUpon>Professor.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Professor\Professor.Master.designer.cs">
+      <DependentUpon>Professor.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Student\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Student\Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Student\Student.Master.cs">
+      <DependentUpon>Student.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Student\Student.Master.designer.cs">
+      <DependentUpon>Student.Master</DependentUpon>
+    </Compile>
     <Compile Include="Visualization\VisuProjectStudent.aspx.cs">
       <DependentUpon>VisuProjectStudent.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -188,6 +218,18 @@
   <ItemGroup>
     <Content Include="Account\Web.config" />
     <Content Include="Site.Master" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Student\Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Professor\Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Professor\Professor.Master" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Student\Student.Master" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
