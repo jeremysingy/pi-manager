@@ -39,11 +39,14 @@ namespace PIManager.DataAccess
                            "description_XML.value(N'(//student)[1]', 'integer') AS nbStudent " +
                            "FROM pimanager.dbo.Project " +
                            "WHERE description_XML.value(N'(//student)[1]', 'integer') > (SELECT COUNT(*) FROM Person WHERE Person.pk_project = Project.pk_project);";
-            
 
-            
-            SqlCommand command = new SqlCommand(query, connection);
             connection.Open();
+            SqlCommand command = connection.CreateCommand();
+
+            SqlTransaction transaction = connection.BeginTransaction(IsolationLevel.ReadCommitted, "projectListStudent");
+            command.Connection = connection;
+            command.Transaction = transaction;
+            command.CommandText = query;
             
             return command.ExecuteReader(CommandBehavior.CloseConnection);
         }
@@ -59,9 +62,15 @@ namespace PIManager.DataAccess
 
             String query = "SELECT pk_project FROM Person WHERE pk_person = @PERSON;";
 
-            SqlCommand command = new SqlCommand(query, connection);
-            command.Parameters.Add("@PERSON", SqlDbType.Int).Value = idPerson;
             connection.Open();
+
+            SqlCommand command = connection.CreateCommand();
+
+            SqlTransaction transaction = connection.BeginTransaction(IsolationLevel.ReadCommitted, "nbInscriptionStudent");
+            command.Connection = connection;
+            command.Transaction = transaction;
+            command.CommandText = query;
+            command.Parameters.Add("@PERSON", SqlDbType.Int).Value = idPerson;
 
             return command.ExecuteReader(CommandBehavior.CloseConnection);
         }
@@ -77,22 +86,25 @@ namespace PIManager.DataAccess
         public Boolean inscriptionProjectTransaction(int pk_person, int pk_project)
         {
             Boolean saveDone = false; // maintain result of the save
-            SqlConnection connection = new SqlConnection(DB_CONNECTION_STRING);
-            connection.Open();
-            SqlCommand command = connection.CreateCommand();
-            
-            // starts local transaction
-            SqlTransaction transaction = connection.BeginTransaction(IsolationLevel.Serializable, "inscriptionProject");
-            command.Connection = connection;
-            command.Transaction = transaction;
+            SqlConnection connection = null;
+            SqlTransaction transaction = null;
 
             try
             {
+                connection = new SqlConnection(DB_CONNECTION_STRING);
+                connection.Open();
+                SqlCommand command = connection.CreateCommand();
+            
+                // starts local transaction
+                transaction = connection.BeginTransaction(IsolationLevel.Serializable, "inscriptionProject");
+                command.Connection = connection;
+                command.Transaction = transaction;
+            
                 // checks if the project is still available
                 command.CommandText = "SELECT count(*) FROM Project WHERE pk_project = " + pk_project + 
                                       " AND description_XML.value(N'(//student)[1]', 'integer') > (SELECT COUNT(*) FROM Person WHERE Person.pk_project = Project.pk_project);";
+                
                 Int32 available = (Int32)command.ExecuteScalar();
-
                 if (available != 0)
                 {
                     // checks if the student is still not subscribed to a project
@@ -114,12 +126,16 @@ namespace PIManager.DataAccess
                 // In case project isn't available or student has already subscribed for a project...
                 if (!saveDone)
                     transaction.Rollback();
+
+                connection.Close();
             }
             catch (Exception)
             {
                 try
                 {
                     transaction.Rollback();
+                    if (connection != null) 
+                        connection.Close();
                 }
                 catch (Exception)
                 {
@@ -137,18 +153,46 @@ namespace PIManager.DataAccess
         /// <returns></returns>
         public Boolean cancelInscriptionTransaction(int pk_person)
         {
-            SqlConnection connection = new SqlConnection(DB_CONNECTION_STRING);
+            Boolean cancelDone = false; // maintain result of the cancel
+            SqlConnection connection = null;
+            SqlTransaction transaction = null;
 
-            string query = "UPDATE Person SET pk_project = NULL WHERE pk_person = " + pk_person;
+            try
+            {
+                connection = new SqlConnection(DB_CONNECTION_STRING);
+                connection.Open();
+                SqlCommand command = connection.CreateCommand();
 
-            SqlCommand command = new SqlCommand(query, connection);
-            connection.Open();
-            
-            int affected = command.ExecuteNonQuery();
-            
-            connection.Close();
+                string query = "UPDATE Person SET pk_project = NULL WHERE pk_person = " + pk_person;
 
-            return affected == 1;
+                // starts local transaction
+                transaction = connection.BeginTransaction(IsolationLevel.ReadUncommitted, "unsubscribe");
+                command.Connection = connection;
+                command.Transaction = transaction;
+                command.CommandText = query;
+
+                int affected = command.ExecuteNonQuery();
+                if (affected == 1)
+                {
+                    transaction.Commit();
+                    cancelDone = true;
+                }
+            }
+            catch (Exception)
+            {
+                try
+                {
+                    transaction.Rollback();
+                    if (connection != null)
+                        connection.Close();
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+            }
+
+            return cancelDone;
         }
 
         public SqlDataReader getProjects()
@@ -196,7 +240,7 @@ namespace PIManager.DataAccess
         }
 
 
-        private void insertQuery(string query, IsolationLevel isolationLevel, SqlTransaction transaction)
+        private void insertQuery(string query, SqlTransaction transaction)
         {
             query += " SET @newId = SCOPE_IDENTITY()";
 
@@ -213,6 +257,16 @@ namespace PIManager.DataAccess
             command.ExecuteNonQuery();
 
             //transaction.Commit();
+        }
+
+        private SqlDataReader selectQuery(string query, SqlTransaction transaction)
+        {
+            SqlConnection connection = new SqlConnection(DB_CONNECTION_STRING);
+            SqlCommand command = new SqlCommand(query, connection, transaction);
+
+            command.Connection.Open();
+
+            return command.ExecuteReader(CommandBehavior.CloseConnection);
         }
 
         public int getPerson(string login, string pass)

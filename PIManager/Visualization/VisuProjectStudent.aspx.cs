@@ -16,9 +16,12 @@ namespace PIManager.Visualization
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            projectAccess = new ProjectAccess();
+            //if (!IsPostBack)
+            //{
+                projectAccess = new ProjectAccess();
 
-            displayProjectList();
+                displayProjectList();
+            //}
         }
 
         /// <summary>
@@ -51,7 +54,8 @@ namespace PIManager.Visualization
         /// </summary>
         private void setHeader()
         {
-            TableRow header = new TableRow();
+            TableHeaderRow header = new TableHeaderRow();
+            header.CssClass = "tableAlternateHeader";
             ProjectTable.Controls.Add(header);
 
             TableCell hId = new TableCell();
@@ -93,17 +97,18 @@ namespace PIManager.Visualization
             if (projectId == -1)
             {
                 LinkButton subscribe = new LinkButton();
+                subscribe.ID = p.Id.ToString();
                 subscribe.Text = "S'inscrire";
-                subscribe.Command += subscribe_Command;
+                subscribe.Click += subscribe_Click;
                 subscribe.CommandArgument = idPerson + "|" + p.Id;
                 cellInscription.Controls.Add(subscribe);
             }
             else if (projectId == p.Id)
             {
-                //cellInscription.Text = "Se désinscrire";
                 LinkButton unsubscribe = new LinkButton();
+                unsubscribe.ID = p.Id.ToString();
                 unsubscribe.Text = "Se désinscrire";
-                unsubscribe.Command += unsubscribe_Command;
+                unsubscribe.Click += unsubscribe_Click;
                 unsubscribe.CommandArgument = idPerson.ToString();
                 cellInscription.Controls.Add(unsubscribe);
             }
@@ -116,11 +121,12 @@ namespace PIManager.Visualization
         /// Does the subscription of the student to the given project when 
         /// "subscribe"-link is clicked.
         /// </summary>
-        /// <param name="sender">"subscribe"-link that was clicked on</param>
-        /// <param name="e">arguments given to this command (person id and project id)</param>
-        public void subscribe_Command(Object sender, CommandEventArgs e)
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public void subscribe_Click(Object sender, EventArgs e)
         {
-            string args = (string)e.CommandArgument;
+            LinkButton subscribe = sender as LinkButton;
+            string args = (string)subscribe.CommandArgument;
             string[] args_tab = args.Split('|');
 
             int idPerson = Int32.Parse(args_tab[0]);
@@ -132,8 +138,8 @@ namespace PIManager.Visualization
                 errorLabel.Text = "Erreur: L'inscription n'a pas pu être effectuée. " +
                     "Le projet n'existe pas ou n'est plus disponible.";
             else
-                errorLabel.Text = "Inscription effectuée.";
-            
+                msgLabel.Text = "Inscription effectuée.";
+
             ProjectTable.Rows.Clear();
             displayProjectList();
         }
@@ -143,16 +149,17 @@ namespace PIManager.Visualization
         /// </summary>
         /// <param name="sender">"unsubscribe"-link that was clicked on</param>
         /// <param name="e">arguments given to this command (person id)</param>
-        public void unsubscribe_Command(Object sender, CommandEventArgs e)
+        public void unsubscribe_Click(Object sender, EventArgs e)
         {
-            int idPerson = Int32.Parse((string)e.CommandArgument);
+            LinkButton unsubscribe = sender as LinkButton;
+            int idPerson = Int32.Parse((string)unsubscribe.CommandArgument);
             Boolean cancelDone = projectAccess.cancelInscription(idPerson);
 
             if (!cancelDone)
                 errorLabel.Text = "Erreur: La désinscription n'a pas pu être effectuée. " +
                     "Le projet n'existe pas ou vous n'êtes pas inscrit à ce projet.";
             else
-                errorLabel.Text = "Désinscription effectuée.";
+                msgLabel.Text = "Désinscription effectuée.";
 
             ProjectTable.Rows.Clear();
             displayProjectList();
