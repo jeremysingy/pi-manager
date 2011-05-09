@@ -130,7 +130,7 @@ namespace PIManager.DataAccess
             SqlDataReader reader = myDBManager.getProject(id);
             reader.Read();
 
-            string name = reader.GetString(reader.GetOrdinal("name"));
+            string name = reader.GetString(reader.GetOrdinal("title"));
             string desc = reader.GetString(reader.GetOrdinal("description"));
             //int nbStudents = int.Parse(reader.GetString(reader.GetOrdinal("students")));
             int nbStudents = reader.GetInt32(reader.GetOrdinal("nb_students"));

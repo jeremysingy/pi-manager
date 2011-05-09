@@ -6,6 +6,10 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using PIManager.DataAccess;
 using System.Web.Services;
+using System.Xml.XPath;
+using System.Xml;
+using System.IO;
+using System.Xml.Xsl;
 
 namespace PIManager.Visualization
 {
@@ -16,12 +20,8 @@ namespace PIManager.Visualization
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            //if (!IsPostBack)
-            //{
-                projectAccess = new ProjectAccess();
-
-                displayProjectList();
-            //}
+            projectAccess = new ProjectAccess();
+            displayProjectList();
         }
 
         /// <summary>
@@ -88,7 +88,11 @@ namespace PIManager.Visualization
             newProject.Controls.Add(cellId);
 
             TableCell cellName = new TableCell();
-            cellName.Text = p.Name;
+            LinkButton description = new LinkButton();
+            description.Text = p.Name;
+            description.Click += description_Click;
+            description.CommandArgument = p.Id.ToString();
+            cellName.Controls.Add(description);
             newProject.Controls.Add(cellName);
 
             TableCell cellInscription = new TableCell();
@@ -163,6 +167,21 @@ namespace PIManager.Visualization
 
             ProjectTable.Rows.Clear();
             displayProjectList();
+        }
+
+        public void description_Click(Object sender, EventArgs e)
+        {
+            LinkButton description = sender as LinkButton;
+            int idProject = Int32.Parse((string)description.CommandArgument);
+            
+            Project project = projectAccess.getProject(idProject);
+
+            XPathDocument doc = new XPathDocument(new StringReader(project.Description));
+            XslTransform xslt = new XslTransform();
+            xslt.Load("../xslt/projectDescription.xslt");
+            StringWriter sw = new StringWriter();
+            xslt.Transform(doc, null, sw);
+            errorLabel.Text = sw.ToString();
         }
     }
 }

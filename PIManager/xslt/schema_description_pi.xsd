@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+  <!-- Element "project" is the root element of the XML document.
+	     It contains all information related to the project. -->
+  <xsd:element name="project" type="projectType"/>
+
+  <!-- Complex Type "projectType" contains the whole structure of the 
+       the XML document. -->
+  <xsd:complexType name="projectType">
+    <xsd:sequence minOccurs="1" maxOccurs="1">
+      <xsd:element name="title" type="xsd:string" />
+      <xsd:element name="abreviation" type="xsd:string" />
+      <xsd:element name="description" type="descriptionType" />
+      <xsd:element name="student" type="xsd:positiveInteger" />
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <!-- Represents the structure of the description 
+       (as a list preceding by an introduction). -->
+  <xsd:complexType name="descriptionType">
+    <xsd:sequence minOccurs="1" maxOccurs="unbounded">
+      <xsd:choice>
+        <xsd:element name="paragraph" type="xsd:string" />
+        <xsd:element name="list" type="listType" />
+      </xsd:choice>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <!-- Represents the structure of the list.-->
+  <xsd:complexType name="listType">
+    <xsd:sequence minOccurs="1" maxOccurs="unbounded">
+      <xsd:element name="listItem" type="listItemType" />
+    </xsd:sequence>
+    <xsd:attribute name="ordered" type="xsd:boolean" />
+  </xsd:complexType>
+
+  <!-- Represents a listItem. This type has been created to add 
+       an attribute. -->
+  <xsd:complexType name="listItemType">
+    <xsd:sequence minOccurs="1" maxOccurs="2">
+      <xsd:choice>
+        <xsd:element name="text" type="xsd:string" />
+        <xsd:element name="list" type="listType" />
+      </xsd:choice>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>
