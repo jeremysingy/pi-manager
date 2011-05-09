@@ -58,6 +58,6 @@ textarea {
     <br />
     <div class="center">
         <asp:Button ID="btCancel" runat="server" Text="Annuler" CssClass="but" />
-        <asp:Button ID="btSubmit" runat="server" Text="Valider" CssClass="but" />
+        <asp:Button ID="btSubmit" runat="server" Text="Valider" CssClass="but" onclick="btSubmit_Click" />
     </div>
 </asp:Content>

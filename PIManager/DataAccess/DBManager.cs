@@ -295,6 +295,27 @@ namespace PIManager.DataAccess
 
         }
 
+        public bool modifyProject(int id, Project project, SqlTransaction transaction)
+        {
+            SqlConnection connection = new SqlConnection(DB_CONNECTION_STRING);
+
+            string query = "UPDATE pk_project, " +
+                            "SET description_xml.modify('replace value of (//title[1]/text() with @title, " +
+                            "description_xml.modify('replace value of (//abreviation[1]/text() with @abreviation, " +
+                            "description_xml.modify('replace value of //description[1] with @description, " +
+                            "description_xml.modify('replace value of //student[1]/text() with @nbstudents " +
+                            "WHERE pk_project = @id";
+
+            SqlCommand command = new SqlCommand(query, connection, transaction);
+            command.Parameters.AddWithValue("@id", id);
+            command.Parameters.AddWithValue("@title", project.Name);
+            command.Parameters.AddWithValue("@abreviation", project.Name); //TODO: abreviation
+            command.Parameters.AddWithValue("@description", project.Description);
+            command.Parameters.AddWithValue("@nbstudents", project.NbStudents);
+
+            return true;
+        }
+
         public void openRegistration()
         {
 
