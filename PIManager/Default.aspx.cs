@@ -12,6 +12,14 @@ namespace PIManager
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!Roles.RoleExists("student"))
+            {
+                Roles.CreateRole("student");
+            }
+            if (!Roles.RoleExists("professor"))
+            {
+                Roles.CreateRole("professor");
+            }
             if(Roles.IsUserInRole("student"))
             {
                 Server.Transfer("Student/Default.aspx");

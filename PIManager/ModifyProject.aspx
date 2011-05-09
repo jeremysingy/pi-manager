@@ -32,15 +32,15 @@ textarea {
 </asp:Content>
 <asp:Content ID="BodyContent" runat="server" ContentPlaceHolderID="MainContent">
     <h2>Modification du projet :</h2>
-    <h3>xxx</h3>
-    <label for="Title">Titre :</label>
+    <h3><asp:Label ID="lbName" runat="server" Text="Titre" /></h3>
+    <asp:Label ID="lbTitle" runat="server" Text="Titre :" AssociatedControlID="tbTitle" />
     <asp:TextBox ID="tbTitle" runat="server"></asp:TextBox>
     <br />
-    <label for="description">Description :</label>
+    <asp:Label ID="lbDescription" runat="server" Text="Description :" AssociatedControlID="tbDescription" />
     <asp:TextBox ID="tbDescription" runat="server" TextMode="MultiLine"></asp:TextBox>
     <br />
-    <label for="newtechno">Technologies :</label>
-    <asp:DropDownList ID="listTechnologies" runat="server"></asp:DropDownList>
+    <asp:Label ID="lbTechnologies" runat="server" Text="Technologies :" AssociatedControlID="listTechnologies" />
+    <asp:DropDownList ID="listTechnologies" runat="server" DataValueField="Id" DataTextField="Name"></asp:DropDownList>
     <br />
     <label>&nbsp;</label>
     <asp:GridView ID="gridTechnologies" runat="server" AutoGenerateColumns="false">
@@ -50,14 +50,14 @@ textarea {
         </Columns>
     </asp:GridView>
     <br />
-    <label for="nbstudents">Nombre d'étudiants :</label>
+    <asp:Label ID="lbNbStudents" runat="server" Text="Nombre d'étudiants :" AssociatedControlID="tbNbStudents" />
     <asp:TextBox ID="tbNbStudents" runat="server"></asp:TextBox>
     <br />
-    <label for="client">Client :</label>
-    <asp:DropDownList ID="listClients" runat="server"></asp:DropDownList>
+    <asp:Label ID="lbClients" runat="server" Text="Client :" AssociatedControlID="listClients" />
+    <asp:DropDownList ID="listClients" runat="server" DataValueField="Id" DataTextField="CompleteName"></asp:DropDownList>
     <br />
     <div class="center">
         <asp:Button ID="btCancel" runat="server" Text="Annuler" CssClass="but" />
-        <asp:Button ID="btSubmit" runat="server" Text="Valider" CssClass="but" />
+        <asp:Button ID="btSubmit" runat="server" Text="Valider" CssClass="but" onclick="btSubmit_Click" />
     </div>
 </asp:Content>

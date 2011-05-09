@@ -7,27 +7,27 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace PIManager {
+namespace PIManager.Professor {
     
     
-    public partial class ManageProjects {
+    public partial class VisualizationInscription {
         
         /// <summary>
-        /// lbTest control.
+        /// errorLabel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbTest;
+        protected global::System.Web.UI.WebControls.Label errorLabel;
         
         /// <summary>
-        /// ProjectsGrid control.
+        /// InscriptionsTable control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView ProjectsGrid;
+        protected global::System.Web.UI.WebControls.Table InscriptionsTable;
     }
 }

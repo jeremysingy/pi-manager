@@ -6,6 +6,7 @@ using System.Data.SqlClient;
 using System.Data.SqlTypes;
 using System.Xml;
 using System.Xml.Linq;
+using System.Collections;
 
 namespace PIManager.DataAccess
 {
@@ -110,11 +111,11 @@ namespace PIManager.DataAccess
             List<Project> list = new List<Project>();
             SqlDataReader reader = myDBManager.getProjects();
 
-            while(reader.Read())
+            while (reader.Read())
             {
-                int id         = (int)reader["pk_project"];
-                string name    = (string)reader["title"];
-                string desc    = "desc basdfads";
+                int id = (int)reader["pk_project"];
+                string name = (string)reader["title"];
+                string desc = "desc basdfads";
                 int nbStudents = (int)reader["nbstudents"];
 
                 list.Add(new Project(id, name, desc, nbStudents));
@@ -130,12 +131,51 @@ namespace PIManager.DataAccess
             SqlDataReader reader = myDBManager.getProject(id);
             reader.Read();
 
-            string name = reader.GetString(reader.GetOrdinal("title"));
-            string desc = reader.GetString(reader.GetOrdinal("description"));
-            //int nbStudents = int.Parse(reader.GetString(reader.GetOrdinal("students")));
-            int nbStudents = reader.GetInt32(reader.GetOrdinal("nb_students"));
+            string name = (string)reader["title"];
+            string abreviation = (string)reader["abreviation"];
+            string desc = (string)reader["description"];
+            int nbStudents = (int)reader["nbstudents"];
 
-            return new Project(name, desc, nbStudents);
+            return new Project(id, name, desc, nbStudents);
+        }
+
+        public Hashtable getProjectInscriptions()
+        {
+
+            Hashtable projects = new Hashtable();
+
+            SqlDataReader reader = myDBManager.getProjectInscriptions();
+
+            while (reader.Read())
+            {
+                int id = (int)reader["pk_project"];
+                string name = (string)reader["title"];
+                string firstname = (string)reader["firstname"];
+                string lastname = (string)reader["lastname"];
+
+                if (projects.ContainsKey(id))
+                {
+                    Project project = (Project)projects[id];
+                    Person person = new Person(0, lastname, firstname, "", "", 1);
+                    project.AddPersonInInscriptions(person);
+                    projects.Remove(id);
+                    projects.Add(id, project);
+                }
+                else
+                {
+                    Project project = new Project(id, name, "", 0);
+                    Person person = new Person(0, lastname, firstname, "", "", 1);
+
+                    project.AddPersonInInscriptions(person);
+
+                    projects.Add(id, project);
+                }
+
+            }
+
+            reader.Close();
+
+            return projects;
         }
     }
 }

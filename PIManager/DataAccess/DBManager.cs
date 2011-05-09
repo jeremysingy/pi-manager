@@ -261,6 +261,7 @@ namespace PIManager.DataAccess
             string query = "SELECT pk_project, " +
                             "description_xml.value('(//title)[1]', 'varchar(80)') AS title, " +
                             "description_xml.value('(//abreviation)[1]', 'varchar(50)') AS abreviation, " +
+                            "description_xml.query('//description') AS description, " +
                             "description_xml.value('(//student)[1]', 'int') AS nbstudents " +
                             "FROM pimanager.dbo.Project";
 
@@ -277,6 +278,7 @@ namespace PIManager.DataAccess
             string query = "SELECT pk_project, " +
                             "description_xml.value('(//title)[1]', 'varchar(80)') AS title, " +
                             "description_xml.value('(//abreviation)[1]', 'varchar(50)') AS abreviation, " +
+                            "description_xml.query('//description') AS description, " +
                             "description_xml.value('(//student)[1]', 'int') AS nbstudents " +
                             "FROM pimanager.dbo.Project " +
                             "WHERE pk_project = @id";
@@ -291,6 +293,27 @@ namespace PIManager.DataAccess
         public void addProject(string name, string desc, int nStudents)
         {
 
+        }
+
+        public bool modifyProject(int id, Project project, SqlTransaction transaction)
+        {
+            SqlConnection connection = new SqlConnection(DB_CONNECTION_STRING);
+
+            string query = "UPDATE pk_project, " +
+                            "SET description_xml.modify('replace value of (//title[1]/text() with @title, " +
+                            "description_xml.modify('replace value of (//abreviation[1]/text() with @abreviation, " +
+                            "description_xml.modify('replace value of //description[1] with @description, " +
+                            "description_xml.modify('replace value of //student[1]/text() with @nbstudents " +
+                            "WHERE pk_project = @id";
+
+            SqlCommand command = new SqlCommand(query, connection, transaction);
+            command.Parameters.AddWithValue("@id", id);
+            command.Parameters.AddWithValue("@title", project.Name);
+            command.Parameters.AddWithValue("@abreviation", project.Name); //TODO: abreviation
+            command.Parameters.AddWithValue("@description", project.Description);
+            command.Parameters.AddWithValue("@nbstudents", project.NbStudents);
+
+            return true;
         }
 
         public void openRegistration()
@@ -396,18 +419,78 @@ namespace PIManager.DataAccess
                     person_type = sqldatareader.GetInt32(0);
                 }
 
-
+                sqldatareader.Close();
             }
             catch (SqlException sqlError)
             {
                 transaction.Rollback();
             }
 
+            
+
+            transaction.Commit();
+
             connection.Close();
 
 
             return person_type;
 
+        }
+
+        public SqlDataReader getTechnologies()
+        {
+            SqlConnection connection = new SqlConnection(DB_CONNECTION_STRING);
+
+            string query = "SELECT * FROM Technology";
+
+            SqlCommand command = new SqlCommand(query, connection);
+            connection.Open();
+
+            return command.ExecuteReader(CommandBehavior.CloseConnection);
+        }
+
+        public SqlDataReader getPersons(int role)
+        {
+            SqlConnection connection = new SqlConnection(DB_CONNECTION_STRING);
+
+            string query = "SELECT * FROM Person WHERE role = @role";
+
+            SqlCommand command = new SqlCommand(query, connection);
+            command.Parameters.AddWithValue("@role", role);
+
+            connection.Open();
+
+            return command.ExecuteReader(CommandBehavior.CloseConnection);
+        }
+
+        public SqlDataReader getProjectInscriptions()
+        {
+            SqlConnection connection = new SqlConnection(DB_CONNECTION_STRING);
+
+            connection.Open();
+
+            SqlTransaction transaction = connection.BeginTransaction(IsolationLevel.ReadCommitted, "showInscriptions");
+
+            string query = "SELECT pr.pk_project, description_xml.value('(//title)[1]', 'varchar(80)') AS title, firstname, lastname FROM project pr, person pe WHERE pr.pk_project = pe.pk_project";
+
+            SqlDataReader sqldatareader = null;
+
+            try
+            {
+
+                SqlCommand command = new SqlCommand(query, connection, transaction);
+
+                sqldatareader = command.ExecuteReader(CommandBehavior.CloseConnection);
+
+                
+            }
+            catch (SqlException sqlError)
+            {
+                transaction.Rollback();
+            }
+
+
+            return sqldatareader;
         }
     }
 }

@@ -79,6 +79,7 @@
     <Content Include="ManageProjects.aspx" />
     <Content Include="ModifyProject.aspx" />
     <Content Include="Professor\Default.aspx" />
+    <Content Include="Professor\VisualizationInscription.aspx" />
     <Content Include="Student\Default.aspx" />
     <Content Include="Styles\styles.css" />
     <Content Include="Visualization\VisuProjectStudent.aspx" />
@@ -151,9 +152,13 @@
     <Compile Include="AddDocument.aspx.designer.cs">
       <DependentUpon>AddDocument.aspx</DependentUpon>
     </Compile>
+    <Compile Include="DataAccess\Person.cs" />
+    <Compile Include="DataAccess\PersonAccess.cs" />
     <Compile Include="DataAccess\Project.cs" />
     <Compile Include="DataAccess\DBManager.cs" />
     <Compile Include="DataAccess\ProjectAccess.cs" />
+    <Compile Include="DataAccess\Technology.cs" />
+    <Compile Include="DataAccess\TechnologyAccess.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -192,6 +197,13 @@
     </Compile>
     <Compile Include="Professor\Professor.Master.designer.cs">
       <DependentUpon>Professor.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Professor\VisualizationInscription.aspx.cs">
+      <DependentUpon>VisualizationInscription.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Professor\VisualizationInscription.aspx.designer.cs">
+      <DependentUpon>VisualizationInscription.aspx</DependentUpon>
     </Compile>
     <Compile Include="Student\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
