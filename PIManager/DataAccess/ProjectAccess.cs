@@ -6,6 +6,7 @@ using System.Data.SqlClient;
 using System.Data.SqlTypes;
 using System.Xml;
 using System.Xml.Linq;
+using System.Collections;
 
 namespace PIManager.DataAccess
 {
@@ -137,13 +138,41 @@ namespace PIManager.DataAccess
             return new Project(id, name, desc, nbStudents);
         }
 
-        public List<Project> getProjectInscriptions()
+        public Hashtable getProjectInscriptions()
         {
-            List<Project> projects = new List<Project>();
 
+            Hashtable projects = new Hashtable();
 
+            SqlDataReader reader = myDBManager.getProjectInscriptions();
 
-            //1> select pr.pk_project, firstname, lastname from project pr, person pe where pr.pk_project = pe.pk_project
+            while (reader.Read())
+            {
+                int id = (int)reader["pk_project"];
+                string name = (string)reader["title"];
+                string firstname = (string)reader["firstname"];
+                string lastname = (string)reader["lastname"];
+
+                if (projects.ContainsKey(id))
+                {
+                    Project project = (Project)projects[id];
+                    Person person = new Person(0, lastname, firstname, "", "", 1);
+                    project.AddPersonInInscriptions(person);
+                    projects.Remove(id);
+                    projects.Add(id, project);
+                }
+                else
+                {
+                    Project project = new Project(id, name, "", 0);
+                    Person person = new Person(0, lastname, firstname, "", "", 1);
+
+                    project.AddPersonInInscriptions(person);
+
+                    projects.Add(id, project);
+                }
+
+            }
+
+            reader.Close();
 
             return projects;
         }

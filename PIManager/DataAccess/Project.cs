@@ -21,7 +21,7 @@ namespace PIManager.DataAccess
             myDescription = desc;
             myNbStudents = nbStudents;
             myClientID = -1;
-            myInscriptions = null;
+            myInscriptions = new List<Person>();
         }
 
         public Project(int id, string name, string desc, int nbStudents)
@@ -31,7 +31,7 @@ namespace PIManager.DataAccess
             myDescription = desc;
             myNbStudents = nbStudents;
             myClientID = -1;
-            myInscriptions = null;
+            myInscriptions = new List<Person>();
 
         }
 

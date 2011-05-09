@@ -207,6 +207,10 @@ namespace PIManager.Login
                 //add user in role if not in
                 if (roleID == 1)
                 {
+                    if (!Roles.RoleExists("student"))
+                    {
+                        Roles.CreateRole("student");
+                    }
                     if(!Roles.IsUserInRole(username, "student"))
                     {
                         Roles.AddUserToRole(username, "student");
@@ -216,7 +220,10 @@ namespace PIManager.Login
                 }
                 else
                 {
-
+                    if (!Roles.RoleExists("professor"))
+                    {
+                        Roles.CreateRole("professor");
+                    }
                     if (!Roles.IsUserInRole(username, "professor"))
                     {
                         Roles.AddUserToRole(username, "professor");
