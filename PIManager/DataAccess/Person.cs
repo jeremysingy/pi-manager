@@ -13,6 +13,7 @@ namespace PIManager.DataAccess
         private string myEmail;
         private string myLogin;
         private int myRole;
+        
 
         public Person(int id, string lastName, string firstName, string email, string login, int role)
         {
