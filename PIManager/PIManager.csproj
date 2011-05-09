@@ -56,7 +56,7 @@
     <Content Include="Account\ChangePasswordSuccess.aspx" />
     <Content Include="Account\Login.aspx" />
     <Content Include="Account\Register.aspx" />
-    <Content Include="AddDocument.aspx" />
+    <Content Include="Student\AddDocument.aspx" />
     <Content Include="Images\01.png" />
     <Content Include="Images\02.png" />
     <Content Include="Images\03.png" />
@@ -82,7 +82,7 @@
     <Content Include="Professor\VisualizationInscription.aspx" />
     <Content Include="Student\Default.aspx" />
     <Content Include="Styles\styles.css" />
-    <Content Include="Visualization\VisuProjectStudent.aspx" />
+    <Content Include="Student\VisuProjectStudent.aspx" />
     <Content Include="Styles\Site.css" />
     <Content Include="Default.aspx" />
     <Content Include="Global.asax" />
@@ -145,11 +145,11 @@
     <Compile Include="Account\Register.aspx.designer.cs">
       <DependentUpon>Register.aspx</DependentUpon>
     </Compile>
-    <Compile Include="AddDocument.aspx.cs">
+    <Compile Include="Student\AddDocument.aspx.cs">
       <DependentUpon>AddDocument.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="AddDocument.aspx.designer.cs">
+    <Compile Include="Student\AddDocument.aspx.designer.cs">
       <DependentUpon>AddDocument.aspx</DependentUpon>
     </Compile>
     <Compile Include="DataAccess\Person.cs" />
@@ -219,11 +219,11 @@
     <Compile Include="Student\Student.Master.designer.cs">
       <DependentUpon>Student.Master</DependentUpon>
     </Compile>
-    <Compile Include="Visualization\VisuProjectStudent.aspx.cs">
+    <Compile Include="Student\VisuProjectStudent.aspx.cs">
       <DependentUpon>VisuProjectStudent.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Visualization\VisuProjectStudent.aspx.designer.cs">
+    <Compile Include="Student\VisuProjectStudent.aspx.designer.cs">
       <DependentUpon>VisuProjectStudent.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -237,6 +237,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Visualization\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Account\Web.config" />

@@ -92,6 +92,7 @@ namespace PIManager.Visualization
             description.Text = p.Name;
             description.Click += description_Click;
             description.CommandArgument = p.Id.ToString();
+            //description.Attributes.Add("Target", "_blank");
             cellName.Controls.Add(description);
             newProject.Controls.Add(cellName);
 
@@ -169,19 +170,34 @@ namespace PIManager.Visualization
             displayProjectList();
         }
 
+        /// <summary>
+        /// Displays the description of the project that is clicked.
+        /// </summary>
+        /// <param name="sender">link on the project name</param>
+        /// <param name="e">arguments given to this command (project id)</param>
         public void description_Click(Object sender, EventArgs e)
         {
+            // gets path to the xslt file
+            string path = Path.Combine(System.Web.Hosting.HostingEnvironment.ApplicationPhysicalPath, @"xslt\projectDescription.xslt");
+            
+            // Gets id of the project that must be displayed
             LinkButton description = sender as LinkButton;
             int idProject = Int32.Parse((string)description.CommandArgument);
             
+            // Gets project data from database
             Project project = projectAccess.getProject(idProject);
 
+            // Loads xslt file and executes the transformation to html. Result is stored in a StringWriter.
             XPathDocument doc = new XPathDocument(new StringReader(project.Description));
-            XslTransform xslt = new XslTransform();
-            xslt.Load("../xslt/projectDescription.xslt");
+            XslCompiledTransform xslt = new XslCompiledTransform();
+            
+            xslt.Load(path);
+            
             StringWriter sw = new StringWriter();
             xslt.Transform(doc, null, sw);
-            errorLabel.Text = sw.ToString();
+
+            // adds the description to the actual page (TODO: change to load it on another page !)
+            projectDescription.Text = sw.ToString();
         }
     }
 }

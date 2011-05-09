@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Add document to project" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="AddDocument.aspx.cs" Inherits="PIManager.AddDocument" %>
+﻿<%@ Page Title="Add document to project" Language="C#" MasterPageFile="~/Student/Student.Master" AutoEventWireup="true" CodeBehind="AddDocument.aspx.cs" Inherits="PIManager.AddDocument" %>
 
 <asp:Content ID="HeaderContent" runat="server" ContentPlaceHolderID="HeadContent">
 </asp:Content>

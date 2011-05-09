@@ -64,16 +64,8 @@
                                             <li>
                                                 <asp:LoginStatus ID="LoginStatus" runat="server" LoginText="Connexion" LogoutText="Déconnexion" LogoutPageUrl="~/Account/Login.aspx" LogoutAction="Redirect" />
                                             </li>
-                                            <li>
-                                                Visualiser
-                                                <ul>
-                                                    <li><a href="#">Projet</a></li>
-                                                    <li><a href="#">Inscriptions</a></li>
-                                                </ul>
-                                            </li>
-                                            <li><a href="#">Saisir un projet</a></li>
-                                            <li><a href="#">Activer des projets</a></li>
-                                            <li><a href="#">Déconnexion</a></li>
+                                            <li><a href="/Student/VisuProjectStudent.aspx">Visualiser les projets disponibles</a></li>
+                                            <li><a href="/Student/AddDocument.aspx">Ajouter un document</a></li>
                                         </ul>
                                     </div>
                                     <div class="cleared"></div>
