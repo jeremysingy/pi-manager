@@ -5,6 +5,7 @@
 </asp:Content>
 <asp:Content ID="BodyContent" runat="server" ContentPlaceHolderID="MainContent">
     <h2>Modifier/Supprimer des projets</h2>
+    <p><asp:Label ID="lbTest" runat="server" Text="Label"></asp:Label></p>
     <asp:GridView ID="ProjectsGrid" runat="server" AutoGenerateColumns="false">
         <Columns>
             <asp:BoundField DataField="Name" HeaderText="Nom du projet" />

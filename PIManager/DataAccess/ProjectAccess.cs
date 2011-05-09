@@ -131,6 +131,7 @@ namespace PIManager.DataAccess
             reader.Read();
 
             string name = (string)reader["title"];
+            string abreviation = (string)reader["abreviation"];
             string desc = (string)reader["description"];
             int nbStudents = (int)reader["nbstudents"];
 

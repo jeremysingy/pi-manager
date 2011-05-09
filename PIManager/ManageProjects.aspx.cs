@@ -14,10 +14,11 @@ namespace PIManager
     /// </summary>
     public partial class ManageProjects : System.Web.UI.Page
     {
+        ProjectAccess projectAccess = new ProjectAccess();
+
         protected void Page_Load(object sender, EventArgs e)
         {
             // Get the projects from the DAO
-            ProjectAccess projectAccess = new ProjectAccess();
             List<Project> projects = projectAccess.getProjects();
 
             // Bind the projects with the table
