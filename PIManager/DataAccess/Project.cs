@@ -11,8 +11,8 @@ namespace PIManager.DataAccess
         private string myName;
         private string myDescription;
         private int myNbStudents;
-        private string desc;
-        private int p;
+        private int myClientID;
+        private List<Person> myInscriptions;
 
         public Project(string name, string desc, int nbStudents)
         {
@@ -20,6 +20,8 @@ namespace PIManager.DataAccess
             myName = name;
             myDescription = desc;
             myNbStudents = nbStudents;
+            myClientID = -1;
+            myInscriptions = null;
         }
 
         public Project(int id, string name, string desc, int nbStudents)
@@ -28,6 +30,9 @@ namespace PIManager.DataAccess
             myName = name;
             myDescription = desc;
             myNbStudents = nbStudents;
+            myClientID = -1;
+            myInscriptions = null;
+
         }
 
         public int Id
@@ -53,5 +58,23 @@ namespace PIManager.DataAccess
             get { return myNbStudents; }
             set { myNbStudents = value; }
         }
+
+        public int ClientID
+        {
+            get { return myClientID; }
+            set { myClientID = value; }
+        }
+
+        public List<Person> Inscriptions
+        {
+            get { return myInscriptions; }
+            set { myInscriptions = value; }
+        }
+
+        public void AddPersonInInscriptions(Person person)
+        {
+            myInscriptions.Add(person);
+        }
+
     }
 }

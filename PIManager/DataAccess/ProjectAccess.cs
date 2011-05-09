@@ -143,6 +143,9 @@ namespace PIManager.DataAccess
             List<Project> projects = new List<Project>();
 
 
+
+            //1> select pr.pk_project, firstname, lastname from project pr, person pe where pr.pk_project = pe.pk_project
+
             return projects;
         }
     }
