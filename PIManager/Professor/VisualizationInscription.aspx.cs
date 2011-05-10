@@ -16,6 +16,7 @@ namespace PIManager.Professor
             initTable();
 
             getInscriptions();
+
         }
 
 

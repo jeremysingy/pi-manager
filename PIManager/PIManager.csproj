@@ -170,6 +170,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Login\MemberShipPIProvider.cs" />
+    <Compile Include="Login\MemberShipPIUser.cs" />
     <Compile Include="ManageProjects.aspx.cs">
       <DependentUpon>ManageProjects.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
