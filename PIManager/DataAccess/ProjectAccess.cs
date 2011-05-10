@@ -8,6 +8,7 @@ using System.Xml;
 using System.Xml.Linq;
 using System.Data;
 using System.Collections.Specialized;
+using System.Collections;
 
 namespace PIManager.DataAccess
 {
@@ -281,7 +282,7 @@ namespace PIManager.DataAccess
                 }
                 else
                 {
-                    Project project = new Project(id, name, "", 0);
+                    Project project = new Project(id, name, "", "", 0, -1);
                     Person person = new Person(0, lastname, firstname, "", "", 1);
 
                     project.AddPersonInInscriptions(person);
