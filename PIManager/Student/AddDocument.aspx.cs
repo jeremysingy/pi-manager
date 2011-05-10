@@ -5,19 +5,44 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using PIManager.DataAccess;
+using System.Web.Security;
+using PIManager.Login;
 
 namespace PIManager
 {
     public partial class AddDocument : System.Web.UI.Page
     {
         ProjectAccess projectAccess;
-        int idProject = 3; // TODO: must come from session !
+        MemberShipPIUser user; // user that is logged in
+        int idProject;
 
         protected void Page_Load(object sender, EventArgs e)
         {
             projectAccess = new ProjectAccess();
+
+            // gets current user data
+            user = (MemberShipPIUser)Membership.GetUser();
+
+            if (user == null)
+                Response.Redirect("/Account/Login.aspx");
+
+            List<Int32> inscriptions = projectAccess.getInscriptions(user.PK_Person);
+            bool opened = projectAccess.checkPeriodInscriptionOpen();
+            
+            // redirects to the default page if accessing this page without having subscribe to a project
+            // or when period of inscription is still opened.
+            if(inscriptions.Count == 0 || opened)
+                Response.Redirect("/Student/Default.aspx");
+
+            // gets id of the project for the current student
+            idProject = inscriptions.ElementAt(0);
         }
 
+        /// <summary>
+        /// Adds a document to the project the student is subscribed to.
+        /// </summary>
+        /// <param name="sender">button "envoyer"</param>
+        /// <param name="e">posted file</param>
         public void btnUpload_Click(object sender, EventArgs e)
         {
             // checks file size before upload
@@ -31,7 +56,7 @@ namespace PIManager
             Boolean addDone = projectAccess.addDocument(idProject, uploadFile.PostedFile);
 
             if (addDone)
-                errorLabel.Text = "Le fichier a été ajouté au projet.<br />";
+                msgLabel.Text = "Le fichier a été ajouté au projet.<br />";
             else
                 errorLabel.Text = "Le fichier n'a pas pu être ajouté au projet.<br />";
         }

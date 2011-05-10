@@ -15,7 +15,6 @@ namespace PIManager.DataAccess
     public class DBManager
     {
         public readonly string DB_CONNECTION_STRING = ConfigurationManager.ConnectionStrings["PIDBConnection"].ToString();
-        
 
         /*
          * Example of prepared statement
@@ -25,7 +24,77 @@ namespace PIManager.DataAccess
          * command.Parameters.Add("@id", 20); // for example...
          * command.Prepare();
          */
-        
+
+        public SqlConnection newConnection()
+        {
+            return new SqlConnection(DB_CONNECTION_STRING);
+        }
+
+        public SqlDataReader doSelect(string query, SqlConnection connection, SqlTransaction transaction, Dictionary<string, object> param)
+        {
+            SqlCommand command = new SqlCommand(query, connection, transaction);
+
+            foreach (var pair in param)
+                command.Parameters.AddWithValue(pair.Key, pair.Value);
+
+            return command.ExecuteReader();
+        }
+
+        public int doUpdate(string query, SqlConnection connection, SqlTransaction transaction, Dictionary<string, object> param)
+        {
+            SqlCommand command = new SqlCommand(query, connection, transaction);
+
+            foreach (var pair in param)
+                command.Parameters.AddWithValue(pair.Key, pair.Value);
+
+            return command.ExecuteNonQuery();
+        }
+
+        public int doDelete(string query, SqlConnection connection, SqlTransaction transaction, Dictionary<string, object> param)
+        {
+            SqlCommand command = new SqlCommand(query, connection, transaction);
+
+            foreach (var pair in param)
+                command.Parameters.AddWithValue(pair.Key, pair.Value);
+
+            return command.ExecuteNonQuery();
+        }
+
+        public int doInsert(string query, SqlConnection connection, SqlTransaction transaction, Dictionary<string, object> param)
+        {
+            query += " SET @newId = SCOPE_IDENTITY()";
+            //SqlConnection connection = new SqlConnection(DB_CONNECTION_STRING);
+            //SqlTransaction transaction = connection.BeginTransaction(isolationLevel);
+
+            SqlCommand command = new SqlCommand(query, connection, transaction);
+
+            foreach (var pair in param)
+                command.Parameters.AddWithValue(pair.Key, pair.Value);
+
+            SqlParameter idParam = new SqlParameter("@newId", SqlDbType.Int);
+            idParam.Direction = ParameterDirection.Output;
+            command.Parameters.Add(idParam);
+
+            //SqlParameterCollection s = new SqlParameterCollection();
+
+            command.ExecuteNonQuery();
+
+            //transaction.Commit();
+            return (int)idParam.Value;
+        }
+
+        public void executeProcedure(string name, SqlConnection connection, SqlTransaction transaction, Dictionary<string, object> param)
+        {
+            SqlCommand command = new SqlCommand(name, connection, transaction);
+            command.CommandType = CommandType.StoredProcedure;
+
+            foreach (var pair in param)
+                command.Parameters.AddWithValue(pair.Key, pair.Value);
+
+            command.ExecuteNonQuery();
+        }
+
+        //////////////////////////////////////////////////////////////////////////////////////////
 
         /// <summary>
         /// Gets the list of projects opened for the inscription.
@@ -37,6 +106,7 @@ namespace PIManager.DataAccess
 
             String query = "SELECT pk_project, " +
                            "description_XML.query('data(//title)') AS title, " +
+                           "description_xml.value('(//abreviation)[1]', 'varchar(50)') AS abreviation, " +
                            "description_XML.value(N'(//student)[1]', 'integer') AS nbStudent " +
                            "FROM pimanager.dbo.Project " +
                            "WHERE description_XML.value(N'(//student)[1]', 'integer') > (SELECT COUNT(*) FROM Person WHERE Person.pk_project = Project.pk_project);";
@@ -254,6 +324,36 @@ namespace PIManager.DataAccess
             return addDone;
         }
 
+        public Boolean checkPeriodInscriptionOpen()
+        {
+            SqlConnection connection = null;
+            SqlTransaction transaction = null;
+            string currentDate = System.DateTime.Now.ToString();
+            try
+            {
+                
+                connection = new SqlConnection(DB_CONNECTION_STRING);
+                connection.Open();
+
+                string query = "SELECT COUNT(*) FROM Period WHERE @currentDate > date_open AND @currentDate < date_close;";
+
+                SqlCommand command = connection.CreateCommand();
+                command.Connection = connection;
+                command.Transaction = transaction;
+                command.CommandText = query;
+                command.Parameters.Add("@currentDate", SqlDbType.DateTime).Value = currentDate;
+
+                Int32 opened = (Int32)command.ExecuteScalar();
+
+                connection.Close();
+                return opened != 0;    
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
         public SqlDataReader getProjects()
         {
             SqlConnection connection = new SqlConnection(DB_CONNECTION_STRING);
@@ -262,7 +362,8 @@ namespace PIManager.DataAccess
                             "description_xml.value('(//title)[1]', 'varchar(80)') AS title, " +
                             "description_xml.value('(//abreviation)[1]', 'varchar(50)') AS abreviation, " +
                             "description_xml.query('//description') AS description, " +
-                            "description_xml.value('(//student)[1]', 'int') AS nbstudents " +
+                            "description_xml.value('(//student)[1]', 'int') AS nbstudents, " +
+                            "pk_person " +
                             "FROM pimanager.dbo.Project";
 
             SqlCommand command = new SqlCommand(query, connection);
@@ -271,47 +372,86 @@ namespace PIManager.DataAccess
             return command.ExecuteReader(CommandBehavior.CloseConnection);
         }
 
-        public SqlDataReader getProject(int id)
+        /*public SqlDataReader getProject(int id)
         {
             SqlConnection connection = new SqlConnection(DB_CONNECTION_STRING);
+            connection.Open();
+
+            SqlTransaction transaction = connection.BeginTransaction(IsolationLevel.ReadCommitted);
 
             string query = "SELECT pk_project, " +
                             "description_xml.value('(//title)[1]', 'varchar(80)') AS title, " +
                             "description_xml.value('(//abreviation)[1]', 'varchar(50)') AS abreviation, " +
                             "description_xml.query('//description') AS description, " +
-                            "description_xml.value('(//student)[1]', 'int') AS nbstudents " +
+                            "description_xml.value('(//student)[1]', 'int') AS nbstudents, " +
+                            "pk_person" +
                             "FROM pimanager.dbo.Project " +
                             "WHERE pk_project = @id";
 
-            SqlCommand command = new SqlCommand(query, connection);
+            SqlCommand command = new SqlCommand(query, connection, transaction);
             command.Parameters.AddWithValue("@id", id);
-            connection.Open();
+
+            string queryTechnos = "SELECT * FROM Project_Techno WHERE pk_project = @id";
+            SqlCommand commandTechnos = new SqlCommand(queryTechnos, connection, transaction);
+            command.Parameters.AddWithValue("@id", id);
+
+            SqlDataReader 
 
             return command.ExecuteReader(CommandBehavior.CloseConnection);
-        }
+        }*/
 
         public void addProject(string name, string desc, int nStudents)
         {
 
         }
 
-        public bool modifyProject(int id, Project project, SqlTransaction transaction)
+        public bool modifyProject(int id, Project oldProject, Project newProject)
         {
             SqlConnection connection = new SqlConnection(DB_CONNECTION_STRING);
+            connection.Open();
 
-            string query = "UPDATE pk_project, " +
-                            "SET description_xml.modify('replace value of (//title[1]/text() with @title, " +
-                            "description_xml.modify('replace value of (//abreviation[1]/text() with @abreviation, " +
-                            "description_xml.modify('replace value of //description[1] with @description, " +
-                            "description_xml.modify('replace value of //student[1]/text() with @nbstudents " +
-                            "WHERE pk_project = @id";
+            SqlTransaction transaction = connection.BeginTransaction(IsolationLevel.Serializable);
 
-            SqlCommand command = new SqlCommand(query, connection, transaction);
-            command.Parameters.AddWithValue("@id", id);
-            command.Parameters.AddWithValue("@title", project.Name);
-            command.Parameters.AddWithValue("@abreviation", project.Name); //TODO: abreviation
-            command.Parameters.AddWithValue("@description", project.Description);
-            command.Parameters.AddWithValue("@nbstudents", project.NbStudents);
+            string selectQuery = "SELECT pk_project, " +
+                "description_xml.value('(//title)[1]', 'varchar(80)') AS title, " +
+                "description_xml.value('(//abreviation)[1]', 'varchar(50)') AS abreviation, " +
+                "description_xml.query('//description') AS description, " +
+                "description_xml.value('(//student)[1]', 'int') AS nbstudents " +
+                "FROM pimanager.dbo.Project " +
+                "WHERE pk_project = @id";
+
+            SqlCommand selectCommand = new SqlCommand(selectQuery, connection, transaction);
+            selectCommand.Parameters.AddWithValue("@id", id);
+
+            SqlDataReader reader = selectCommand.ExecuteReader();
+            string name = (string)reader["title"];
+            string abreviation = (string)reader["abreviation"];
+            string desc = (string)reader["description"];
+            int nbStudents = (int)reader["nbstudents"];
+            Project crtProject = new Project(name, abreviation, desc, nbStudents);
+
+            if(!oldProject.isEquivalent(crtProject))
+            {
+                reader.Close();
+                return false;
+            }
+
+            string updateQuery = "UPDATE pk_project, " +
+                "SET description_xml.modify('replace value of (//title[1]/text() with @title, " +
+                "description_xml.modify('replace value of (//abreviation[1]/text() with @abreviation, " +
+                "description_xml.modify('replace value of //description[1] with @description, " +
+                "description_xml.modify('replace value of //student[1]/text() with @nbstudents " +
+                "WHERE pk_project = @id";
+
+            SqlCommand updateCommand = new SqlCommand(updateQuery, connection, transaction);
+            updateCommand.Parameters.AddWithValue("@id", id);
+            updateCommand.Parameters.AddWithValue("@title", newProject.Name);
+            updateCommand.Parameters.AddWithValue("@abreviation", newProject.Abreviation);
+            updateCommand.Parameters.AddWithValue("@description", newProject.Description);
+            updateCommand.Parameters.AddWithValue("@nbstudents", newProject.NbStudents);
+
+            updateCommand.ExecuteNonQuery();
+            transaction.Commit();
 
             return true;
         }
@@ -319,26 +459,6 @@ namespace PIManager.DataAccess
         public void openRegistration()
         {
 
-        }
-
-
-        private void insertQuery(string query, SqlTransaction transaction)
-        {
-            query += " SET @newId = SCOPE_IDENTITY()";
-
-            SqlConnection connection = new SqlConnection(DB_CONNECTION_STRING);
-            //SqlTransaction transaction = connection.BeginTransaction(isolationLevel);
-
-            SqlCommand command = new SqlCommand(query, connection, transaction);
-
-            SqlParameter idParam = new SqlParameter("@newId", SqlDbType.Int);
-            idParam.Direction = ParameterDirection.Output;
-            command.Parameters.Add(idParam);
-
-            command.Connection.Open();
-            command.ExecuteNonQuery();
-
-            //transaction.Commit();
         }
 
         private SqlDataReader selectQuery(string query, SqlTransaction transaction)

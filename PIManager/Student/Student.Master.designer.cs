@@ -49,6 +49,24 @@ namespace PIManager.Student {
         protected global::System.Web.UI.WebControls.LoginStatus LoginStatus;
         
         /// <summary>
+        /// visuProjectsLink control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink visuProjectsLink;
+        
+        /// <summary>
+        /// addDocumentLink control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink addDocumentLink;
+        
+        /// <summary>
         /// MainContent control.
         /// </summary>
         /// <remarks>

@@ -15,9 +15,9 @@ namespace PIManager.DataAccess
             myDBManager = new DBManager();
         }
 
-        public List<Technology> getTechnologies()
+        public Dictionary<int, Technology> getTechnologies()
         {
-            List<Technology> list = new List<Technology>();
+            Dictionary<int, Technology> list = new Dictionary<int, Technology>();
             SqlDataReader reader = myDBManager.getTechnologies();
 
             while (reader.Read())
@@ -25,7 +25,7 @@ namespace PIManager.DataAccess
                 int id = (int)reader["pk_technology"];
                 string name = (string)reader["name"];
 
-                list.Add(new Technology(id, name));
+                list.Add(id, new Technology(id, name));
             }
 
             reader.Close();

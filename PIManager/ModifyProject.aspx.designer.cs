@@ -40,6 +40,42 @@ namespace PIManager {
         protected global::System.Web.UI.WebControls.TextBox tbTitle;
         
         /// <summary>
+        /// ValidateTitle control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator ValidateTitle;
+        
+        /// <summary>
+        /// lbAbreviation control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbAbreviation;
+        
+        /// <summary>
+        /// tbAbreviation control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbAbreviation;
+        
+        /// <summary>
+        /// ValidateAbreviation control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator ValidateAbreviation;
+        
+        /// <summary>
         /// lbDescription control.
         /// </summary>
         /// <remarks>
@@ -67,6 +103,15 @@ namespace PIManager {
         protected global::System.Web.UI.WebControls.Label lbTechnologies;
         
         /// <summary>
+        /// gridTechnologies control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gridTechnologies;
+        
+        /// <summary>
         /// listTechnologies control.
         /// </summary>
         /// <remarks>
@@ -76,13 +121,13 @@ namespace PIManager {
         protected global::System.Web.UI.WebControls.DropDownList listTechnologies;
         
         /// <summary>
-        /// gridTechnologies control.
+        /// btAddTechno control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gridTechnologies;
+        protected global::System.Web.UI.WebControls.Button btAddTechno;
         
         /// <summary>
         /// lbNbStudents control.
@@ -101,6 +146,15 @@ namespace PIManager {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbNbStudents;
+        
+        /// <summary>
+        /// ValidateNbStudents control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator ValidateNbStudents;
         
         /// <summary>
         /// lbClients control.

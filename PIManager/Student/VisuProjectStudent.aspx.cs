@@ -10,16 +10,23 @@ using System.Xml.XPath;
 using System.Xml;
 using System.IO;
 using System.Xml.Xsl;
+using System.Web.Security;
+using PIManager.Login;
 
 namespace PIManager.Visualization
 {
     public partial class VisuProjectStudent : System.Web.UI.Page
     {
         ProjectAccess projectAccess; // reference to ProjectAccess
-        int idPerson = 7; // TODO: must get id of person logged in !
+        MemberShipPIUser user; // user that is logged in
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            user = (MemberShipPIUser)Membership.GetUser();
+
+            if (user == null)
+                Response.Redirect("/Account/Login.aspx");
+
             projectAccess = new ProjectAccess();
             displayProjectList();
         }
@@ -35,16 +42,17 @@ namespace PIManager.Visualization
 
             // Gets the list of projects and inscriptions of the current student
             List<Project> projects = projectAccess.getProjectList();
-            List<Int32> inscriptions = projectAccess.getInscriptions(idPerson);
+            List<Int32> inscriptions = projectAccess.getInscriptions(user.PK_Person);
+            Boolean opened = projectAccess.checkPeriodInscriptionOpen();
 
             // add each available project, passing project id when the person has
             // already subscribed for a project.
             for (int row = 0; row < projects.Count; row++)
             {
                 if (inscriptions.Count == 0)
-                    addProject(idPerson, projects.ElementAt(row));
+                    addProject(user.PK_Person, projects.ElementAt(row), opened);
                 else
-                    addProject(idPerson, projects.ElementAt(row), inscriptions.ElementAt(0));
+                    addProject(user.PK_Person, projects.ElementAt(row), opened, inscriptions.ElementAt(0));
             }
         }
 
@@ -78,7 +86,7 @@ namespace PIManager.Visualization
         /// <param name="idPerson">id of the student</param>
         /// <param name="p">project information</param>
         /// <param name="projectId">project id the student is already subscribed to</param>
-        private void addProject(int idPerson, Project p, int projectId = -1)
+        private void addProject(int idPerson, Project p, bool opened, int projectId = -1)
         {
             TableRow newProject = new TableRow();
             ProjectTable.Controls.Add(newProject);
@@ -92,14 +100,13 @@ namespace PIManager.Visualization
             description.Text = p.Name;
             description.Click += description_Click;
             description.CommandArgument = p.Id.ToString();
-            //description.Attributes.Add("Target", "_blank");
             cellName.Controls.Add(description);
             newProject.Controls.Add(cellName);
 
             TableCell cellInscription = new TableCell();
             
             // student has not subscribed yet.
-            if (projectId == -1)
+            if (projectId == -1 && opened)
             {
                 LinkButton subscribe = new LinkButton();
                 subscribe.ID = p.Id.ToString();
@@ -108,7 +115,7 @@ namespace PIManager.Visualization
                 subscribe.CommandArgument = idPerson + "|" + p.Id;
                 cellInscription.Controls.Add(subscribe);
             }
-            else if (projectId == p.Id)
+            else if (projectId == p.Id && opened)
             {
                 LinkButton unsubscribe = new LinkButton();
                 unsubscribe.ID = p.Id.ToString();
@@ -186,9 +193,9 @@ namespace PIManager.Visualization
             
             // Gets project data from database
             Project project = projectAccess.getProject(idProject);
-
+            
             // Loads xslt file and executes the transformation to html. Result is stored in a StringWriter.
-            XPathDocument doc = new XPathDocument(new StringReader(project.Description));
+            XPathDocument doc = new XPathDocument(new StringReader("<description>"+project.Description+"</description>"));
             XslCompiledTransform xslt = new XslCompiledTransform();
             
             xslt.Load(path);
@@ -197,7 +204,10 @@ namespace PIManager.Visualization
             xslt.Transform(doc, null, sw);
 
             // adds the description to the actual page (TODO: change to load it on another page !)
-            projectDescription.Text = sw.ToString();
+            //projectDescription.Text = sw.ToString();
+
+            descriptionPanel.Controls.Add(new LiteralControl(sw.ToString()));
+
         }
     }
 }
