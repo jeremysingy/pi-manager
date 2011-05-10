@@ -31,7 +31,7 @@ namespace PIManager
             Boolean addDone = projectAccess.addDocument(idProject, uploadFile.PostedFile);
 
             if (addDone)
-                errorLabel.Text = "Le fichier a été ajouté au projet.<br />";
+                msgLabel.Text = "Le fichier a été ajouté au projet.<br />";
             else
                 errorLabel.Text = "Le fichier n'a pas pu être ajouté au projet.<br />";
         }
