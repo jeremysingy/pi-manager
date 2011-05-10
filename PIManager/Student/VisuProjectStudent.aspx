@@ -8,4 +8,9 @@
     <asp:Label ID="msgLabel" runat="server" CssClass="message" />
     <asp:Table ID="ProjectTable" runat="server" CssClass="tableAlternate"></asp:Table>
     <asp:Label ID="projectDescription" runat="server" />
+
+    <asp:Panel ID="descriptionPanel" runat="server" CssClass="descriptionPanel">
+    </asp:Panel>
+
+    
 </asp:Content>

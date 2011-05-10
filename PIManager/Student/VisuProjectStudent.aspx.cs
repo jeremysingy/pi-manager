@@ -24,6 +24,9 @@ namespace PIManager.Visualization
         {
             user = (MemberShipPIUser)Membership.GetUser();
 
+            if (user == null)
+                Response.Redirect("/Account/Login.aspx");
+
             projectAccess = new ProjectAccess();
             displayProjectList();
         }
@@ -190,9 +193,9 @@ namespace PIManager.Visualization
             
             // Gets project data from database
             Project project = projectAccess.getProject(idProject);
-
+            
             // Loads xslt file and executes the transformation to html. Result is stored in a StringWriter.
-            XPathDocument doc = new XPathDocument(new StringReader(project.Description));
+            XPathDocument doc = new XPathDocument(new StringReader("<description>"+project.Description+"</description>"));
             XslCompiledTransform xslt = new XslCompiledTransform();
             
             xslt.Load(path);
@@ -201,7 +204,10 @@ namespace PIManager.Visualization
             xslt.Transform(doc, null, sw);
 
             // adds the description to the actual page (TODO: change to load it on another page !)
-            projectDescription.Text = sw.ToString();
+            //projectDescription.Text = sw.ToString();
+
+            descriptionPanel.Controls.Add(new LiteralControl(sw.ToString()));
+
         }
     }
 }

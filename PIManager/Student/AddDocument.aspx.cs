@@ -22,7 +22,17 @@ namespace PIManager
 
             // gets current user data
             user = (MemberShipPIUser)Membership.GetUser();
+
+            if (user == null)
+                Response.Redirect("/Account/Login.aspx");
+
             List<Int32> inscriptions = projectAccess.getInscriptions(user.PK_Person);
+            bool opened = projectAccess.checkPeriodInscriptionOpen();
+            
+            // redirects to the default page if accessing this page without having subscribe to a project
+            // or when period of inscription is still opened.
+            if(inscriptions.Count == 0 || opened)
+                Response.Redirect("/Student/Default.aspx");
 
             // gets id of the project for the current student
             idProject = inscriptions.ElementAt(0);
