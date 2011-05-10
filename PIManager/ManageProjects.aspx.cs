@@ -14,16 +14,29 @@ namespace PIManager
     /// </summary>
     public partial class ManageProjects : System.Web.UI.Page
     {
-        ProjectAccess projectAccess = new ProjectAccess();
+        ProjectAccess myProjectAccess = new ProjectAccess();
+        List<Project> myProjects;
 
         protected void Page_Load(object sender, EventArgs e)
         {
             // Get the projects from the DAO
-            List<Project> projects = projectAccess.getProjects();
+            myProjects = myProjectAccess.getProjects();
 
             // Bind the projects with the table
-            ProjectsGrid.DataSource = projects;
+            ProjectsGrid.DataSource = myProjects;
             ProjectsGrid.DataBind();
+
+            // Show the eventual error
+            if (Request.QueryString["error"] != null && Request.QueryString["error"] == "1")
+                lbError.Text = "The project has been modified or deleted by another user. Please redo your modifications";
+        }
+
+        protected void onRowDeleting(object sender, GridViewDeleteEventArgs e)
+        {
+            //myProjectAccess
+            //lbError.Text = myProjects[e.RowIndex].Name + " : " + myProjects[e.RowIndex].Id;
+
+            myProjectAccess.deleteProject(myProjects[e.RowIndex].Id);
         }
     }
 }
