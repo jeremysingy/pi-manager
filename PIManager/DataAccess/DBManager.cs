@@ -254,6 +254,36 @@ namespace PIManager.DataAccess
             return addDone;
         }
 
+        public Boolean checkPeriodInscriptionOpen()
+        {
+            SqlConnection connection = null;
+            SqlTransaction transaction = null;
+            string currentDate = System.DateTime.Now.ToString();
+            try
+            {
+                
+                connection = new SqlConnection(DB_CONNECTION_STRING);
+                connection.Open();
+
+                string query = "SELECT COUNT(*) FROM Period WHERE @currentDate > date_open AND @currentDate < date_close;";
+
+                SqlCommand command = connection.CreateCommand();
+                command.Connection = connection;
+                command.Transaction = transaction;
+                command.CommandText = query;
+                command.Parameters.Add("@currentDate", SqlDbType.DateTime).Value = currentDate;
+
+                Int32 opened = (Int32)command.ExecuteScalar();
+
+                connection.Close();
+                return opened != 0;    
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
         public SqlDataReader getProjects()
         {
             SqlConnection connection = new SqlConnection(DB_CONNECTION_STRING);

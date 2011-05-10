@@ -106,6 +106,15 @@ namespace PIManager.DataAccess
             return myDBManager.addDocumentTransaction(pk_project, file);
         }
 
+        /// <summary>
+        /// Checks if the period of inscription to the projects is still opened.
+        /// </summary>
+        /// <returns>true if it is opened, otherwise false</returns>
+        public Boolean checkPeriodInscriptionOpen()
+        {
+            return myDBManager.checkPeriodInscriptionOpen();
+        }
+
         public List<Project> getProjects()
         {
             List<Project> list = new List<Project>();
