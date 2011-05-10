@@ -5,3 +5,5 @@
 [Rr]elease/
 *.suo
 *.cache
+
+PIManager/App_Data/*

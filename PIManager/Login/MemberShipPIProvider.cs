@@ -9,6 +9,8 @@ namespace PIManager.Login
 {
     public class MemberShipPIProvider : MembershipProvider
     {
+        private MemberShipPIUser user;
+
         public override string ApplicationName
         {
             get
@@ -37,7 +39,9 @@ namespace PIManager.Login
 
         public override MembershipUser CreateUser(string username, string password, string email, string passwordQuestion, string passwordAnswer, bool isApproved, object providerUserKey, out MembershipCreateStatus status)
         {
-            throw new NotImplementedException(); //TODO return fake
+            //throw new NotImplementedException();
+            status = new MembershipCreateStatus();
+            return null;
         }
 
         public override bool DeleteUser(string username, bool deleteAllRelatedData)
@@ -64,17 +68,23 @@ namespace PIManager.Login
 
         public override MembershipUserCollection FindUsersByEmail(string emailToMatch, int pageIndex, int pageSize, out int totalRecords)
         {
-            throw new NotImplementedException(); //TODO return fake
+            //throw new NotImplementedException();
+            totalRecords = 0;
+            return null;
         }
 
         public override MembershipUserCollection FindUsersByName(string usernameToMatch, int pageIndex, int pageSize, out int totalRecords)
         {
-            throw new NotImplementedException(); //TODO return fake
+            //throw new NotImplementedException();
+            totalRecords = 0;
+            return null;
         }
 
         public override MembershipUserCollection GetAllUsers(int pageIndex, int pageSize, out int totalRecords)
         {
-            throw new NotImplementedException(); //TODO return fake
+            //throw new NotImplementedException();
+            totalRecords = 0;
+            return null;
         }
 
         public override int GetNumberOfUsersOnline()
@@ -91,12 +101,12 @@ namespace PIManager.Login
 
         public override MembershipUser GetUser(string username, bool userIsOnline)
         {
-            throw new NotImplementedException(); //TODO return fake
+            return user;
         }
 
         public override MembershipUser GetUser(object providerUserKey, bool userIsOnline)
         {
-            throw new NotImplementedException(); //TODO return fake
+            return null;
         }
 
         public override string GetUserNameByEmail(string email)
@@ -139,7 +149,9 @@ namespace PIManager.Login
 
         public override MembershipPasswordFormat PasswordFormat
         {
-            get { throw new NotImplementedException(); //TODO return fake
+            get
+            {
+                return new MembershipPasswordFormat();
             }
         }
 
@@ -197,16 +209,19 @@ namespace PIManager.Login
             {
                 ok = true;
 
-
                 int roleID = -1;
 
                 roleID = dbmanager.getPersonType(pk_person);
 
-                
+                    
 
                 //add user in role if not in
                 if (roleID == 1)
                 {
+                    if (!Roles.RoleExists("student"))
+                    {
+                        Roles.CreateRole("student");
+                    }
                     if(!Roles.IsUserInRole(username, "student"))
                     {
                         Roles.AddUserToRole(username, "student");
@@ -216,14 +231,21 @@ namespace PIManager.Login
                 }
                 else
                 {
-
+                    if (!Roles.RoleExists("professor"))
+                    {
+                        Roles.CreateRole("professor");
+                    }
                     if (!Roles.IsUserInRole(username, "professor"))
                     {
                         Roles.AddUserToRole(username, "professor");
                     }
                     
                 }
-                
+
+                user = new MemberShipPIUser();
+                user.PK_Person = pk_person;
+                user.UserName = username;
+                user.IsOnline = true;
                 
             }
 

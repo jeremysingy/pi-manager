@@ -1,0 +1,19 @@
+﻿body {
+  background-color:black;
+  width:21cm;
+  height:29.7cm;
+  font-family:Arial,Verdana;
+}
+
+#page {
+  background-color:white;
+  padding:1cm;
+}
+
+h2 {
+  font-size:14pt;
+}
+
+h3 {
+  font-size:12pt;
+}

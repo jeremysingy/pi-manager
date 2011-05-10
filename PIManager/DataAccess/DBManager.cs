@@ -509,12 +509,16 @@ namespace PIManager.DataAccess
                     person_type = sqldatareader.GetInt32(0);
                 }
 
-
+                sqldatareader.Close();
             }
             catch (SqlException sqlError)
             {
                 transaction.Rollback();
             }
+
+            
+
+            transaction.Commit();
 
             connection.Close();
 
@@ -551,7 +555,32 @@ namespace PIManager.DataAccess
 
         public SqlDataReader getProjectInscriptions()
         {
-            return null;
+            SqlConnection connection = new SqlConnection(DB_CONNECTION_STRING);
+
+            connection.Open();
+
+            SqlTransaction transaction = connection.BeginTransaction(IsolationLevel.ReadCommitted, "showInscriptions");
+
+            string query = "SELECT pr.pk_project, description_xml.value('(//title)[1]', 'varchar(80)') AS title, firstname, lastname FROM project pr, person pe WHERE pr.pk_project = pe.pk_project";
+
+            SqlDataReader sqldatareader = null;
+
+            try
+            {
+
+                SqlCommand command = new SqlCommand(query, connection, transaction);
+
+                sqldatareader = command.ExecuteReader(CommandBehavior.CloseConnection);
+
+                
+            }
+            catch (SqlException sqlError)
+            {
+                transaction.Rollback();
+            }
+
+
+            return sqldatareader;
         }
     }
 }
