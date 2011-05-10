@@ -4,10 +4,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head id="Head1" runat="server">
     <title>Gestion des projets intégrés - Student</title>
-    <!--<link href="~/Styles/Site.css" rel="stylesheet" type="text/css" />-->
     <link rel="stylesheet" href="../Styles/styles.css" type="text/css" media="screen" />
-    <asp:ContentPlaceHolder ID="HeadContent" runat="server">
-    </asp:ContentPlaceHolder>
+    <asp:ContentPlaceHolder ID="HeadContent" runat="server"></asp:ContentPlaceHolder>
 </head>
 <body>
 <form id="Form1" runat="server">
@@ -30,7 +28,8 @@
             <div class="art-Header">
                 <div class="art-Header-jpeg"></div>
                 <div class="art-Logo">
-                    <h1 id="name-text" class="art-Logo-name"><a href="#">Gestion de projets intégrés</a></h1>
+                    <img src="../Images/logo_eia.png" alt="Logo EIA-FR" class="rightimage" />
+                    <h1 id="name-text" class="art-Logo-name">Gestion de projets intégrés</h1>
                     <div id="slogan-text" class="art-Logo-text">Facile et rapide</div>
                 </div>
             </div>
@@ -61,11 +60,11 @@
                                 <div class="art-BlockContent-body">
                                     <div>
                                         <ul>
+                                            <li><a href="/Student/VisuProjectStudent.aspx">Visualiser les projets disponibles</a></li>
+                                            <li><a href="/Student/AddDocument.aspx">Ajouter un document</a></li>
                                             <li>
                                                 <asp:LoginStatus ID="LoginStatus" runat="server" LoginText="Connexion" LogoutText="Déconnexion" LogoutPageUrl="~/Account/Login.aspx" LogoutAction="Redirect" />
                                             </li>
-                                            <li><a href="/Student/VisuProjectStudent.aspx">Visualiser les projets disponibles</a></li>
-                                            <li><a href="/Student/AddDocument.aspx">Ajouter un document</a></li>
                                         </ul>
                                     </div>
                                     <div class="cleared"></div>

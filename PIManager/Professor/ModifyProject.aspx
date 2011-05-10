@@ -1,40 +1,8 @@
-﻿<%@ Page Title="Modification d'un projet" Language="C#" MasterPageFile="~/Site.master"
+﻿<%@ Page Title="Modification d'un projet" Language="C#" MasterPageFile="~/Professor/Professor.master"
     AutoEventWireup="true" CodeBehind="ModifyProject.aspx.cs" Inherits="PIManager.ModifyProject" ValidateRequest="false" %>
 
-<asp:Content ID="HeaderContent" runat="server" ContentPlaceHolderID="HeadContent">
-    <style type="text/css">
-label {
-	display: inline;
-	float: left;
-	width: 180px;
-}
+<asp:Content ID="HeaderContent" runat="server" ContentPlaceHolderID="HeadContent"></asp:Content>
 
-input {
-	width: 300px;
-	margin: 2px;
-}
-
-textarea {
-	width: 300px;
-	height: 150px;
-}
-
-.but 
-{
-    width: 80px;
-}
-
-.center 
-{
-    text-align: center;
-}
-
-.error
-{
-    color: #FF0000;
-}
-</style>
-</asp:Content>
 <asp:Content ID="BodyContent" runat="server" ContentPlaceHolderID="MainContent">
     <h2>Modification du projet :</h2>
     <h3><asp:Label ID="lbName" runat="server" Text="Titre" /></h3>

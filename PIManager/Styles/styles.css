@@ -461,7 +461,8 @@ font-family: Verdana, Geneva, Arial, Helvetica, Sans-Serif;
 
 .art-BlockContent-body a:visited, .art-BlockContent-body a.visited
 {
-	color: #7E8F91;
+	/*color: #7E8F91;*/
+	color: #335B6C;
 font-family: Verdana, Geneva, Arial, Helvetica, Sans-Serif;
 text-decoration: none;
 }
@@ -711,7 +712,8 @@ a:visited, a.visited
 {
 font-family: Verdana, Geneva, Arial, Helvetica, Sans-Serif;
 text-decoration: none;
-  color: #40626D;
+  /*color: #40626D;*/
+  color: #4B88A0;
 }
 
 /* :hover - adds special style to an element when you mouse over it. */
@@ -1073,7 +1075,7 @@ text-decoration: none;
 	border: 0;
 	float: left;
 	overflow: hidden;
-	width: 251px;
+	width: 261px;
 }
 /* end LayoutCell */
 
@@ -1086,7 +1088,10 @@ text-decoration: none;
 	border: 0;
 	float: left;
 	overflow: hidden;
-	width: 753px;
+	width: 723px;
+    margin-left: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 .art-contentLayout .art-content-wide
 {
@@ -1111,3 +1116,43 @@ text-decoration: none;
     
 }
 /* end error & message */
+
+.rightimage
+{
+    float: right;
+    /*margin-top: 20px*/
+}
+
+
+/* Modify project styles */
+
+.art-content label {
+	display: inline;
+	float: left;
+	width: 180px;
+}
+
+.art-content input {
+	width: 300px;
+	margin: 2px;
+}
+
+.art-content textarea {
+	width: 300px;
+	height: 150px;
+}
+
+.art-content .but
+{
+    width: 80px;
+}
+
+.art-content .center
+{
+    text-align: center;
+}
+
+.art-content .error
+{
+    color: #FF0000;
+}
