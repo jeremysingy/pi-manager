@@ -1117,12 +1117,10 @@ text-decoration: none;
 }
 /* end error & message */
 
-.rightimage
+.descriptionPanel ul 
 {
-    float: right;
-    /*margin-top: 20px*/
+    list-style-type:circle;
 }
-
 
 /* Modify project styles */
 
