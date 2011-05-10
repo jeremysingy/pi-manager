@@ -13,6 +13,7 @@ namespace PIManager.DataAccess
         private int myNbStudents;
         private int myClientID;
         private List<Person> myInscriptions;
+        private List<Technology> myTechnology;
 
         public Project(string name, string desc, int nbStudents)
         {
@@ -22,6 +23,7 @@ namespace PIManager.DataAccess
             myNbStudents = nbStudents;
             myClientID = -1;
             myInscriptions = new List<Person>();
+            myTechnology = new List<Technology>();
         }
 
         public Project(int id, string name, string desc, int nbStudents)
@@ -32,7 +34,7 @@ namespace PIManager.DataAccess
             myNbStudents = nbStudents;
             myClientID = -1;
             myInscriptions = new List<Person>();
-
+            myTechnology = new List<Technology>();
         }
 
         public int Id
@@ -74,6 +76,11 @@ namespace PIManager.DataAccess
         public void AddPersonInInscriptions(Person person)
         {
             myInscriptions.Add(person);
+        }
+
+        public void AddTechnologyInMyTechnology(Technology technology)
+        {
+            myTechnology.Add(technology);
         }
 
     }

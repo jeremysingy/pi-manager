@@ -56,6 +56,7 @@
     <Content Include="Account\ChangePasswordSuccess.aspx" />
     <Content Include="Account\Login.aspx" />
     <Content Include="Account\Register.aspx" />
+    <Content Include="Professor\VisualizationGroup.aspx" />
     <Content Include="Student\AddDocument.aspx" />
     <Content Include="Images\01.png" />
     <Content Include="Images\02.png" />
@@ -144,6 +145,13 @@
     </Compile>
     <Compile Include="Account\Register.aspx.designer.cs">
       <DependentUpon>Register.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Professor\VisualizationGroup.aspx.cs">
+      <DependentUpon>VisualizationGroup.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Professor\VisualizationGroup.aspx.designer.cs">
+      <DependentUpon>VisualizationGroup.aspx</DependentUpon>
     </Compile>
     <Compile Include="Student\AddDocument.aspx.cs">
       <DependentUpon>AddDocument.aspx</DependentUpon>
