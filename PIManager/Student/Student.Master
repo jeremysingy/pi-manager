@@ -60,16 +60,15 @@
                                 <div class="art-BlockContent-body">
                                     <div>
                                         <ul>
-                                            <li><a href="/Student/VisuProjectStudent.aspx">Visualiser les projets disponibles</a></li>
-                                            <li><a href="/Student/AddDocument.aspx">Ajouter un document</a></li>
                                             <li>
                                                 <asp:LoginStatus ID="LoginStatus" runat="server" LoginText="Connexion" LogoutText="Déconnexion" LogoutPageUrl="~/Account/Login.aspx" LogoutAction="Redirect" />
                                             </li>
-                                            <li><asp:HyperLink ID="visuProjectsLink" runat="server" NavigateUrl="/Student/VisuProjectStudent.aspx" Text="Visualiser les projets disponibles" /></li>
-                                            <li><asp:HyperLink ID="addDocumentLink" runat="server" NavigateUrl="/Student/AddDocument.aspx" Text="Ajouter un document" /></li>
-                                            <!--<li><a href="/Student/VisuProjectStudent.aspx">Visualiser les projets disponibles</a></li>-->
-                                            <!--<li><a href="/Student/AddDocument.aspx">Ajouter un document</a></li>-->
-                                            
+                                            <li>
+                                                <asp:HyperLink ID="visuProjectsLink" runat="server" NavigateUrl="/Student/VisuProjectStudent.aspx" Text="Visualiser les projets disponibles" />
+                                            </li>
+                                            <li>
+                                                <asp:HyperLink ID="addDocumentLink" runat="server" NavigateUrl="/Student/AddDocument.aspx" Text="Ajouter un document" />
+                                            </li>
                                         </ul>
                                     </div>
                                     <div class="cleared"></div>

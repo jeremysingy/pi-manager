@@ -30,6 +30,8 @@ namespace PIManager.Student
                 visuProjectsLink.Visible = false;
 
                 MemberShipPIUser user = (MemberShipPIUser)Membership.GetUser();
+                if (user == null)
+                    Response.Redirect("/Account/Login.aspx");
                 List<Int32> inscriptions = projectAccess.getInscriptions(user.PK_Person);
                 if (inscriptions.Count != 0)
                     addDocumentLink.Visible = true;
