@@ -63,7 +63,7 @@ namespace PIManager.DAO
         /// <param name="transaction">Transaction to use</param>
         /// <param name="param">Parameters to put for this query</param>
         /// </summary>
-        }
+        
 
         public int doUpdate(string query, SqlConnection connection, SqlTransaction transaction, Dictionary<string, object> param)
         {
