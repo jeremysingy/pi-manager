@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using PIManager.DataAccess;
+using PIManager.DAO;
 using System.Web.Services;
 using System.Xml.XPath;
 using System.Xml;
@@ -12,6 +12,7 @@ using System.IO;
 using System.Xml.Xsl;
 using System.Web.Security;
 using PIManager.Login;
+using PIManager.Models;
 
 namespace PIManager.Visualization
 {
@@ -42,7 +43,7 @@ namespace PIManager.Visualization
 
             // Gets the list of projects and inscriptions of the current student
             List<Project> projects = projectAccess.getProjectList();
-            List<Int32> inscriptions = projectAccess.getInscriptions(user.PK_Person);
+            List<Int32> inscriptions = projectAccess.getInscriptions(user.PkPerson);
             Boolean opened = projectAccess.checkPeriodInscriptionOpen();
 
             // add each available project, passing project id when the person has
@@ -50,9 +51,9 @@ namespace PIManager.Visualization
             for (int row = 0; row < projects.Count; row++)
             {
                 if (inscriptions.Count == 0)
-                    addProject(user.PK_Person, projects.ElementAt(row), opened);
+                    addProject(user.PkPerson, projects.ElementAt(row), opened);
                 else
-                    addProject(user.PK_Person, projects.ElementAt(row), opened, inscriptions.ElementAt(0));
+                    addProject(user.PkPerson, projects.ElementAt(row), opened, inscriptions.ElementAt(0));
             }
         }
 

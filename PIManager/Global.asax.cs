@@ -5,6 +5,9 @@ using System.Web;
 using System.Web.Security;
 using System.Web.SessionState;
 
+// Load the log4net configuration file
+[assembly: log4net.Config.XmlConfigurator(ConfigFile = "Config/Log4Net.config", Watch = true)]
+
 namespace PIManager
 {
     public class Global : System.Web.HttpApplication

@@ -9,16 +9,24 @@ using System.Xml.Linq;
 using System.Data;
 using System.Collections.Specialized;
 using System.Collections;
+using PIManager.Models;
 
-namespace PIManager.DataAccess
+namespace PIManager.DAO
 {
     /// <summary>
-    /// This class gets information about projects from the database.
+    /// Gets information about projects from the database in the model form.
+    /// This is a Data Access Object (DAO)
     /// </summary>
     public class ProjectAccess
     {
+        /// <summary>
+        /// The manager used to connect to the database
+        /// </summary>
         private DBManager myDBManager;
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public ProjectAccess()
         {
             myDBManager = new DBManager();
@@ -54,8 +62,8 @@ namespace PIManager.DataAccess
         /// <summary>
         /// Gets list of inscriptions for a given person
         /// </summary>
-        /// <param name="idPerson">id of person connected to the system</param>
-        /// <returns>a list containing the project the person is subscribed to or an empty list </returns>
+        /// <param name="idPerson">Id of a person connected to the system</param>
+        /// <returns>A list containing the project the person is subscribed to or an empty list </returns>
         public List<Int32> getInscriptions(int idPerson)
         {
             SqlDataReader reader = myDBManager.getInscriptions(idPerson);
@@ -118,28 +126,55 @@ namespace PIManager.DataAccess
             return myDBManager.checkPeriodInscriptionOpen();
         }
 
+        /// <summary>
+        /// Get all the projects that are not opened to show, modify or inherit them
+        /// </summary>
+        /// <returns>A list of projects</returns>
         public List<Project> getProjects()
         {
+            // Query for the attributes of the projects
+            string query = "SELECT pk_project, " +
+                "description_xml.value('(//title)[1]', 'varchar(80)') AS title, " +
+                "description_xml.value('(//abreviation)[1]', 'varchar(50)') AS abreviation, " +
+                "description_xml.query('//description') AS description, " +
+                "description_xml.value('(//student)[1]', 'int') AS nbstudents, " +
+                "pk_person " +
+                "FROM pimanager.dbo.Project " +
+                "WHERE pk_period is NULL";
+
             List<Project> list = new List<Project>();
-            SqlDataReader reader = myDBManager.getProjects();
 
-            while (reader.Read())
+            using (SqlConnection connection = myDBManager.newConnection())
             {
-                int id = (int)reader["pk_project"];
-                string name = (string)reader["title"];
-                string abreviation = (string)reader["abreviation"];
-                string desc = "desc basdfads";
-                int nbStudents = (int)reader["nbstudents"];
-                int clientId = (int)reader["pk_person"];
+                connection.Open();
+                SqlTransaction transaction = connection.BeginTransaction(IsolationLevel.ReadCommitted);
 
-                list.Add(new Project(id, name, abreviation, desc, nbStudents, clientId));
+                SqlDataReader reader = myDBManager.doSelect(query, connection, transaction, new Dictionary<string,object>());
+
+                while (reader.Read())
+                {
+                    int id = (int)reader["pk_project"];
+                    string name = (string)reader["title"];
+                    string abreviation = (string)reader["abreviation"];
+                    string desc = "desc basdfads";
+                    int nbStudents = (int)reader["nbstudents"];
+                    int clientId = (int)reader["pk_person"];
+
+                    list.Add(new Project(id, name, abreviation, desc, nbStudents, clientId));
+                }
+
+                reader.Close();
+                transaction.Commit();
             }
-
-            reader.Close();
 
             return list;
         }
 
+        /// <summary>
+        /// Get a project with all its informations
+        /// </summary>
+        /// <param name="id">The id of hte project to retrieve</param>
+        /// <returns>A project with its informations</returns>
         public Project getProject(int id)
         {
             // Query for the attributes of the project
@@ -148,8 +183,8 @@ namespace PIManager.DataAccess
                 "description_xml.value('(//abreviation)[1]', 'varchar(50)') AS abreviation, " +
                 "description_xml.query('//description/*') AS description, " +
                 "description_xml.value('(//student)[1]', 'int') AS nbstudents, " +
-                "pk_person " +
-                "FROM pimanager.dbo.Project " +
+                "pk_person, pk_parent " +
+                "FROM Project " +
                 "WHERE pk_project = @id";
 
             // Query for the technologies of the project
@@ -165,20 +200,23 @@ namespace PIManager.DataAccess
 
                 // Get the attributes of the project
                 SqlDataReader reader = myDBManager.doSelect(query, connection, transaction, param);
-                reader.Read();
+
+                if (!reader.Read())
+                    throw new Exception("No project with id '" + id + "'");
 
                 string name = (string)reader["title"];
                 string abreviation = (string)reader["abreviation"];
                 string desc = (string)reader["description"];
                 int nbStudents = (int)reader["nbstudents"];
                 int clientId = (int)reader["pk_person"];
+                int parentId = reader.IsDBNull(reader.GetOrdinal("pk_parent")) ? -1 : (int)reader["pk_parent"];
 
                 reader.Close();
 
                 // Get the technologies of the project
                 SqlDataReader readerTechnos = myDBManager.doSelect(queryTechnos, connection, transaction, param);
 
-                Project project = new Project(id, name, abreviation, desc, nbStudents, clientId);
+                Project project = new Project(id, name, abreviation, desc, nbStudents, clientId, parentId);
 
                 while (readerTechnos.Read())
                     project.AddTechnologyId((int)readerTechnos["pk_techno"]);
@@ -190,7 +228,55 @@ namespace PIManager.DataAccess
             }
         }
 
-        public bool modifyProject(int id, Project oldProject, Project newProject, List<Technology> projectTechnos)
+        /// <summary>
+        /// Add a new project to the database
+        /// </summary>
+        /// <param name="newProject">The new project to add</param>
+        /// <param name="projectTechnos">The list if technologies associated with this new project</param>
+        public void addProject(Project newProject, List<Technology> projectTechnos)
+        {
+            using (SqlConnection connection = myDBManager.newConnection())
+            {
+                connection.Open();
+                SqlTransaction transaction = connection.BeginTransaction(IsolationLevel.Serializable);
+
+                List<SqlParameter> paramCreateProj = new List<SqlParameter>();
+                paramCreateProj.Add(new SqlParameter("@title", newProject.Name));
+                paramCreateProj.Add(new SqlParameter("@abreviation", newProject.Abreviation));
+                paramCreateProj.Add(new SqlParameter("@nbstudents", newProject.NbStudents));
+                paramCreateProj.Add(new SqlParameter("@description", newProject.Description));
+                paramCreateProj.Add(new SqlParameter("@clientid", newProject.ClientId));
+
+                // Output parameter to get the new id
+                SqlParameter paramId = new SqlParameter("@createdid", 0);
+                paramId.Direction = ParameterDirection.Output;
+                paramCreateProj.Add(paramId);
+
+                if(newProject.ParentId == -1)
+                    paramCreateProj.Add(new SqlParameter("@parentid", DBNull.Value));
+                else
+                    paramCreateProj.Add(new SqlParameter("@parentid", newProject.ParentId));
+
+                myDBManager.executeProcedure("create_project", connection, transaction, paramCreateProj);
+
+                List<SqlParameter> paramUpdateTechnos = new List<SqlParameter>();
+                paramUpdateTechnos.Add(new SqlParameter("@id", paramId.Value));
+                paramUpdateTechnos.Add(new SqlParameter("@technologies", transformTechnologies(projectTechnos)));
+
+                myDBManager.executeProcedure("update_technos", connection, transaction, paramUpdateTechnos);
+
+                transaction.Commit();
+            }
+        }
+
+        /// <summary>
+        /// Modify an existing project from the database
+        /// </summary>
+        /// <param name="oldProject">The informations of the project before modifying it</param>
+        /// <param name="newProject">The new informations to put for this project</param>
+        /// <param name="projectTechnos">The list if technologies associated with this project</param>
+        /// <returns>true if the project has been added, false otherwise (the project doesn't exist or has been modified before by someone else)</returns>
+        public bool modifyProject(Project oldProject, Project newProject, List<Technology> projectTechnos)
         {
             // Query to get the current project stored in DB
             string selectQuery = "SELECT pk_project, " +
@@ -208,7 +294,7 @@ namespace PIManager.DataAccess
                 SqlTransaction transaction = connection.BeginTransaction(IsolationLevel.Serializable);
 
                 Dictionary<string, object> param = new Dictionary<string, object>();
-                param.Add("@id", id);
+                param.Add("@id", oldProject.Id);
 
                 // Get the current project in DB
                 SqlDataReader reader = myDBManager.doSelect(selectQuery, connection, transaction, param);
@@ -223,26 +309,26 @@ namespace PIManager.DataAccess
                 int clientId = (int)reader["pk_person"];
                 reader.Close();
 
-                Project crtProject = new Project(id, name, abreviation, desc, nbStudents, clientId);
+                Project crtProject = new Project(oldProject.Id, name, abreviation, desc, nbStudents, clientId);
 
                 if (!oldProject.isEquivalent(crtProject))
                     return false;
 
-                Dictionary<string, object> paramUpdateProj = new Dictionary<string, object>();
-                paramUpdateProj.Add("@id", id);
-                paramUpdateProj.Add("@title", newProject.Name);
-                paramUpdateProj.Add("@abreviation", newProject.Abreviation);
-                paramUpdateProj.Add("@nbstudents", newProject.NbStudents);
-                paramUpdateProj.Add("@description", newProject.Description);
-                paramUpdateProj.Add("@clientid", newProject.ClientID);
+                List<SqlParameter> paramUpdateProj = new List<SqlParameter>();
+                paramUpdateProj.Add(new SqlParameter("@id", oldProject.Id));
+                paramUpdateProj.Add(new SqlParameter("@title", newProject.Name));
+                paramUpdateProj.Add(new SqlParameter("@abreviation", newProject.Abreviation));
+                paramUpdateProj.Add(new SqlParameter("@nbstudents", newProject.NbStudents));
+                paramUpdateProj.Add(new SqlParameter("@description", newProject.Description));
+                paramUpdateProj.Add(new SqlParameter("@clientid", newProject.ClientId));
 
                 myDBManager.executeProcedure("dbo.update_project", connection, transaction, paramUpdateProj);
 
-                Dictionary<string, object> paramUpdateTechnos = new Dictionary<string, object>();
-                paramUpdateTechnos.Add("@id", id);
-                paramUpdateTechnos.Add("@technologies", transformTechnologies(projectTechnos));
+                List<SqlParameter> paramUpdateTechnos = new List<SqlParameter>();
+                paramUpdateTechnos.Add(new SqlParameter("@id", oldProject.Id));
+                paramUpdateTechnos.Add(new SqlParameter("@technologies", transformTechnologies(projectTechnos)));
 
-                myDBManager.executeProcedure("pimanager.dbo.update_technos", connection, transaction, paramUpdateTechnos);
+                myDBManager.executeProcedure("dbo.update_technos", connection, transaction, paramUpdateTechnos);
 
                 transaction.Commit();
 
@@ -250,12 +336,17 @@ namespace PIManager.DataAccess
             }
         }
 
+        /// <summary>
+        /// Delete an existing project from the database
+        /// </summary>
+        /// <param name="id">The id of the project to delete</param>
         public void deleteProject(int id)
         {
             string deleteQuery = "DELETE FROM Project WHERE pk_project = @id";
 
             using (SqlConnection connection = myDBManager.newConnection())
             {
+                connection.Open();
                 SqlTransaction transaction = connection.BeginTransaction(IsolationLevel.Serializable);
 
                 Dictionary<string, object> param = new Dictionary<string, object>();
@@ -306,11 +397,16 @@ namespace PIManager.DataAccess
             return projects;
         }
 
-        private string transformTechnologies(List<Technology> myProjectTechnos)
+        /// <summary>
+        /// Transform a list of technologies in the XML form undestood by the stored procedure
+        /// </summary>
+        /// <param name="myProjectTechnos">List of technologies to transform</param>
+        /// <returns>A string in the proper XML form</returns>
+        private string transformTechnologies(List<Technology> technologies)
         {
             string result = "";
 
-            foreach (Technology techno in myProjectTechnos)
+            foreach (Technology techno in technologies)
                 result += "<e>" + techno.Id.ToString() + "</e>";
 
             return result;

@@ -6,7 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.Security;
 using PIManager.Login;
-using PIManager.DataAccess;
+using PIManager.DAO;
 
 namespace PIManager.Student
 {
@@ -30,7 +30,7 @@ namespace PIManager.Student
                 visuProjectsLink.Visible = false;
 
                 MemberShipPIUser user = (MemberShipPIUser)Membership.GetUser();
-                List<Int32> inscriptions = projectAccess.getInscriptions(user.PK_Person);
+                List<Int32> inscriptions = projectAccess.getInscriptions(user.PkPerson);
                 if (inscriptions.Count != 0)
                     addDocumentLink.Visible = true;
                 else

@@ -6,30 +6,37 @@ using System.Data.SqlClient;
 using System.Configuration;
 using System.Data;
 using System.IO;
+using log4net;
+using PIManager.Models;
 
-namespace PIManager.DataAccess
+namespace PIManager.DAO
 {
     /// <summary>
-    /// This class manages accesses to the database.
+    /// Manages access to the database
     /// </summary>
     public class DBManager
     {
-        public readonly string DB_CONNECTION_STRING = ConfigurationManager.ConnectionStrings["PIDBConnection"].ToString();
+        /// <summary>
+        /// Connection string to access the database
+        /// </summary>
+        public static readonly string DB_CONNECTION_STRING = ConfigurationManager.ConnectionStrings["PIDBConnection"].ToString();
 
-        /*
-         * Example of prepared statement
-         * 
-         * SqlCommand command = new SqlCommand(null, connection);
-         * command.CommandText = "SELECT pk_project, description_xml from Project having count(select * from Person where fk_project = pk_project) < nbStudent;";
-         * command.Parameters.Add("@id", 20); // for example...
-         * command.Prepare();
-         */
+        /// <summary>
+        /// Get acces to the unique logger instance
+        /// </summary>
+        private static readonly ILog log = LogManager.GetLogger(typeof(DBManager));
 
+        /// <summary>
+        /// Create a new connection to the database
+        /// </summary>
         public SqlConnection newConnection()
         {
             return new SqlConnection(DB_CONNECTION_STRING);
         }
 
+        /// <summary>
+        /// Perform a select query
+        /// </summary>
         public SqlDataReader doSelect(string query, SqlConnection connection, SqlTransaction transaction, Dictionary<string, object> param)
         {
             SqlCommand command = new SqlCommand(query, connection, transaction);
@@ -40,6 +47,13 @@ namespace PIManager.DataAccess
             return command.ExecuteReader();
         }
 
+        /// <summary>
+        /// Perform an update query
+        /// <param name="query">Query to execute</param>
+        /// <param name="connection">Connection to use</param>
+        /// <param name="transaction">Transaction to use</param>
+        /// <param name="param">Parameters to put for this query</param>
+        /// </summary>
         public int doUpdate(string query, SqlConnection connection, SqlTransaction transaction, Dictionary<string, object> param)
         {
             SqlCommand command = new SqlCommand(query, connection, transaction);
@@ -50,6 +64,13 @@ namespace PIManager.DataAccess
             return command.ExecuteNonQuery();
         }
 
+        /// <summary>
+        /// Perform a delete query
+        /// <param name="query">Query to execute</param>
+        /// <param name="connection">Connection to use</param>
+        /// <param name="transaction">Transaction to use</param>
+        /// <param name="param">Parameters to put for this query</param>
+        /// </summary>
         public int doDelete(string query, SqlConnection connection, SqlTransaction transaction, Dictionary<string, object> param)
         {
             SqlCommand command = new SqlCommand(query, connection, transaction);
@@ -60,6 +81,13 @@ namespace PIManager.DataAccess
             return command.ExecuteNonQuery();
         }
 
+        /// <summary>
+        /// Perform an insert query
+        /// <param name="query">Query to execute</param>
+        /// <param name="connection">Connection to use</param>
+        /// <param name="transaction">Transaction to use</param>
+        /// <param name="param">Parameters to put for this query</param>
+        /// </summary>
         public int doInsert(string query, SqlConnection connection, SqlTransaction transaction, Dictionary<string, object> param)
         {
             query += " SET @newId = SCOPE_IDENTITY()";
@@ -83,17 +111,26 @@ namespace PIManager.DataAccess
             return (int)idParam.Value;
         }
 
-        public void executeProcedure(string name, SqlConnection connection, SqlTransaction transaction, Dictionary<string, object> param)
+        /// <summary>
+        /// Execute a stored procedure
+        /// <param name="name">Name of the stored procedure to execute</param>
+        /// <param name="connection">Connection to use</param>
+        /// <param name="transaction">Transaction to use</param>
+        /// <param name="paramList">Parameters to put for this stored procedure</param>
+        /// </summary>
+        public void executeProcedure(string name, SqlConnection connection, SqlTransaction transaction, List<SqlParameter> paramList)
         {
             SqlCommand command = new SqlCommand(name, connection, transaction);
             command.CommandType = CommandType.StoredProcedure;
 
-            foreach (var pair in param)
-                command.Parameters.AddWithValue(pair.Key, pair.Value);
+            foreach (var param in paramList)
+                command.Parameters.Add(param);
 
             command.ExecuteNonQuery();
         }
 
+        //////////////////////////////////////////////////////////////////////////////////////////
+        // TODO: replace these methods in DAO!
         //////////////////////////////////////////////////////////////////////////////////////////
 
         /// <summary>
@@ -354,123 +391,6 @@ namespace PIManager.DataAccess
             }
         }
 
-        public SqlDataReader getProjects()
-        {
-            SqlConnection connection = new SqlConnection(DB_CONNECTION_STRING);
-
-            string query = "SELECT pk_project, " +
-                            "description_xml.value('(//title)[1]', 'varchar(80)') AS title, " +
-                            "description_xml.value('(//abreviation)[1]', 'varchar(50)') AS abreviation, " +
-                            "description_xml.query('//description') AS description, " +
-                            "description_xml.value('(//student)[1]', 'int') AS nbstudents, " +
-                            "pk_person " +
-                            "FROM pimanager.dbo.Project";
-
-            SqlCommand command = new SqlCommand(query, connection);
-            connection.Open();
-
-            return command.ExecuteReader(CommandBehavior.CloseConnection);
-        }
-
-        /*public SqlDataReader getProject(int id)
-        {
-            SqlConnection connection = new SqlConnection(DB_CONNECTION_STRING);
-            connection.Open();
-
-            SqlTransaction transaction = connection.BeginTransaction(IsolationLevel.ReadCommitted);
-
-            string query = "SELECT pk_project, " +
-                            "description_xml.value('(//title)[1]', 'varchar(80)') AS title, " +
-                            "description_xml.value('(//abreviation)[1]', 'varchar(50)') AS abreviation, " +
-                            "description_xml.query('//description') AS description, " +
-                            "description_xml.value('(//student)[1]', 'int') AS nbstudents, " +
-                            "pk_person" +
-                            "FROM pimanager.dbo.Project " +
-                            "WHERE pk_project = @id";
-
-            SqlCommand command = new SqlCommand(query, connection, transaction);
-            command.Parameters.AddWithValue("@id", id);
-
-            string queryTechnos = "SELECT * FROM Project_Techno WHERE pk_project = @id";
-            SqlCommand commandTechnos = new SqlCommand(queryTechnos, connection, transaction);
-            command.Parameters.AddWithValue("@id", id);
-
-            SqlDataReader 
-
-            return command.ExecuteReader(CommandBehavior.CloseConnection);
-        }*/
-
-        public void addProject(string name, string desc, int nStudents)
-        {
-
-        }
-
-        public bool modifyProject(int id, Project oldProject, Project newProject)
-        {
-            SqlConnection connection = new SqlConnection(DB_CONNECTION_STRING);
-            connection.Open();
-
-            SqlTransaction transaction = connection.BeginTransaction(IsolationLevel.Serializable);
-
-            string selectQuery = "SELECT pk_project, " +
-                "description_xml.value('(//title)[1]', 'varchar(80)') AS title, " +
-                "description_xml.value('(//abreviation)[1]', 'varchar(50)') AS abreviation, " +
-                "description_xml.query('//description') AS description, " +
-                "description_xml.value('(//student)[1]', 'int') AS nbstudents " +
-                "FROM pimanager.dbo.Project " +
-                "WHERE pk_project = @id";
-
-            SqlCommand selectCommand = new SqlCommand(selectQuery, connection, transaction);
-            selectCommand.Parameters.AddWithValue("@id", id);
-
-            SqlDataReader reader = selectCommand.ExecuteReader();
-            string name = (string)reader["title"];
-            string abreviation = (string)reader["abreviation"];
-            string desc = (string)reader["description"];
-            int nbStudents = (int)reader["nbstudents"];
-            Project crtProject = new Project(name, abreviation, desc, nbStudents);
-
-            if(!oldProject.isEquivalent(crtProject))
-            {
-                reader.Close();
-                return false;
-            }
-
-            string updateQuery = "UPDATE pk_project, " +
-                "SET description_xml.modify('replace value of (//title[1]/text() with @title, " +
-                "description_xml.modify('replace value of (//abreviation[1]/text() with @abreviation, " +
-                "description_xml.modify('replace value of //description[1] with @description, " +
-                "description_xml.modify('replace value of //student[1]/text() with @nbstudents " +
-                "WHERE pk_project = @id";
-
-            SqlCommand updateCommand = new SqlCommand(updateQuery, connection, transaction);
-            updateCommand.Parameters.AddWithValue("@id", id);
-            updateCommand.Parameters.AddWithValue("@title", newProject.Name);
-            updateCommand.Parameters.AddWithValue("@abreviation", newProject.Abreviation);
-            updateCommand.Parameters.AddWithValue("@description", newProject.Description);
-            updateCommand.Parameters.AddWithValue("@nbstudents", newProject.NbStudents);
-
-            updateCommand.ExecuteNonQuery();
-            transaction.Commit();
-
-            return true;
-        }
-
-        public void openRegistration()
-        {
-
-        }
-
-        private SqlDataReader selectQuery(string query, SqlTransaction transaction)
-        {
-            SqlConnection connection = new SqlConnection(DB_CONNECTION_STRING);
-            SqlCommand command = new SqlCommand(query, connection, transaction);
-
-            command.Connection.Open();
-
-            return command.ExecuteReader(CommandBehavior.CloseConnection);
-        }
-
         public int getPerson(string login, string pass)
         {
             int pk_person = -1;
@@ -500,9 +420,10 @@ namespace PIManager.DataAccess
 
 
             }
-            catch (SqlException sqlError)
+            catch (SqlException exception)
             {
                 transaction.Rollback();
+                log.Error("Error while getting person: " + exception.Message);
             }
 
             connection.Close();
@@ -516,18 +437,15 @@ namespace PIManager.DataAccess
         public int getPersonType(int pk_person)
         {
             int person_type = -1;
-
             string query = "SELECT role FROM Person WHERE pk_person = @pk_person;";
 
             SqlConnection connection = new SqlConnection(DB_CONNECTION_STRING); //TODO change with anonymous user with limited rigth
-
             connection.Open();
 
             SqlTransaction transaction = connection.BeginTransaction(IsolationLevel.ReadCommitted, "getTypePerson");
 
             try
             {
-
                 SqlCommand command = new SqlCommand(query, connection, transaction);
 
                 command.Parameters.AddWithValue("@pk_person", pk_person);
@@ -541,46 +459,17 @@ namespace PIManager.DataAccess
 
                 sqldatareader.Close();
             }
-            catch (SqlException sqlError)
+            catch (SqlException exception)
             {
                 transaction.Rollback();
+                log.Error("Error getting person type: " + exception.Message);
             }
 
-            
-
             transaction.Commit();
-
             connection.Close();
 
 
             return person_type;
-
-        }
-
-        public SqlDataReader getTechnologies()
-        {
-            SqlConnection connection = new SqlConnection(DB_CONNECTION_STRING);
-
-            string query = "SELECT * FROM Technology";
-
-            SqlCommand command = new SqlCommand(query, connection);
-            connection.Open();
-
-            return command.ExecuteReader(CommandBehavior.CloseConnection);
-        }
-
-        public SqlDataReader getPersons(int role)
-        {
-            SqlConnection connection = new SqlConnection(DB_CONNECTION_STRING);
-
-            string query = "SELECT * FROM Person WHERE role = @role";
-
-            SqlCommand command = new SqlCommand(query, connection);
-            command.Parameters.AddWithValue("@role", role);
-
-            connection.Open();
-
-            return command.ExecuteReader(CommandBehavior.CloseConnection);
         }
 
         public SqlDataReader getProjectInscriptions()
@@ -604,9 +493,10 @@ namespace PIManager.DataAccess
 
                 
             }
-            catch (SqlException sqlError)
+            catch (SqlException exception)
             {
                 transaction.Rollback();
+                log.Error("Error getting project inscriptions: " + exception.Message);
             }
 
 

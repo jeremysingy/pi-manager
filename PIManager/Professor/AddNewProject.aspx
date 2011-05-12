@@ -1,14 +1,10 @@
-﻿<%@ Page Title="Modification d'un projet" Language="C#" MasterPageFile="~/Professor/Professor.master"
-    AutoEventWireup="true" CodeBehind="ModifyProject.aspx.cs" Inherits="PIManager.ModifyProject" ValidateRequest="false" %>
+﻿<%@ Page Title="Saisie d'un nouveau projet" Language="C#" MasterPageFile="~/Professor/Professor.master"
+    AutoEventWireup="true" CodeBehind="AddNewProject.aspx.cs" Inherits="PIManager.Professor.AddNewProject" ValidateRequest="false" %>
 
 <asp:Content ID="HeaderContent" runat="server" ContentPlaceHolderID="HeadContent"></asp:Content>
 
 <asp:Content ID="BodyContent" runat="server" ContentPlaceHolderID="MainContent">
-    <h2>Modification du projet :</h2>
-    <h3><asp:Label ID="lbName" runat="server" Text="Titre" /></h3>
-    <asp:PlaceHolder ID="phError" runat="server" Visible="false">
-        <p class="error">The project has been modified or deleted by another user. Please retry your modifications</p>
-    </asp:PlaceHolder>
+    <h2>Nouveau projet</h2>
     <asp:Label ID="lbTitle" runat="server" Text="Titre :" AssociatedControlID="tbTitle" />
     <asp:TextBox ID="tbTitle" runat="server"></asp:TextBox>
     <asp:RequiredFieldValidator ID="RequiredTitle" runat="server"

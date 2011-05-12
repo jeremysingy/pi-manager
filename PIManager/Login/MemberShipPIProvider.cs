@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Security;
-using PIManager.DataAccess;
+using PIManager.DAO;
 
 namespace PIManager.Login
 {
@@ -243,7 +243,7 @@ namespace PIManager.Login
                 }
 
                 user = new MemberShipPIUser();
-                user.PK_Person = pk_person;
+                user.PkPerson = pk_person;
                 user.UserName = username;
                 user.IsOnline = true;
                 

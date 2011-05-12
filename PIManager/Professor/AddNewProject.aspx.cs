@@ -5,28 +5,28 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using PIManager.DAO;
-using System.Data.SqlClient;
-using System.Configuration;
 using log4net;
 using PIManager.Models;
 
-namespace PIManager
+namespace PIManager.Professor
 {
     /// <summary>
-    /// Page to modify a projectthat is still not opened to the students
+    /// Page to add a new project
     /// </summary>
-    public partial class ModifyProject : System.Web.UI.Page
+    public partial class AddNewProject : System.Web.UI.Page
     {
         /// <summary>
         /// Get acces to the unique logger instance
         /// </summary>
-        private static readonly ILog log = LogManager.GetLogger(typeof(ModifyProject));
+        private static readonly ILog log = LogManager.GetLogger(typeof(AddNewProject));
+
+        protected bool myHasParent = false;
 
         protected ProjectAccess myProjectAccess = new ProjectAccess();
         protected TechnologyAccess myTechnoAccess = new TechnologyAccess();
         protected PersonAccess myPersonAccess = new PersonAccess();
-        
-        protected Project myModifiedProject;
+
+        protected Project myParentProject = null;
         protected List<Technology> myProjectTechnos;
         protected Dictionary<int, Technology> myTechnologies;
 
@@ -41,10 +41,6 @@ namespace PIManager
             {
                 if (!IsPostBack)
                 {
-                    // Show the eventual error
-                    if (Request.QueryString["error"] != null && Request.QueryString["error"] == "1")
-                        phError.Visible = true;
-
                     createSessions();
                     List<Person> persons = myPersonAccess.getPersons(2);
 
@@ -56,7 +52,6 @@ namespace PIManager
             catch (Exception exception)
             {
                 log.Error("Error loading page: " + exception.Message);
-                Response.Redirect("ManageProjects.aspx");
             }
         }
 
@@ -65,8 +60,14 @@ namespace PIManager
         /// </summary>
         protected void createSessions()
         {
-            int projectId = int.Parse(Request.QueryString["id"]);
-            Session["oldProj"] = myModifiedProject = myProjectAccess.getProject(projectId);
+            //Session["parentId"] = myParentId = Request.QueryString["id"] == null ? -1 : int.Parse(Request.QueryString["id"]);
+            int parentId = Request.QueryString["parent"] == null ? -1 : int.Parse(Request.QueryString["parent"]);
+            if (parentId > 0)
+            {
+                Session["parentProj"] = myParentProject = myProjectAccess.getProject(parentId);
+                Session["hasParent"] = myHasParent = true;
+            }
+            
             Session["projectTechnos"] = myProjectTechnos = new List<Technology>();
             Session["technologies"] = myTechnologies = myTechnoAccess.getTechnologies();
         }
@@ -76,7 +77,11 @@ namespace PIManager
         /// </summary>
         protected void getSessions()
         {
-            myModifiedProject = (Project)Session["oldProj"];
+            myHasParent = (bool)Session["hasParent"];
+            
+            if(myHasParent)
+                myParentProject = (Project)Session["parentProj"];
+
             myProjectTechnos = (List<Technology>)Session["projectTechnos"];
             myTechnologies = (Dictionary<int, Technology>)Session["technologies"];
         }
@@ -87,13 +92,16 @@ namespace PIManager
         /// <param name="professors">List of professor to fill the list</param>
         private void fillFields(List<Person> professors)
         {
-            foreach (int id in myModifiedProject.TechnologyIds)
-                myProjectTechnos.Add(myTechnologies[id]);
+            if (myHasParent)
+            {
+                if (myHasParent)
+                    foreach (int id in myParentProject.TechnologyIds)
+                        myProjectTechnos.Add(myTechnologies[id]);
 
-            lbName.Text = myModifiedProject.Name;
-            tbTitle.Text = myModifiedProject.Name;
-            tbAbreviation.Text = myModifiedProject.Abreviation;
-            tbDescription.Text = myModifiedProject.Description;
+                tbTitle.Text = myParentProject.Name;
+                tbAbreviation.Text = myParentProject.Abreviation;
+                tbDescription.Text = myParentProject.Description;
+            }
 
             gridTechnologies.DataSource = myProjectTechnos;
             gridTechnologies.DataBind();
@@ -101,11 +109,14 @@ namespace PIManager
             listTechnologies.DataSource = myTechnologies.Values;
             listTechnologies.DataBind();
 
-            tbNbStudents.Text = myModifiedProject.NbStudents.ToString();
+            if (myHasParent)
+                tbNbStudents.Text = myParentProject.NbStudents.ToString();
 
             listClients.DataSource = professors;
             listClients.DataBind();
-            listClients.SelectedValue = myModifiedProject.ClientId.ToString();
+
+            if (myHasParent)
+                listClients.SelectedValue = myParentProject.ClientId.ToString();
         }
 
         /// <summary>
@@ -127,7 +138,7 @@ namespace PIManager
         /// <param name="e">Arguments of the event</param>
         protected void btAddTechno_Click(object sender, EventArgs e)
         {
-            if (!myProjectTechnos.Contains(myTechnologies[int.Parse(listTechnologies.SelectedValue)]))
+            if(!myProjectTechnos.Contains(myTechnologies[int.Parse(listTechnologies.SelectedValue)]))
                 myProjectTechnos.Add(myTechnologies[int.Parse(listTechnologies.SelectedValue)]);
             gridTechnologies.DataSource = myProjectTechnos;
             gridTechnologies.DataBind();
@@ -140,7 +151,7 @@ namespace PIManager
         /// <param name="e">Arguments of the event</param>
         protected void btCancel_Click(object sender, EventArgs e)
         {
-            Response.Redirect("ManageProjects.aspx");
+            Response.Redirect("AddProject.aspx");
         }
 
         /// <summary>
@@ -156,17 +167,17 @@ namespace PIManager
                 return;
             }
 
-            Project newProject = new Project(myModifiedProject.Id,
-                                             tbTitle.Text,
+            int parentId = myHasParent ? myParentProject.Id : -1;
+
+            Project newProject = new Project(tbTitle.Text,
                                              tbAbreviation.Text,
                                              tbDescription.Text,
                                              int.Parse(tbNbStudents.Text),
-                                             int.Parse(listClients.SelectedValue));
+                                             int.Parse(listClients.SelectedValue),
+                                             parentId);
 
-            if (myProjectAccess.modifyProject(myModifiedProject, newProject, myProjectTechnos))
-                Response.Redirect("ManageProjects.aspx");
-            else
-                Response.Redirect("ModifyProject.aspx?id=" + myModifiedProject.Id + "&error=1");
+            myProjectAccess.addProject(newProject, myProjectTechnos);
+            Response.Redirect("Default.aspx");
         }
     }
 }

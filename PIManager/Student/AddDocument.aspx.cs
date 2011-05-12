@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using PIManager.DataAccess;
+using PIManager.DAO;
 using System.Web.Security;
 using PIManager.Login;
 
@@ -26,7 +26,7 @@ namespace PIManager
             if (user == null)
                 Response.Redirect("/Account/Login.aspx");
 
-            List<Int32> inscriptions = projectAccess.getInscriptions(user.PK_Person);
+            List<Int32> inscriptions = projectAccess.getInscriptions(user.PkPerson);
             bool opened = projectAccess.checkPeriodInscriptionOpen();
             
             // redirects to the default page if accessing this page without having subscribe to a project
