@@ -5,7 +5,8 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Collections;
-using PIManager.DataAccess;
+using PIManager.DAO;
+using PIManager.Models;
 
 namespace PIManager.Professor
 {

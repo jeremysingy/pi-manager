@@ -1,0 +1,14 @@
+2011-05-12 16:11:04,499 [132] ERROR PIManager.ModifyProject [(null)] - Error loading page: Invalid attempt to read when no data is present.
+2011-05-12 16:11:24,621 [20] ERROR PIManager.ModifyProject [(null)] - Error loading page: Invalid attempt to read when no data is present.
+2011-05-12 16:19:23,078 [20] ERROR PIManager.ModifyProject [(null)] - Error loading page: No project with id '4'
+2011-05-12 20:10:14,615 [119] ERROR PIManager.Professor.OpenProject [(null)] - Error loading page: The data in the CheckBoxField 'Id' could not be parsed as a boolean value.  Try using a BoundField instead.
+2011-05-12 20:11:06,525 [116] ERROR PIManager.Professor.OpenProject [(null)] - Error loading page: The data in the CheckBoxField 'Id' could not be parsed as a boolean value.  Try using a BoundField instead.
+2011-05-12 20:16:55,400 [104] ERROR PIManager.Professor.OpenProject [(null)] - Error loading page: The data in the CheckBoxField 'Id' could not be parsed as a boolean value.  Try using a BoundField instead.
+2011-05-12 20:17:37,243 [134] ERROR PIManager.Professor.OpenProject [(null)] - Error loading page: The data in the CheckBoxField 'Id' could not be parsed as a boolean value.  Try using a BoundField instead.
+2011-05-12 20:20:12,196 [115] ERROR PIManager.Professor.OpenProject [(null)] - Error loading page: The data in the CheckBoxField 'Id' could not be parsed as a boolean value.  Try using a BoundField instead.
+2011-05-12 20:20:37,131 [103] ERROR PIManager.Professor.OpenProject [(null)] - Error loading page: The data in the CheckBoxField 'Name' could not be parsed as a boolean value.  Try using a BoundField instead.
+2011-05-12 20:20:38,906 [132] ERROR PIManager.Professor.OpenProject [(null)] - Error loading page: The data in the CheckBoxField 'Name' could not be parsed as a boolean value.  Try using a BoundField instead.
+2011-05-12 20:20:39,808 [130] ERROR PIManager.Professor.OpenProject [(null)] - Error loading page: The data in the CheckBoxField 'Name' could not be parsed as a boolean value.  Try using a BoundField instead.
+2011-05-12 20:22:22,462 [133] ERROR PIManager.Professor.OpenProject [(null)] - Error loading page: The data in the CheckBoxField 'Name' could not be parsed as a boolean value.  Try using a BoundField instead.
+2011-05-12 20:23:13,528 [124] ERROR PIManager.Professor.OpenProject [(null)] - Error loading page: The data in the CheckBoxField 'Name' could not be parsed as a boolean value.  Try using a BoundField instead.
+2011-05-12 20:23:15,968 [133] ERROR PIManager.Professor.OpenProject [(null)] - Error loading page: The data in the CheckBoxField 'Name' could not be parsed as a boolean value.  Try using a BoundField instead.

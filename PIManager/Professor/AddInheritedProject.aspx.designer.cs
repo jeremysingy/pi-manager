@@ -10,15 +10,15 @@
 namespace PIManager.Professor {
     
     
-    public partial class AddProject {
+    public partial class AddInheritedProject {
         
         /// <summary>
-        /// AddList control.
+        /// ProjectsGrid control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.BulletedList AddList;
+        protected global::System.Web.UI.WebControls.GridView ProjectsGrid;
     }
 }

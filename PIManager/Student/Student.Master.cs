@@ -6,7 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.Security;
 using PIManager.Login;
-using PIManager.DataAccess;
+using PIManager.DAO;
 
 namespace PIManager.Student
 {
@@ -32,7 +32,8 @@ namespace PIManager.Student
                 MemberShipPIUser user = (MemberShipPIUser)Membership.GetUser();
                 if (user == null)
                     Response.Redirect("/Account/Login.aspx");
-                List<Int32> inscriptions = projectAccess.getInscriptions(user.PK_Person);
+                List<Int32> inscriptions = projectAccess.getInscriptions(user.PkPerson);
+                    Response.Redirect("/Account/Login.aspx");
                 if (inscriptions.Count != 0)
                     addDocumentLink.Visible = true;
                 else

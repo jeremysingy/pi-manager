@@ -7,28 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace PIManager {
+namespace PIManager.Professor {
     
     
-    public partial class ModifyProject {
-        
-        /// <summary>
-        /// lbName control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbName;
-        
-        /// <summary>
-        /// phError control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder phError;
+    public partial class AddNewProject {
         
         /// <summary>
         /// lbTitle control.

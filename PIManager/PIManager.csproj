@@ -32,6 +32,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Lib\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -57,7 +61,12 @@
     <Content Include="Account\Login.aspx" />
     <Content Include="Account\Register.aspx" />
     <Content Include="Images\logo_eia.png" />
+    <Content Include="Lib\log4net.dll" />
+    <Content Include="Lib\log4net.xml" />
+    <Content Include="Professor\AddInheritedProject.aspx" />
+    <Content Include="Professor\AddNewProject.aspx" />
     <Content Include="Professor\AddProject.aspx" />
+    <Content Include="Professor\OpenProject.aspx" />
     <Content Include="Student\AddDocument.aspx" />
     <Content Include="Images\01.png" />
     <Content Include="Images\02.png" />
@@ -147,12 +156,33 @@
     <Compile Include="Account\Register.aspx.designer.cs">
       <DependentUpon>Register.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Professor\AddInheritedProject.aspx.cs">
+      <DependentUpon>AddInheritedProject.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Professor\AddInheritedProject.aspx.designer.cs">
+      <DependentUpon>AddInheritedProject.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Professor\AddNewProject.aspx.cs">
+      <DependentUpon>AddNewProject.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Professor\AddNewProject.aspx.designer.cs">
+      <DependentUpon>AddNewProject.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Professor\AddProject.aspx.cs">
       <DependentUpon>AddProject.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Professor\AddProject.aspx.designer.cs">
       <DependentUpon>AddProject.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Professor\OpenProject.aspx.cs">
+      <DependentUpon>OpenProject.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Professor\OpenProject.aspx.designer.cs">
+      <DependentUpon>OpenProject.aspx</DependentUpon>
     </Compile>
     <Compile Include="Student\AddDocument.aspx.cs">
       <DependentUpon>AddDocument.aspx</DependentUpon>
@@ -161,13 +191,13 @@
     <Compile Include="Student\AddDocument.aspx.designer.cs">
       <DependentUpon>AddDocument.aspx</DependentUpon>
     </Compile>
-    <Compile Include="DataAccess\Person.cs" />
-    <Compile Include="DataAccess\PersonAccess.cs" />
-    <Compile Include="DataAccess\Project.cs" />
-    <Compile Include="DataAccess\DBManager.cs" />
-    <Compile Include="DataAccess\ProjectAccess.cs" />
-    <Compile Include="DataAccess\Technology.cs" />
-    <Compile Include="DataAccess\TechnologyAccess.cs" />
+    <Compile Include="Models\Person.cs" />
+    <Compile Include="DAO\PersonAccess.cs" />
+    <Compile Include="Models\Project.cs" />
+    <Compile Include="DAO\DBManager.cs" />
+    <Compile Include="DAO\ProjectAccess.cs" />
+    <Compile Include="Models\Technology.cs" />
+    <Compile Include="DAO\TechnologyAccess.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -266,6 +296,7 @@
     <Content Include="Student\Student.Master" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Config\Log4Net.config" />
     <None Include="xslt\schema_description_pi.xsd">
       <SubType>Designer</SubType>
     </None>

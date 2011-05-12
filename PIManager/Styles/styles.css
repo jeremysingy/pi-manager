@@ -512,8 +512,6 @@ line-height: 125%;
 	padding: 12px;
 }
 
-
-
 .art-Post
 {
 	margin: 7px;
@@ -814,10 +812,7 @@ ul
 ol
 {
 	list-style-position:inside;
-	
 }
-
-
 
 .art-Post li
 {
@@ -825,13 +820,15 @@ ol
 	line-height:1.2em;
 }
 
-.art-Post ol li, .art-Post ul ol li
+/*.art-Post ol li, .art-Post ul ol li*/
+.art-content ol li, .art-content ul ol li
 {
 	background: none;
 	padding-left:0;
 }
 
-.art-Post ul li, .art-Post ol ul li 
+/*.art-Post ul li, .art-Post ol ul li */
+.art-content ul li, .art-content ol ul li
 {
 	background-image: url('../Images/PostBullets.png');
 	background-repeat:no-repeat;
@@ -1122,21 +1119,21 @@ text-decoration: none;
     list-style-type:circle;
 }
 
-/* Modify project styles */
+/* Add/Modify project styles */
 
 .art-content label {
 	display: inline;
 	float: left;
-	width: 180px;
+	width: 170px;
 }
 
 .art-content input {
-	width: 300px;
+	width: 250px;
 	margin: 2px;
 }
 
 .art-content textarea {
-	width: 300px;
+	width: 250px;
 	height: 150px;
 }
 
@@ -1145,8 +1142,9 @@ text-decoration: none;
     width: 80px;
 }
 
-.art-content .center
+.art-content .buttons
 {
+    margin-top: 40px;
     text-align: center;
 }
 

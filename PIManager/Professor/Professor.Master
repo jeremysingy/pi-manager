@@ -26,9 +26,8 @@
             
         <div class="art-Sheet-body">
             <div class="art-Header">
-                <div class="art-Header-jpeg"></div>
+                <div class="art-Header-jpeg"><img src="../Images/logo_eia.png" alt="Logo EIA-FR" class="rightimage" /></div>
                 <div class="art-Logo">
-                    <img src="../Images/logo_eia.png" alt="Logo EIA-FR" class="rightimage" />
                     <h1 id="name-text" class="art-Logo-name">Gestion de projets intégrés</h1>
                     <div id="slogan-text" class="art-Logo-text">Facile et rapide</div>
                 </div>
@@ -69,7 +68,7 @@
                                             </li>
                                             <li><a href="AddProject.aspx">Saisir un projet</a></li>
                                             <li><a href="ManageProjects.aspx">Modifier/supprimer des projets</a></li>
-                                            <li><a href="#">Activer des projets</a></li>
+                                            <li><a href="OpenProject.aspx">Ouvrir les inscriptions</a></li>
                                             <li>
                                                 <asp:LoginStatus ID="LoginStatus" runat="server" LoginText="Connexion" LogoutText="Déconnexion" LogoutPageUrl="~/Account/Login.aspx" LogoutAction="Redirect" />
                                             </li>
