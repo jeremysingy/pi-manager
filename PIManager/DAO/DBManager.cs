@@ -26,6 +26,10 @@ namespace PIManager.DAO
         /// </summary>
         private static readonly ILog log = LogManager.GetLogger(typeof(DBManager));
 
+        public static ILog getLog() {
+            return log;
+        }
+
         /// <summary>
         /// Create a new connection to the database
         /// </summary>
@@ -47,6 +51,14 @@ namespace PIManager.DAO
             return command.ExecuteReader();
         }
 
+        /// <summary>
+        /// Perform a select query returning a scalar value.
+        /// </summary>
+        /// <param name="query">Query to execute</param>
+        /// <param name="connection">Connection to use</param>
+        /// <param name="transaction">Transaction to use</param>
+        /// <param name="param">Parameters to put for this query</param>
+        /// <returns></returns>
         public object doSelectScalar(string query, SqlConnection connection, SqlTransaction transaction, Dictionary<string, object> param)
         {
             SqlCommand command = new SqlCommand(query, connection, transaction);
@@ -63,8 +75,6 @@ namespace PIManager.DAO
         /// <param name="transaction">Transaction to use</param>
         /// <param name="param">Parameters to put for this query</param>
         /// </summary>
-        
-
         public int doUpdate(string query, SqlConnection connection, SqlTransaction transaction, Dictionary<string, object> param)
         {
             SqlCommand command = new SqlCommand(query, connection, transaction);
