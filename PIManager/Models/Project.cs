@@ -19,6 +19,7 @@ namespace PIManager.Models
         private int myClientId;
         private List<Person> myInscriptions = new List<Person>();
         private int myParentId;
+		private List<Technology> myTechnology;
 
         /// <summary>
         /// Constructor
@@ -96,6 +97,8 @@ namespace PIManager.Models
             myNbStudents = nbStudents;
             myClientId = clientId;
             myParentId = parentId;
+			myInscriptions = new List<Person>();
+            myTechnology = new List<Technology>();
         }
 
         public int Id
@@ -159,6 +162,11 @@ namespace PIManager.Models
         public void AddPersonInInscriptions(Person person)
         {
             myInscriptions.Add(person);
+        }
+		
+		public void AddTechnologyInMyTechnology(Technology technology)
+        {
+            myTechnology.Add(technology);
         }
 
         public bool isEquivalent(Project other)

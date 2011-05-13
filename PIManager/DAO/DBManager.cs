@@ -265,5 +265,136 @@ namespace PIManager.DAO
 
             return sqldatareader;
         }
+		
+		public SqlDataReader getFullProjects()
+        {
+            SqlConnection connection = new SqlConnection(DB_CONNECTION_STRING);
+
+            connection.Open();
+
+            SqlTransaction transaction = connection.BeginTransaction(IsolationLevel.ReadCommitted, "showProjects");
+
+            string query = "SELECT pr.pk_project, description_xml.value('(//title)[1]', 'varchar(80)') AS title, pe.pk_person FROM project pr, person pe, period time WHERE pr.pk_person = pe.pk_person AND pr.pk_period = time.pk_period AND date_close < getdate()";
+
+            SqlDataReader sqldatareader = null;
+
+            try
+            {
+
+                SqlCommand command = new SqlCommand(query, connection, transaction);
+
+                sqldatareader = command.ExecuteReader(CommandBehavior.CloseConnection);
+
+
+            }
+            catch (SqlException exception)
+            {
+                transaction.Rollback();
+                log.Error("Error getting project inscriptions: " + exception.Message);
+            }
+
+
+            return sqldatareader;
+        }
+
+        public SqlDataReader getPersonName(int pk_person)
+        {
+            SqlConnection connection = new SqlConnection(DB_CONNECTION_STRING);
+
+            connection.Open();
+
+            SqlTransaction transaction = connection.BeginTransaction(IsolationLevel.ReadCommitted, "showPeronName");
+
+            string query = "SELECT firstname, lastname FROM person  WHERE pk_person = @pk_person";
+
+            SqlDataReader sqldatareader = null;
+
+            try
+            {
+
+                SqlCommand command = new SqlCommand(query, connection, transaction);
+
+                command.Parameters.AddWithValue("@pk_person", pk_person);
+
+                sqldatareader = command.ExecuteReader(CommandBehavior.CloseConnection);
+
+
+            }
+            catch (SqlException exception)
+            {
+                transaction.Rollback();
+                log.Error("Error getting project inscriptions: " + exception.Message);
+            }
+
+
+            return sqldatareader;
+        }
+
+        public SqlDataReader getProjectGroup(int pk_project)
+        {
+            SqlConnection connection = new SqlConnection(DB_CONNECTION_STRING);
+
+            connection.Open();
+
+            SqlTransaction transaction = connection.BeginTransaction(IsolationLevel.ReadCommitted, "getProjectGroup");
+
+            string query = "SELECT firstname, lastname FROM person  WHERE pk_project = @pk_project";
+
+            SqlDataReader sqldatareader = null;
+
+            try
+            {
+
+                SqlCommand command = new SqlCommand(query, connection, transaction);
+
+                command.Parameters.AddWithValue("@pk_project", pk_project);
+
+                sqldatareader = command.ExecuteReader(CommandBehavior.CloseConnection);
+
+
+            }
+            catch (SqlException exception)
+            {
+                transaction.Rollback();
+                log.Error("Error getting project inscriptions: " + exception.Message);
+            }
+
+
+            return sqldatareader;
+        }
+
+
+        public SqlDataReader getTechnologyProject(int pk_project)
+        {
+            SqlConnection connection = new SqlConnection(DB_CONNECTION_STRING);
+
+            connection.Open();
+
+            SqlTransaction transaction = connection.BeginTransaction(IsolationLevel.ReadCommitted, "getTechnologyProject");
+
+            string query = "SELECT name FROM project_techno prt, technology t  WHERE prt.pk_project = @pk_project AND prt.pk_techno = t.pk_technology";
+
+            SqlDataReader sqldatareader = null;
+
+            try
+            {
+
+                SqlCommand command = new SqlCommand(query, connection, transaction);
+
+                command.Parameters.AddWithValue("@pk_project", pk_project);
+
+                sqldatareader = command.ExecuteReader(CommandBehavior.CloseConnection);
+
+
+            }
+            catch (SqlException exception)
+            {
+                transaction.Rollback();
+                log.Error("Error getting project inscriptions: " + exception.Message);
+            }
+
+
+            return sqldatareader;
+        }
     }
 }
