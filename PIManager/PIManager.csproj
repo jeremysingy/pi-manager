@@ -63,6 +63,7 @@
     <Content Include="Account\ChangePasswordSuccess.aspx" />
     <Content Include="Account\Login.aspx" />
     <Content Include="Account\Register.aspx" />
+    <Content Include="Professor\VisualizationGroup.aspx" />
     <Content Include="Images\logo_eia.png" />
     <Content Include="Lib\log4net.dll" />
     <Content Include="Lib\log4net.xml" />
@@ -159,6 +160,13 @@
     </Compile>
     <Compile Include="Account\Register.aspx.designer.cs">
       <DependentUpon>Register.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Professor\VisualizationGroup.aspx.cs">
+      <DependentUpon>VisualizationGroup.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Professor\VisualizationGroup.aspx.designer.cs">
+      <DependentUpon>VisualizationGroup.aspx</DependentUpon>
     </Compile>
     <Compile Include="Professor\AddInheritedProject.aspx.cs">
       <DependentUpon>AddInheritedProject.aspx</DependentUpon>

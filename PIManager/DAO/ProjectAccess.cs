@@ -552,5 +552,91 @@ namespace PIManager.DAO
 
             return result;
         }
+		
+		public List<Project> getFullProject()
+        {
+            List<Project> projects = new List<Project>();
+
+            SqlDataReader reader = myDBManager.getFullProjects();
+
+            while (reader.Read())
+            {
+                int id = (int)reader["pk_project"];
+                string name = (string)reader["title"];
+                int clientID = (int)reader["pk_person"];
+
+                Project project = new Project(id, name, "", 0);
+                project.ClientID = clientID;
+                projects.Add(project);
+
+            }
+
+            reader.Close();
+
+            return projects;
+        }
+
+        public string getPersonCompletName(int pk_person)
+        {
+            string personName = "";
+
+            SqlDataReader reader = myDBManager.getPersonName(pk_person);
+
+            while (reader.Read())
+            {
+
+                string firstname = (string)reader["firstname"];
+                string lastname = (string)reader["lastname"];
+
+                personName += firstname + " " + lastname;
+
+            }
+
+            reader.Close();
+
+            return personName;
+        }
+
+        public List<Person> getProjectGroup(int pk_project)
+        {
+            List<Person> persons = new List<Person>();
+
+            SqlDataReader reader = myDBManager.getProjectGroup(pk_project);
+
+            while (reader.Read())
+            {
+
+                string firstname = (string)reader["firstname"];
+                string lastname = (string)reader["lastname"];
+
+                persons.Add(new Person(0, lastname, firstname, "", "", 1));
+
+            }
+
+            reader.Close();
+
+            return persons;
+        }
+
+        public List<Technology> getTechnologyProject(int pk_project)
+        {
+            List<Technology> technologys = new List<Technology>();
+
+            SqlDataReader reader = myDBManager.getTechnologyProject(pk_project);
+
+            while (reader.Read())
+            {
+
+                string technology_name = (string)reader["name"];
+
+
+                technologys.Add(new Technology(0, technology_name));
+
+            }
+
+            reader.Close();
+
+            return technologys;
+        }
     }
 }
