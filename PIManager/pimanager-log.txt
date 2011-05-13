@@ -12,3 +12,7 @@
 2011-05-12 20:22:22,462 [133] ERROR PIManager.Professor.OpenProject [(null)] - Error loading page: The data in the CheckBoxField 'Name' could not be parsed as a boolean value.  Try using a BoundField instead.
 2011-05-12 20:23:13,528 [124] ERROR PIManager.Professor.OpenProject [(null)] - Error loading page: The data in the CheckBoxField 'Name' could not be parsed as a boolean value.  Try using a BoundField instead.
 2011-05-12 20:23:15,968 [133] ERROR PIManager.Professor.OpenProject [(null)] - Error loading page: The data in the CheckBoxField 'Name' could not be parsed as a boolean value.  Try using a BoundField instead.
+2011-05-13 10:23:10,303 [10] ERROR PIManager.Professor.AddNewProject [(null)] - Error loading page: Object reference not set to an instance of an object.
+2011-05-13 10:24:35,549 [10] ERROR PIManager.Professor.AddNewProject [(null)] - Error loading page: Object reference not set to an instance of an object.
+2011-05-13 11:13:27,893 [4] ERROR PIManager.Professor.AddNewProject [(null)] - Error loading page: Object reference not set to an instance of an object.
+2011-05-13 11:23:31,841 [16] ERROR PIManager.DAO.DBManager [(null)] - Error saving inscription of student: Input string was not in a correct format.
