@@ -10,6 +10,7 @@ using System.Data;
 using System.Collections.Specialized;
 using System.Collections;
 using PIManager.Models;
+using System.IO;
 
 namespace PIManager.DAO
 {
@@ -38,22 +39,38 @@ namespace PIManager.DAO
         /// <returns>List of projects opened for inscription</returns>
         public List<Project> getProjectList()
         {
-            SqlDataReader reader = myDBManager.getProjectList();
-
-            // If there is no project available, return an empty list.
-            if (!reader.HasRows) return new List<Project>();
+            string query = "SELECT pk_project, " +
+                           "description_XML.query('data(//title)') AS title, " +
+                           "description_xml.value('(//abreviation)[1]', 'varchar(50)') AS abreviation, " +
+                           "description_XML.value(N'(//student)[1]', 'integer') AS nbStudent " +
+                           "FROM pimanager.dbo.Project " +
+                           "WHERE description_XML.value(N'(//student)[1]', 'integer') > (SELECT COUNT(*) FROM Person WHERE Person.pk_project = Project.pk_project);";
 
             List<Project> projectList = new List<Project>();
 
-            while (reader.Read())
+            using (SqlConnection connection = myDBManager.newConnection())
             {
-                int idProject = reader.GetInt32(reader.GetOrdinal("pk_project"));
-                String titleProject = reader.GetString(reader.GetOrdinal("title"));
-                String abreviationProject = reader.GetString(reader.GetOrdinal("abreviation"));
-                int nbStudent = reader.GetInt32(reader.GetOrdinal("nbStudent"));
-                
-                Project project = new Project(idProject, titleProject, abreviationProject, null, nbStudent, -1);
-                projectList.Add(project);
+                connection.Open();
+                SqlTransaction transaction = connection.BeginTransaction(IsolationLevel.ReadCommitted);
+
+                SqlDataReader reader = myDBManager.doSelect(query,connection,transaction,new Dictionary<string,object>());
+
+                // if there is no project available, return an empty list.
+                if(!reader.HasRows) return projectList;
+
+                while(reader.Read()) 
+                {
+                    int idProject = (int)reader["pk_project"];
+                    string titleProject = (string)reader["title"];
+                    string abreviationProject = (string)reader["abreviation"];
+                    int nbStudent = (int)reader["nbStudent"];
+
+                    Project project = new Project(idProject, titleProject, abreviationProject, null, nbStudent, -1);
+                    projectList.Add(project);
+                }
+
+                reader.Close();
+                transaction.Commit();
             }
 
             return projectList;
@@ -66,22 +83,32 @@ namespace PIManager.DAO
         /// <returns>A list containing the project the person is subscribed to or an empty list </returns>
         public List<Int32> getInscriptions(int idPerson)
         {
-            SqlDataReader reader = myDBManager.getInscriptions(idPerson);
+            string query = "SELECT pk_project FROM Person WHERE pk_person = @PERSON;";
+
+            Dictionary<string, object> param = new Dictionary<string, object>();
+            param.Add("@PERSON", idPerson);
 
             // We use a list to detect if a student has subscribe for a project or not.
             // By returning an empty list, this means there is no subscription for this person.
-            List<Int32> inscriptionList = new List<Int32>();
+            List<int> inscriptionList = new List<int>();
 
-            while (reader.Read())
+            using (SqlConnection connection = myDBManager.newConnection())
             {
-                if (!reader.IsDBNull(reader.GetOrdinal("pk_project")))
-                {
-                    int idProject = reader.GetInt32(reader.GetOrdinal("pk_project"));
-                    inscriptionList.Add(idProject);
-                }
-                
-            }
+                connection.Open();
+                SqlTransaction transaction = connection.BeginTransaction(IsolationLevel.ReadCommitted);
+                SqlDataReader reader = myDBManager.doSelect(query, connection, transaction, param);
 
+                while (reader.Read())
+                {
+                    if (!reader.IsDBNull(reader.GetOrdinal("pk_project")))
+                    {
+                        int idProject = (int)reader["pk_project"];
+                        inscriptionList.Add(idProject);
+                    }
+                }
+                reader.Close();
+                transaction.Commit();
+            }
             return inscriptionList;
         }
 
@@ -93,7 +120,51 @@ namespace PIManager.DAO
         /// <returns>true if inscription has been done, otherwise false</returns>
         public Boolean saveInscription(int idPerson, int idProject)
         {
-            return myDBManager.inscriptionProjectTransaction(idPerson, idProject);
+            bool saveDone = false;
+            string query = "SELECT count(*) FROM Project WHERE pk_project = @PK_PROJECT" +
+                           " AND description_XML.value(N'(//student)[1]', 'integer') > (SELECT COUNT(*) FROM Person WHERE Person.pk_project = Project.pk_project);";
+                        
+            Dictionary<string, object> param = new Dictionary<string, object>();
+            param.Add("@PK_PROJECT", idProject);
+
+            using (SqlConnection connection = myDBManager.newConnection())
+            {
+                connection.Open();
+                SqlTransaction transaction = connection.BeginTransaction(IsolationLevel.Serializable);
+
+                // Checks if the project is still available.
+                int available = (int)myDBManager.doSelectScalar(query, connection, transaction, param);
+                if (available != 0)
+                {
+                    // Checks if the student is still not subscribed to a project
+                    query = "SELECT pk_project FROM Person WHERE pk_person = @PK_PERSON;";
+                    param.Clear();
+                    param.Add("@PK_PERSON", idPerson);
+    
+                    object personProject = myDBManager.doSelectScalar(query, connection, transaction, param);
+                    if (personProject != null)
+                    {
+                        // saves the inscription of the student on the project
+                        query = "UPDATE Person SET pk_project = @PK_PROJECT WHERE pk_person = @PK_PERSON;";
+                        param.Clear();
+                        param.Add("@PK_PROJECT", idProject);
+                        param.Add("@PK_PERSON", idPerson);
+
+                        int affected = myDBManager.doUpdate(query, connection, transaction, param);
+                        if (affected == 1)
+                        {
+                            transaction.Commit();
+                            saveDone = true;
+                        }
+                    }
+                }
+
+                // In case project isn't available or student has already subscribed for a project...
+                if (!saveDone)
+                    transaction.Rollback();
+            }
+
+            return saveDone;
         }
 
         /// <summary>
@@ -103,7 +174,27 @@ namespace PIManager.DAO
         /// <returns>true if subscription has been canceled, otherwise false</returns>
         public Boolean cancelInscription(int idPerson)
         {
-            return myDBManager.cancelInscriptionTransaction(idPerson);
+            string query = "UPDATE Person SET pk_project = NULL WHERE pk_person = @PK_PERSON;";
+            Dictionary<string, object> param = new Dictionary<string, object>();
+            param.Add("@PK_PERSON", idPerson);
+
+            using (SqlConnection connection = myDBManager.newConnection())
+            {
+                connection.Open();
+                SqlTransaction transaction = connection.BeginTransaction(IsolationLevel.ReadUncommitted);
+
+                int affected = myDBManager.doUpdate(query, connection, transaction, param);
+                if (affected == 1)
+                {
+                    transaction.Commit();
+                    return true;
+                }
+                else
+                {
+                    transaction.Rollback();
+                    return false;
+                }
+            }
         }
 
         /// <summary>
@@ -114,7 +205,34 @@ namespace PIManager.DAO
         /// <returns>true if adding has been done, otherwise false</returns>
         public Boolean addDocument(int pk_project, HttpPostedFile file)
         {
-            return myDBManager.addDocumentTransaction(pk_project, file);
+            // conversion of HttpPostedFile into byte[]
+            byte[] fileData = null;
+            using (var binaryReader = new BinaryReader(file.InputStream))
+            {
+                fileData = binaryReader.ReadBytes(file.ContentLength);
+            }
+
+            string query = "UPDATE Project SET documents = @DOCUMENT WHERE pk_project = @PROJECTID";
+            Dictionary<string, object> param = new Dictionary<string, object>();
+            param.Add("@DOCUMENT", fileData);
+            param.Add("@PROJECTID", pk_project);
+
+            using (SqlConnection connection = myDBManager.newConnection())
+            {
+                connection.Open();
+                SqlTransaction transaction = connection.BeginTransaction(IsolationLevel.Serializable);
+                int affected = myDBManager.doUpdate(query, connection, transaction, param);
+                if (affected == 1)
+                {
+                    transaction.Commit();
+                    return true;
+                }
+                else
+                {
+                    transaction.Rollback();
+                    return false;
+                }
+            }
         }
 
         /// <summary>
@@ -123,7 +241,25 @@ namespace PIManager.DAO
         /// <returns>true if it is opened, otherwise false</returns>
         public Boolean checkPeriodInscriptionOpen()
         {
-            return myDBManager.checkPeriodInscriptionOpen();
+            string currentDate = System.DateTime.Now.ToString();
+            using (SqlConnection connection = myDBManager.newConnection())
+            {
+                connection.Open();
+
+                string query = "SELECT COUNT(*) FROM Period WHERE @currentDate > date_open AND @currentDate < date_close;";
+                SqlTransaction transaction = connection.BeginTransaction(IsolationLevel.ReadCommitted, "periodInscriptionOpen");
+                SqlCommand command = connection.CreateCommand();
+                command.Connection = connection;
+                command.Transaction = transaction;
+                command.CommandText = query;
+                command.Parameters.Add("@currentDate", SqlDbType.DateTime).Value = currentDate;
+
+                int opened = (int)command.ExecuteScalar();
+
+                transaction.Commit();
+
+                return opened != 0;
+            }
         }
 
         /// <summary>
