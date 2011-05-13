@@ -4,7 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using PIManager.DataAccess;
+using PIManager.DAO;
+using PIManager.Models;
 
 namespace PIManager.Professor
 {
@@ -64,7 +65,7 @@ namespace PIManager.Professor
 
             foreach (Project project in projects)
             {
-                string clientName = projectAccess.getPersonCompletName(project.ClientID);
+                string clientName = projectAccess.getPersonCompletName(project.ClientId);
                 List<Technology> technologys = projectAccess.getTechnologyProject(project.Id);
                 List<Person> groups = projectAccess.getProjectGroup(project.Id);
                 AddTableLine(project.Id.ToString(), project.Name, technologys, groups, clientName);

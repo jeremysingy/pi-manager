@@ -362,7 +362,7 @@ namespace PIManager.DAO
             string query = "SELECT pk_project, " +
                 "description_xml.value('(//title)[1]', 'varchar(80)') AS title, " +
                 "description_xml.value('(//abreviation)[1]', 'varchar(50)') AS abreviation, " +
-                "description_xml.query('//description') AS description, " +
+                "description_xml.query('//description/*') AS description, " +
                 "description_xml.value('(//student)[1]', 'int') AS nbstudents, " +
                 "pk_person " +
                 "FROM pimanager.dbo.Project " +
@@ -382,7 +382,7 @@ namespace PIManager.DAO
                     int id = (int)reader["pk_project"];
                     string name = (string)reader["title"];
                     string abreviation = (string)reader["abreviation"];
-                    string desc = "desc basdfads";
+                    string desc = (string)reader["description"];
                     int nbStudents = (int)reader["nbstudents"];
                     int clientId = (int)reader["pk_person"];
 
@@ -650,9 +650,9 @@ namespace PIManager.DAO
                 string name = (string)reader["title"];
                 int clientID = (int)reader["pk_person"];
 
-                Project project = new Project(id, name, "", 0);
-                project.ClientID = clientID;
-                projects.Add(project);
+                /*Project project = new Project(id, name, "", 0);
+                project.ClientId = clientID;
+                projects.Add(project);*/
 
             }
 
