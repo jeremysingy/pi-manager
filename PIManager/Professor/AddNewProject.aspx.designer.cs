@@ -7,19 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace PIManager {
+namespace PIManager.Professor {
     
     
-    public partial class ModifyProject {
-        
-        /// <summary>
-        /// lbName control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbName;
+    public partial class AddNewProject {
         
         /// <summary>
         /// lbTitle control.
@@ -38,6 +29,15 @@ namespace PIManager {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbTitle;
+        
+        /// <summary>
+        /// RequiredTitle control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredTitle;
         
         /// <summary>
         /// ValidateTitle control.
@@ -65,6 +65,15 @@ namespace PIManager {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbAbreviation;
+        
+        /// <summary>
+        /// RequiredAbreviation control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredAbreviation;
         
         /// <summary>
         /// ValidateAbreviation control.
@@ -130,6 +139,15 @@ namespace PIManager {
         protected global::System.Web.UI.WebControls.Button btAddTechno;
         
         /// <summary>
+        /// lbErrorTechnos control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbErrorTechnos;
+        
+        /// <summary>
         /// lbNbStudents control.
         /// </summary>
         /// <remarks>
@@ -146,6 +164,15 @@ namespace PIManager {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbNbStudents;
+        
+        /// <summary>
+        /// RequiredNbStudents control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredNbStudents;
         
         /// <summary>
         /// ValidateNbStudents control.

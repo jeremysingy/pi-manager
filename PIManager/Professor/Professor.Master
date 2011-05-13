@@ -4,10 +4,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head id="Head1" runat="server">
     <title>Gestion des projets intégrés - Professeur</title>
-    <!--<link href="~/Styles/Site.css" rel="stylesheet" type="text/css" />-->
     <link rel="stylesheet" href="../Styles/styles.css" type="text/css" media="screen" />
-    <asp:ContentPlaceHolder ID="HeadContent" runat="server">
-    </asp:ContentPlaceHolder>
+    <asp:ContentPlaceHolder ID="HeadContent" runat="server"></asp:ContentPlaceHolder>
 </head>
 <body>
 <form id="Form1" runat="server">
@@ -28,9 +26,9 @@
             
         <div class="art-Sheet-body">
             <div class="art-Header">
-                <div class="art-Header-jpeg"></div>
+                <div class="art-Header-jpeg"><img src="../Images/logo_eia.png" alt="Logo EIA-FR" class="rightimage" /></div>
                 <div class="art-Logo">
-                    <h1 id="name-text" class="art-Logo-name"><a href="#">Gestion de projets intégrés</a></h1>
+                    <h1 id="name-text" class="art-Logo-name">Gestion de projets intégrés</h1>
                     <div id="slogan-text" class="art-Logo-text">Facile et rapide</div>
                 </div>
             </div>
@@ -62,18 +60,18 @@
                                     <div>
                                         <ul>
                                             <li>
-                                                <asp:LoginStatus ID="LoginStatus" runat="server" LoginText="Connexion" LogoutText="Déconnexion" LogoutPageUrl="~/Account/Login.aspx" LogoutAction="Redirect" />
-                                            </li>
-                                            <li>
                                                 Visualiser
                                                 <ul>
                                                     <li><a href="/Professor/VisualizationGroup.aspx">Projets</a></li>
                                                     <li><a href="/Professor/VisualizationInscription.aspx">Inscriptions</a></li>
                                                 </ul>
                                             </li>
-                                            <li><a href="#">Saisir un projet</a></li>
-                                            <li><a href="#">Activer des projets</a></li>
-                                            <li><a href="#">Déconnexion</a></li>
+                                            <li><a href="AddProject.aspx">Saisir un projet</a></li>
+                                            <li><a href="ManageProjects.aspx">Modifier/supprimer des projets</a></li>
+                                            <li><a href="OpenProject.aspx">Ouvrir les inscriptions</a></li>
+                                            <li>
+                                                <asp:LoginStatus ID="LoginStatus" runat="server" LoginText="Connexion" LogoutText="Déconnexion" LogoutPageUrl="~/Account/Login.aspx" LogoutAction="Redirect" />
+                                            </li>
                                         </ul>
                                     </div>
                                     <div class="cleared"></div>

@@ -1,59 +1,44 @@
-﻿<%@ Page Title="Modification d'un projet" Language="C#" MasterPageFile="~/Site.master"
+﻿<%@ Page Title="Modification d'un projet" Language="C#" MasterPageFile="~/Professor/Professor.master"
     AutoEventWireup="true" CodeBehind="ModifyProject.aspx.cs" Inherits="PIManager.ModifyProject" ValidateRequest="false" %>
 
-<asp:Content ID="HeaderContent" runat="server" ContentPlaceHolderID="HeadContent">
-    <style type="text/css">
-label {
-	display: inline;
-	float: left;
-	width: 180px;
-}
+<asp:Content ID="HeaderContent" runat="server" ContentPlaceHolderID="HeadContent"></asp:Content>
 
-input {
-	width: 300px;
-	margin: 2px;
-}
-
-textarea {
-	width: 300px;
-	height: 150px;
-}
-
-.but 
-{
-    width: 80px;
-}
-
-.center 
-{
-    text-align: center;
-}
-
-.error
-{
-    color: #FF0000;
-}
-</style>
-</asp:Content>
 <asp:Content ID="BodyContent" runat="server" ContentPlaceHolderID="MainContent">
     <h2>Modification du projet :</h2>
     <h3><asp:Label ID="lbName" runat="server" Text="Titre" /></h3>
+    <asp:PlaceHolder ID="phError" runat="server" Visible="false">
+        <p class="error">The project has been modified or deleted by another user. Please retry your modifications</p>
+    </asp:PlaceHolder>
     <asp:Label ID="lbTitle" runat="server" Text="Titre :" AssociatedControlID="tbTitle" />
     <asp:TextBox ID="tbTitle" runat="server"></asp:TextBox>
+    <asp:RequiredFieldValidator ID="RequiredTitle" runat="server"
+        ErrorMessage="Titre obligatoire" 
+        ControlToValidate="tbTitle" 
+        Display="Dynamic"
+        CssClass="error">
+    </asp:RequiredFieldValidator>
     <asp:RegularExpressionValidator ID="ValidateTitle" runat="server" 
         ErrorMessage="Le titre dépasse 80 caractères" 
         ControlToValidate="tbTitle" 
-        ValidationExpression="^[\w\s]{1,80}$" 
-        Display="Dynamic">
+        ValidationExpression="^[\s\S]{1,80}$" 
+        Display="Dynamic"
+        CssClass="error">
     </asp:RegularExpressionValidator>
     <br />
     <asp:Label ID="lbAbreviation" runat="server" Text="Abréviation :" AssociatedControlID="tbAbreviation" />
     <asp:TextBox ID="tbAbreviation" runat="server"></asp:TextBox>
+    <asp:RequiredFieldValidator ID="RequiredAbreviation" runat="server"
+        ErrorMessage="Abréviation obligatoire" 
+        ControlToValidate="tbAbreviation" 
+        Display="Dynamic"
+        CssClass="error">
+    </asp:RequiredFieldValidator>
     <asp:RegularExpressionValidator ID="ValidateAbreviation" runat="server" 
         ErrorMessage="L'abréviation dépasse 50 caractères" 
         ControlToValidate="tbAbreviation" 
-        ValidationExpression="^[\w\s]{1,50}$" 
-        Display="Dynamic">
+        ValidationExpression="^[\s\S]{1,50}$" 
+        Display="Dynamic"
+        CssClass="error">
     </asp:RegularExpressionValidator>
     <br />
     <asp:Label ID="lbDescription" runat="server" Text="Description :" AssociatedControlID="tbDescription" />
@@ -71,20 +56,28 @@ textarea {
     <asp:DropDownList ID="listTechnologies" runat="server" DataValueField="Id" DataTextField="Name"></asp:DropDownList>
     <asp:Button ID="btAddTechno" runat="server" Text="Ajouter" CssClass="but" 
         onclick="btAddTechno_Click" CausesValidation="false" />
+    <asp:Label ID="lbErrorTechnos" runat="server" Text="Une technologie est obligatoire" Visible="false" CssClass="error" />
     <br /><br />
     <asp:Label ID="lbNbStudents" runat="server" Text="Nombre d'étudiants :" AssociatedControlID="tbNbStudents" />
     <asp:TextBox ID="tbNbStudents" runat="server"></asp:TextBox>
+    <asp:RequiredFieldValidator ID="RequiredNbStudents" runat="server"
+        ErrorMessage="Nombre d'étudiants obligatoire" 
+        ControlToValidate="tbNbStudents" 
+        Display="Dynamic"
+        CssClass="error">
+    </asp:RequiredFieldValidator>
     <asp:RegularExpressionValidator ID="ValidateNbStudents" runat="server" 
-        ErrorMessage="Le nombre d'étudiants n'est pas valide" 
+        ErrorMessage="Nombre d'étudiants non valide" 
         ControlToValidate="tbNbStudents" 
         ValidationExpression="^\d+$" 
-        Display="Dynamic">
+        Display="Dynamic"
+        CssClass="error">
     </asp:RegularExpressionValidator>
     <br />
     <asp:Label ID="lbClients" runat="server" Text="Client :" AssociatedControlID="listClients" />
     <asp:DropDownList ID="listClients" runat="server" DataValueField="Id" DataTextField="CompleteName"></asp:DropDownList>
     <br />
-    <div class="center">
+    <div class="buttons">
         <asp:Button ID="btCancel" runat="server" Text="Annuler" CssClass="but" onclick="btCancel_Click" />
         <asp:Button ID="btSubmit" runat="server" Text="Valider" CssClass="but" onclick="btSubmit_Click" />
     </div>

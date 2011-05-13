@@ -7,19 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace PIManager {
+namespace PIManager.Professor {
     
     
-    public partial class ManageProjects {
-        
-        /// <summary>
-        /// lbError control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbError;
+    public partial class OpenProject {
         
         /// <summary>
         /// ProjectsGrid control.
@@ -29,5 +20,23 @@ namespace PIManager {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView ProjectsGrid;
+        
+        /// <summary>
+        /// btCancel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btCancel;
+        
+        /// <summary>
+        /// btSubmit control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btSubmit;
     }
 }

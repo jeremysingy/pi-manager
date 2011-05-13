@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace PIManager.DataAccess
+namespace PIManager.Models
 {
+    /// <summary>
+    /// Represent a person
+    /// </summary>
     public class Person
     {
         private int myId;
@@ -14,7 +17,15 @@ namespace PIManager.DataAccess
         private string myLogin;
         private int myRole;
         
-
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="id">Id of the person</param>
+        /// <param name="lastName">Last name of the person</param>
+        /// <param name="firstName">First name of the person</param>
+        /// <param name="email">Email of the person</param>
+        /// <param name="login">Login of the person</param>
+        /// <param name="role">Role of the person (student or professor)</param>
         public Person(int id, string lastName, string firstName, string email, string login, int role)
         {
             myId = id;
