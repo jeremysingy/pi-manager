@@ -584,6 +584,11 @@ namespace PIManager.DAO
             }
         }
 
+        public void openRegistration(HashSet<int> ids)
+        {
+
+        }
+
         public Hashtable getProjectInscriptions()
         {
 

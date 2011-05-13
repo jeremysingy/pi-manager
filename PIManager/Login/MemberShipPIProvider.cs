@@ -242,11 +242,10 @@ namespace PIManager.Login
                     
                 }
 
-                user = new MemberShipPIUser();
-                user.PkPerson = pk_person;
+                user = new MemberShipPIUser(pk_person, username, true);
+                /*user.PkPerson = pk_person;
                 user.UserName = username;
-                user.IsOnline = true;
-                
+                user.IsOnline = true;*/
             }
 
             return ok;

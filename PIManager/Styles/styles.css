@@ -1152,3 +1152,8 @@ text-decoration: none;
 {
     color: #FF0000;
 }
+
+.art-content input.buttoncal
+{
+    width: 30px;
+}
