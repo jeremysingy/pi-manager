@@ -584,6 +584,12 @@ namespace PIManager.DAO
             }
         }
 
+        /// <summary>
+        /// Open a project to registration, so that students can register to
+        /// </summary>
+        /// <param name="ids">The ids of the projects to open</param>
+        /// <param name="dateOpen">The open date period</param>
+        /// <param name="dateClose">The closing date period</param>
         public void openRegistration(HashSet<int> ids, DateTime dateOpen, DateTime dateClose)
         {
             string insertQuery = "INSERT INTO Period (date_open, date_close, year) " +
@@ -612,9 +618,12 @@ namespace PIManager.DAO
             }
         }
 
+        /// <summary>
+        /// Get all registrations of all projects
+        /// </summary>
+        /// <returns>Hash table containing all the projects with registrations</returns>
         public Hashtable getProjectInscriptions()
         {
-
             Hashtable projects = new Hashtable();
 
             SqlDataReader reader = myDBManager.getProjectInscriptions();
@@ -651,6 +660,10 @@ namespace PIManager.DAO
             return projects;
         }
 		
+        /// <summary>
+        /// Get description of all projects
+        /// </summary>
+        /// <returns>List of all projects</returns>
 		public List<Project> getFullProject()
         {
             List<Project> projects = new List<Project>();
@@ -662,11 +675,6 @@ namespace PIManager.DAO
                 int id = (int)reader["pk_project"];
                 string name = (string)reader["title"];
                 int clientID = (int)reader["pk_person"];
-
-                /*Project project = new Project(id, name, "", 0);
-                project.ClientId = clientID;
-                projects.Add(project);*/
-
             }
 
             reader.Close();
@@ -674,6 +682,11 @@ namespace PIManager.DAO
             return projects;
         }
 
+        /// <summary>
+        /// Get the complete name of a person
+        /// </summary>
+        /// <param name="pk_person">Primary key of the person</param>
+        /// <returns>Complete name of the person</returns>
         public string getPersonCompletName(int pk_person)
         {
             string personName = "";
@@ -695,6 +708,11 @@ namespace PIManager.DAO
             return personName;
         }
 
+        /// <summary>
+        /// Get the group registered to a project
+        /// </summary>
+        /// <param name="pk_project">Id of the project</param>
+        /// <returns>List of people registered to this project</returns>
         public List<Person> getProjectGroup(int pk_project)
         {
             List<Person> persons = new List<Person>();
@@ -716,6 +734,11 @@ namespace PIManager.DAO
             return persons;
         }
 
+        /// <summary>
+        /// Get all the technologies of a project
+        /// </summary>
+        /// <param name="pk_project">Primary key of the project</param>
+        /// <returns>Technologies of the project</returns>
         public List<Technology> getTechnologyProject(int pk_project)
         {
             List<Technology> technologys = new List<Technology>();
@@ -740,7 +763,7 @@ namespace PIManager.DAO
         /// <summary>
         /// Transform a list of technologies in the XML form undestood by the stored procedure
         /// </summary>
-        /// <param name="myProjectTechnos">List of technologies to transform</param>
+        /// <param name="technologies">List of technologies to transform</param>
         /// <returns>A string in the proper XML form</returns>
         private string transformTechnologies(List<Technology> technologies)
         {
@@ -755,7 +778,7 @@ namespace PIManager.DAO
         /// <summary>
         /// Transform a list of ids in SQL forme to put in a IN predicate
         /// </summary>
-        /// <param name="myProjectTechnos">List of ids to transform</param>
+        /// <param name="ids">List of ids to transform</param>
         /// <returns>A string in the proper SQL form</returns>
         private string transformIds(HashSet<int> ids)
         {

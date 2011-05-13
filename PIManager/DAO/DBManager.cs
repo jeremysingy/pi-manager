@@ -41,6 +41,11 @@ namespace PIManager.DAO
         /// <summary>
         /// Perform a select query
         /// </summary>
+        /// <param name="query">Query to execute</param>
+        /// <param name="connection">Connection to use</param>
+        /// <param name="transaction">Transaction to use</param>
+        /// <param name="param">Parameters to put for this query</param>
+        /// <returns>The SqlDataReader to read to result of this query</returns>
         public SqlDataReader doSelect(string query, SqlConnection connection, SqlTransaction transaction, Dictionary<string, object> param)
         {
             SqlCommand command = new SqlCommand(query, connection, transaction);
@@ -52,13 +57,13 @@ namespace PIManager.DAO
         }
 
         /// <summary>
-        /// Perform a select query returning a scalar value.
+        /// Perform a select query returning a scalar value
         /// </summary>
         /// <param name="query">Query to execute</param>
         /// <param name="connection">Connection to use</param>
         /// <param name="transaction">Transaction to use</param>
         /// <param name="param">Parameters to put for this query</param>
-        /// <returns></returns>
+        /// <returns>The object resulting of this query</returns>
         public object doSelectScalar(string query, SqlConnection connection, SqlTransaction transaction, Dictionary<string, object> param)
         {
             SqlCommand command = new SqlCommand(query, connection, transaction);
@@ -70,11 +75,12 @@ namespace PIManager.DAO
         
         /// <summary>
         /// Perform an update query
+        /// </summary>
         /// <param name="query">Query to execute</param>
         /// <param name="connection">Connection to use</param>
         /// <param name="transaction">Transaction to use</param>
         /// <param name="param">Parameters to put for this query</param>
-        /// </summary>
+        /// <returns>The number of rows affected by the query</returns>
         public int doUpdate(string query, SqlConnection connection, SqlTransaction transaction, Dictionary<string, object> param)
         {
             SqlCommand command = new SqlCommand(query, connection, transaction);
@@ -87,11 +93,11 @@ namespace PIManager.DAO
 
         /// <summary>
         /// Perform a delete query
+        /// </summary>
         /// <param name="query">Query to execute</param>
         /// <param name="connection">Connection to use</param>
         /// <param name="transaction">Transaction to use</param>
         /// <param name="param">Parameters to put for this query</param>
-        /// </summary>
         public int doDelete(string query, SqlConnection connection, SqlTransaction transaction, Dictionary<string, object> param)
         {
             SqlCommand command = new SqlCommand(query, connection, transaction);
@@ -104,11 +110,11 @@ namespace PIManager.DAO
 
         /// <summary>
         /// Perform an insert query
+        /// </summary>
         /// <param name="query">Query to execute</param>
         /// <param name="connection">Connection to use</param>
         /// <param name="transaction">Transaction to use</param>
         /// <param name="param">Parameters to put for this query</param>
-        /// </summary>
         public int doInsert(string query, SqlConnection connection, SqlTransaction transaction, Dictionary<string, object> param)
         {
             query += " SET @newId = SCOPE_IDENTITY()";
@@ -134,11 +140,11 @@ namespace PIManager.DAO
 
         /// <summary>
         /// Execute a stored procedure
+        /// </summary>
         /// <param name="name">Name of the stored procedure to execute</param>
         /// <param name="connection">Connection to use</param>
         /// <param name="transaction">Transaction to use</param>
         /// <param name="paramList">Parameters to put for this stored procedure</param>
-        /// </summary>
         public void executeProcedure(string name, SqlConnection connection, SqlTransaction transaction, List<SqlParameter> paramList)
         {
             SqlCommand command = new SqlCommand(name, connection, transaction);
@@ -266,6 +272,7 @@ namespace PIManager.DAO
             return sqldatareader;
         }
 		
+
 		public SqlDataReader getFullProjects()
         {
             SqlConnection connection = new SqlConnection(DB_CONNECTION_STRING);

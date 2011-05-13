@@ -6,8 +6,17 @@ using System.Web.Security;
 
 namespace PIManager.Login
 {
+    /// <summary>
+    /// Represent a connected user
+    /// </summary>
     public class MemberShipPIUser : MembershipUser
     {
+        /// <summary>
+        /// Constructeur
+        /// </summary>
+        /// <param name="pkPerson">Primary key of the person connected</param>
+        /// <param name="userName">User name of the person connected</param>
+        /// <param name="isOnline">true if person is online, false otherwise</param>
         public MemberShipPIUser(int pkPerson, string userName, bool isOnline)
         {
             PkPerson = pkPerson;
@@ -55,8 +64,14 @@ namespace PIManager.Login
             set { myIsLockedOut = value; }
         }*/
 
+        /// <summary>
+        /// true if the person is online, false otherwise
+        /// </summary>
         protected bool myIsOnline;
 
+        /// <summary>
+        /// true if the person is online, false otherwise
+        /// </summary>
         public new bool IsOnline
         {
             get { return myIsOnline; }
@@ -119,16 +134,28 @@ namespace PIManager.Login
             set { myProviderUserKey = value; }
         }*/
 
+        /// <summary>
+        /// User name of the person
+        /// </summary>
         protected string myUserName;
 
+        /// <summary>
+        /// User name of the person
+        /// </summary>
         public new string UserName
         {
             get { return myUserName; }
             set { myUserName = value; }
         }
 
+        /// <summary>
+        /// Primary key of the person
+        /// </summary>
         protected int myPkPerson;
 
+        /// <summary>
+        /// Primary key of the person
+        /// </summary>
         public int PkPerson
         {
             get { return myPkPerson; }

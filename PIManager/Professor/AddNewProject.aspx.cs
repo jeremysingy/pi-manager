@@ -20,14 +20,39 @@ namespace PIManager.Professor
         /// </summary>
         private static readonly ILog log = LogManager.GetLogger(typeof(AddNewProject));
 
+        /// <summary>
+        /// True if the project has a parent, false otherwise
+        /// </summary>
         protected bool myHasParent = false;
 
+        /// <summary>
+        /// Give access to the project
+        /// </summary>
         protected ProjectAccess myProjectAccess = new ProjectAccess();
+
+        /// <summary>
+        /// Give access to the technologies
+        /// </summary>
         protected TechnologyAccess myTechnoAccess = new TechnologyAccess();
+
+        /// <summary>
+        /// Give access to the person
+        /// </summary>
         protected PersonAccess myPersonAccess = new PersonAccess();
 
+        /// <summary>
+        /// Reference to the parent project (if any)
+        /// </summary>
         protected Project myParentProject = null;
+
+        /// <summary>
+        /// Technologies added to the project
+        /// </summary>
         protected List<Technology> myProjectTechnos;
+
+        /// <summary>
+        /// All technologies to put in the list
+        /// </summary>
         protected Dictionary<int, Technology> myTechnologies;
 
         /// <summary>

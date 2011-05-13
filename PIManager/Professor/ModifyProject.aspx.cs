@@ -22,12 +22,34 @@ namespace PIManager
         /// </summary>
         private static readonly ILog log = LogManager.GetLogger(typeof(ModifyProject));
 
+        /// <summary>
+        /// Give access to the project
+        /// </summary>
         protected ProjectAccess myProjectAccess = new ProjectAccess();
+
+        /// <summary>
+        /// Give access to the technologies
+        /// </summary>
         protected TechnologyAccess myTechnoAccess = new TechnologyAccess();
+
+        /// <summary>
+        /// Give access to the person
+        /// </summary>
         protected PersonAccess myPersonAccess = new PersonAccess();
-        
+
+        /// <summary>
+        /// Reference to the modified project
+        /// </summary>
         protected Project myModifiedProject;
+
+        /// <summary>
+        /// Technologies of to the project
+        /// </summary>
         protected List<Technology> myProjectTechnos;
+
+        /// <summary>
+        /// All technologies to put in the list
+        /// </summary>
         protected Dictionary<int, Technology> myTechnologies;
 
         /// <summary>

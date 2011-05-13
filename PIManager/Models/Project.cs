@@ -101,82 +101,118 @@ namespace PIManager.Models
             myTechnology = new List<Technology>();
         }
 
+        /// <summary>
+        /// Id of the project
+        /// </summary>
         public int Id
         {
             get { return myId; }
             set { myId = value; }
         }
 
+        /// <summary>
+        /// Name of the project
+        /// </summary>
         public string Name
         {
             get { return myName; }
             set { myName = value; }
         }
 
+        /// <summary>
+        /// Abreviation of the project
+        /// </summary>
         public string Abreviation
         {
             get { return myAbreviation; }
             set { myAbreviation = value; }
         }
 
+        /// <summary>
+        /// Description of the project
+        /// </summary>
         public string Description
         {
             get { return myDescription; }
             set { myDescription = value; }
         }
 
+        /// <summary>
+        /// Maximum number of students for the project
+        /// </summary>
         public int NbStudents
         {
             get { return myNbStudents; }
             set { myNbStudents = value; }
         }
 
+        /// <summary>
+        /// Ids of the technologies of this project
+        /// </summary>
         public List<int> TechnologyIds
         {
             get { return myTechnologyIds; }
         }
 
+        /// <summary>
+        /// Add a technology id to this project
+        /// </summary>
+        /// <param name="id"></param>
         public void AddTechnologyId(int id)
         {
             myTechnologyIds.Add(id);
         }
 
+        /// <summary>
+        /// Client id of this project
+        /// </summary>
         public int ClientId
         {
             get { return myClientId; }
             set { myClientId = value; }
         }
 
+        /// <summary>
+        /// Parent id of this project
+        /// </summary>
         public int ParentId
         {
             get { return myParentId; }
             set { myParentId = value; }
         }
 
+        /// <summary>
+        /// List of registered people to this project
+        /// </summary>
         public List<Person> Inscriptions
         {
             get { return myInscriptions; }
             set { myInscriptions = value; }
         }
 
+        /// <summary>
+        /// Add a registered person to this project
+        /// </summary>
+        /// <param name="person">The person to add</param>
         public void AddPersonInInscriptions(Person person)
         {
             myInscriptions.Add(person);
         }
 		
-		public void AddTechnologyInMyTechnology(Technology technology)
+		/*public void AddTechnologyInMyTechnology(Technology technology)
         {
             myTechnology.Add(technology);
-        }
+        }*/
 
+        /// <summary>
+        /// Return true if this project is equivalent to the other project.
+        /// Equivalent means to the two projects have the same properties but
+        /// not neccessarily the same id.
+        /// </summary>
+        /// <param name="other">The project to test with this one</param>
+        /// <returns>True if this project is equivalent, false otherwise</returns>
         public bool isEquivalent(Project other)
         {
-            Console.WriteLine(myName + " and " + other.Name);
-            Console.WriteLine(myAbreviation + " and " + other.Abreviation);
-            Console.WriteLine(myDescription + " and " + other.Description);
-            Console.WriteLine(myNbStudents + " and " + other.NbStudents);
-            Console.WriteLine(myClientId + " and " + other.ClientId);
-
             return myName == other.Name &&
                    myAbreviation == other.Abreviation &&
                    myDescription == other.Description &&

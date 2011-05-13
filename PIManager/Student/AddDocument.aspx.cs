@@ -10,12 +10,31 @@ using PIManager.Login;
 
 namespace PIManager
 {
+    /// <summary>
+    /// Page to add a document in a project
+    /// </summary>
     public partial class AddDocument : System.Web.UI.Page
     {
-        ProjectAccess projectAccess;
-        MemberShipPIUser user; // user that is logged in
-        int idProject;
+        /// <summary>
+        /// Get access to the projects
+        /// </summary>
+        protected ProjectAccess projectAccess;
 
+        /// <summary>
+        /// User that is logged in
+        /// </summary>
+        protected MemberShipPIUser user;
+
+        /// <summary>
+        /// Id of the project
+        /// </summary>
+        protected int idProject;
+
+        /// <summary>
+        /// Called when the page is loaded
+        /// </summary>
+        /// <param name="sender">Sender object of the event</param>
+        /// <param name="e">Arguments of the event</param>
         protected void Page_Load(object sender, EventArgs e)
         {
             projectAccess = new ProjectAccess();
@@ -43,7 +62,7 @@ namespace PIManager
         /// </summary>
         /// <param name="sender">button "envoyer"</param>
         /// <param name="e">posted file</param>
-        public void btnUpload_Click(object sender, EventArgs e)
+        protected void btnUpload_Click(object sender, EventArgs e)
         {
             // checks file size before upload
             int size = uploadFile.PostedFile.ContentLength;
