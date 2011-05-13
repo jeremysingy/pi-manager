@@ -1157,3 +1157,9 @@ text-decoration: none;
 {
     width: 30px;
 }
+
+.art-content .checkboxopen input
+{
+    width: 30px;
+    border: 2px solid #FF0000;
+}

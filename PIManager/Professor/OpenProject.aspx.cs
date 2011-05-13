@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using log4net;
 using PIManager.DAO;
 using PIManager.Models;
+using System.Globalization;
 
 namespace PIManager.Professor
 {
@@ -55,7 +56,7 @@ namespace PIManager.Professor
             }
             catch (Exception exception)
             {
-                log.Error("Error loading page: " + exception.Message);
+                log.Error("Error loading page: " + exception.Message, exception);
             }
         }
 
@@ -84,9 +85,9 @@ namespace PIManager.Professor
             GridViewRow row = (GridViewRow)checkbox.NamingContainer;
 
             if (checkbox.Checked)
-                myIdsToOpen.Add(row.RowIndex);
+                myIdsToOpen.Add(myProjects[row.RowIndex].Id);
             else
-                myIdsToOpen.Remove(row.RowIndex);
+                myIdsToOpen.Remove(myProjects[row.RowIndex].Id);
         }
 
         /// <summary>
@@ -106,16 +107,16 @@ namespace PIManager.Professor
         /// <param name="e">Arguments of the event</param>
         protected void btSubmit_Click(object sender, EventArgs e)
         {
-            string res = "";
+            System.Globalization.DateTimeFormatInfo format = new DateTimeFormatInfo();
+            format.ShortDatePattern = "dd.MM.yyyy HH:mm";
+            format.DateSeparator = ".";
 
-            foreach(int id in myIdsToOpen)
-                res += id + ", ";
+            DateTime dateOpen = DateTime.Parse(tbStart.Text, format);
+            DateTime dateClose = DateTime.Parse(tbEnd.Text, format);
 
-            res += tbStart.Text + ", " + tbEnd.Text;
+            myProjectAccess.openRegistration(myIdsToOpen, dateOpen, dateClose);
 
-            test.Text = res;
-
-            myProjectAccess.openRegistration(myIdsToOpen);
+            Response.Redirect("Default.aspx");
         }
     }
 }

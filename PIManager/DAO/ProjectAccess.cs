@@ -584,9 +584,32 @@ namespace PIManager.DAO
             }
         }
 
-        public void openRegistration(HashSet<int> ids)
+        public void openRegistration(HashSet<int> ids, DateTime dateOpen, DateTime dateClose)
         {
+            string insertQuery = "INSERT INTO Period (date_open, date_close, year) " +
+                                 "VALUES(@date_open, @date_close, @year)";
 
+            string updateQuery = "UPDATE Project SET pk_period = @idperiod WHERE pk_project IN (" + transformIds(ids) + ")";
+
+            using (SqlConnection connection = myDBManager.newConnection())
+            {
+                connection.Open();
+                SqlTransaction transaction = connection.BeginTransaction(IsolationLevel.Serializable);
+
+                Dictionary<string, object> paramInsert = new Dictionary<string, object>();
+                paramInsert.Add("@date_open", dateOpen.ToString("yyyy-MM-dd HH:mm"));
+                paramInsert.Add("@date_close", dateClose.ToString("yyyy-MM-dd HH:mm"));
+                paramInsert.Add("@year", dateOpen.ToString("yyyy"));
+
+                int id = myDBManager.doInsert(insertQuery, connection, transaction, paramInsert);
+
+                Dictionary<string, object> paramUpdate = new Dictionary<string, object>();
+                paramInsert.Add("@idperiod", id);
+
+                myDBManager.doUpdate(updateQuery, connection, transaction, paramInsert);
+
+                transaction.Commit();
+            }
         }
 
         public Hashtable getProjectInscriptions()
@@ -626,21 +649,6 @@ namespace PIManager.DAO
             reader.Close();
 
             return projects;
-        }
-
-        /// <summary>
-        /// Transform a list of technologies in the XML form undestood by the stored procedure
-        /// </summary>
-        /// <param name="myProjectTechnos">List of technologies to transform</param>
-        /// <returns>A string in the proper XML form</returns>
-        private string transformTechnologies(List<Technology> technologies)
-        {
-            string result = "";
-
-            foreach (Technology techno in technologies)
-                result += "<e>" + techno.Id.ToString() + "</e>";
-
-            return result;
         }
 		
 		public List<Project> getFullProject()
@@ -727,6 +735,31 @@ namespace PIManager.DAO
             reader.Close();
 
             return technologys;
+        }
+
+        /// <summary>
+        /// Transform a list of technologies in the XML form undestood by the stored procedure
+        /// </summary>
+        /// <param name="myProjectTechnos">List of technologies to transform</param>
+        /// <returns>A string in the proper XML form</returns>
+        private string transformTechnologies(List<Technology> technologies)
+        {
+            string result = "";
+
+            foreach (Technology techno in technologies)
+                result += "<e>" + techno.Id.ToString() + "</e>";
+
+            return result;
+        }
+
+        /// <summary>
+        /// Transform a list of ids in SQL forme to put in a IN predicate
+        /// </summary>
+        /// <param name="myProjectTechnos">List of ids to transform</param>
+        /// <returns>A string in the proper SQL form</returns>
+        private string transformIds(HashSet<int> ids)
+        {
+            return String.Join(",", ids);
         }
     }
 }

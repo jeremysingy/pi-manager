@@ -17,3 +17,20 @@
 2011-05-13 11:15:56,807 [6] ERROR PIManager.Professor.AddNewProject [(null)] - Error loading page: Object reference not set to an instance of an object.
 2011-05-13 11:18:50,836 [18] ERROR PIManager.Professor.AddNewProject [(null)] - Error loading page: Object reference not set to an instance of an object.
 2011-05-13 11:21:31,918 [7] ERROR PIManager.Professor.AddNewProject [(null)] - Error loading page: Object reference not set to an instance of an object.
+2011-05-13 13:25:13,087 [153] DEBUG PIManager.DAO.ProjectAccess [(null)] - [@date_open, 09.05.2011 01:20:00]
+2011-05-13 13:25:13,122 [153] DEBUG PIManager.DAO.ProjectAccess [(null)] - [@date_close, 17.05.2011 01:20:00]
+2011-05-13 13:25:13,122 [153] DEBUG PIManager.DAO.ProjectAccess [(null)] - [@year, 2011]
+2011-05-13 13:49:13,633 [145] DEBUG PIManager.DAO.ProjectAccess [(null)] - [@date_open, 02.05.2011 13:45:00]
+2011-05-13 13:49:13,646 [145] DEBUG PIManager.DAO.ProjectAccess [(null)] - [@date_close, 30.05.2011 13:45:00]
+2011-05-13 13:49:13,646 [145] DEBUG PIManager.DAO.ProjectAccess [(null)] - [@year, 2011]
+2011-05-13 13:50:56,395 [150] DEBUG PIManager.DAO.ProjectAccess [(null)] - [@date_open, 2011-05-02 13:50]
+2011-05-13 13:50:56,423 [150] DEBUG PIManager.DAO.ProjectAccess [(null)] - [@date_close, 2011-05-27 13:50]
+2011-05-13 13:50:56,423 [150] DEBUG PIManager.DAO.ProjectAccess [(null)] - [@year, 2011]
+2011-05-13 14:21:42,393 [104] DEBUG PIManager.DAO.ProjectAccess [(null)] - [@date_open, 2011-05-09 14:20]
+2011-05-13 14:21:42,417 [104] DEBUG PIManager.DAO.ProjectAccess [(null)] - [@date_close, 2011-05-26 14:20]
+2011-05-13 14:21:42,417 [104] DEBUG PIManager.DAO.ProjectAccess [(null)] - [@year, 2011]
+2011-05-13 14:21:42,417 [104] DEBUG PIManager.DAO.ProjectAccess [(null)] - UPDATE Project SET pk_period = @idperiod WHERE pk_project IN (0,1))
+2011-05-13 14:23:23,993 [136] DEBUG PIManager.DAO.ProjectAccess [(null)] - [@date_open, 2011-05-02 14:20]
+2011-05-13 14:23:24,021 [136] DEBUG PIManager.DAO.ProjectAccess [(null)] - [@date_close, 2011-05-30 14:20]
+2011-05-13 14:23:24,021 [136] DEBUG PIManager.DAO.ProjectAccess [(null)] - [@year, 2011]
+2011-05-13 14:23:24,021 [136] DEBUG PIManager.DAO.ProjectAccess [(null)] - UPDATE Project SET pk_period = @idperiod WHERE pk_project IN (3,9))

@@ -11,7 +11,6 @@
 
 <asp:Content ID="BodyContent" runat="server" ContentPlaceHolderID="MainContent">
     <h2>Ouvrir les inscriptions</h2>
-    <asp:Label ID="test" runat="server" Text="Label"></asp:Label>
     <asp:GridView ID="ProjectsGrid" runat="server" AutoGenerateColumns="false">
         <Columns>
             <asp:BoundField DataField="Name" HeaderText="Nom du projet" />
@@ -21,7 +20,8 @@
                     <asp:CheckBox ID="openProject" runat="server" 
                         AutoPostBack="true" OnCheckedChanged="onCheckboxChanged"
                         Checked="false"
-                        Text="" />
+                        Text=""
+                        CssClass="checkboxopen" />
                 </ItemTemplate>                    
             </asp:TemplateField>
         </Columns>
@@ -43,15 +43,6 @@
         Operator="DataTypeCheck" Type="Date" ValidationGroup="grpDate"
         CssClass="error">
     </asp:CompareValidator>
-    <script type="text/javascript">//<![CDATA[
-        Calendar.setup({
-            inputField: "MainContent_tbStart",
-            trigger: "btStart",
-            onSelect: function () { this.hide() },
-            showTime: 24,
-            dateFormat: "%Y-%m-%d %I:%M"
-        });
-    //]]></script>
 
     <br />
     <asp:Label ID="lbEnd" runat="server" Text="Date de fin :" AssociatedControlID="tbEnd" />
@@ -69,14 +60,19 @@
         Type="Date" ValidationGroup="grpDate"
         CssClass="error">
     </asp:CompareValidator>
+
+
     <script type="text/javascript">//<![CDATA[
-        Calendar.setup({
-            inputField: "MainContent_tbEnd",
-            trigger: "btEnd",
+        var cal = Calendar.setup({
+            //inputField: "MainContent_tbEnd",
+            //trigger: "btEnd",
             onSelect: function () { this.hide() },
-            showTime: 24,
+            showTime: true,
             dateFormat: "%Y-%m-%d %I:%M"
         });
+
+        cal.manageFields("btStart", "MainContent_tbStart", "%d.%m.%Y %H:%M");
+        cal.manageFields("btEnd", "MainContent_tbEnd", "%d.%m.%Y %H:%M");
     //]]></script>
 
     <div class="buttons">
