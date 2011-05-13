@@ -1,10 +1,17 @@
 ﻿<%@ Page Title="Ouvrir les inscriptions" Language="C#" MasterPageFile="~/Professor/Professor.master"
     AutoEventWireup="true" CodeBehind="OpenProject.aspx.cs" Inherits="PIManager.Professor.OpenProject" %>
 
-<asp:Content ID="HeaderContent" runat="server" ContentPlaceHolderID="HeadContent"></asp:Content>
+<asp:Content ID="HeaderContent" runat="server" ContentPlaceHolderID="HeadContent">
+    <script src="../Calendar/js/jscal2.js" type="text/javascript"></script>
+    <script src="../Calendar/js/lang/fr.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="../Calendar/css/jscal2.css" />
+    <link rel="stylesheet" type="text/css" href="../Calendar/css/border-radius.css" />
+    <link rel="stylesheet" type="text/css" href="../Calendar/css/steel/steel.css" />
+</asp:Content>
 
 <asp:Content ID="BodyContent" runat="server" ContentPlaceHolderID="MainContent">
     <h2>Ouvrir les inscriptions</h2>
+    <asp:Label ID="test" runat="server" Text="Label"></asp:Label>
     <asp:GridView ID="ProjectsGrid" runat="server" AutoGenerateColumns="false">
         <Columns>
             <asp:BoundField DataField="Name" HeaderText="Nom du projet" />
@@ -19,8 +26,61 @@
             </asp:TemplateField>
         </Columns>
     </asp:GridView>
+    <br /><br />
+
+    <asp:Label ID="lbStart" runat="server" Text="Date de début :" AssociatedControlID="tbStart" />
+    <asp:TextBox ID="tbStart" runat="server" />
+    <input type="button" id="btStart" value="..." class="buttoncal" />
+    <asp:RequiredFieldValidator ID="RequiredStart" runat="server"
+        ErrorMessage="Date de début obligatoire" 
+        ControlToValidate="tbStart" 
+        Display="Dynamic"
+        CssClass="error">
+    </asp:RequiredFieldValidator>
+    <asp:CompareValidator ID="ValidateStart" runat="server" 
+        ControlToValidate="tbStart"
+        ErrorMessage="Date non valide"
+        Operator="DataTypeCheck" Type="Date" ValidationGroup="grpDate"
+        CssClass="error">
+    </asp:CompareValidator>
+    <script type="text/javascript">//<![CDATA[
+        Calendar.setup({
+            inputField: "MainContent_tbStart",
+            trigger: "btStart",
+            onSelect: function () { this.hide() },
+            showTime: 24,
+            dateFormat: "%Y-%m-%d %I:%M"
+        });
+    //]]></script>
+
+    <br />
+    <asp:Label ID="lbEnd" runat="server" Text="Date de fin :" AssociatedControlID="tbEnd" />
+    <asp:TextBox ID="tbEnd" runat="server" />
+    <input type="button" id="btEnd" value="..." class="buttoncal" />
+    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server"
+        ErrorMessage="Date de fin obligatoire" 
+        ControlToValidate="tbEnd" 
+        Display="Dynamic"
+        CssClass="error">
+    </asp:RequiredFieldValidator>
+    <asp:CompareValidator ID="ValidateEnd" runat="server" 
+        ControlToValidate="tbEnd" ControlToCompare="tbStart" Operator="GreaterThan"
+        ErrorMessage="La date doit être plus grande"
+        Type="Date" ValidationGroup="grpDate"
+        CssClass="error">
+    </asp:CompareValidator>
+    <script type="text/javascript">//<![CDATA[
+        Calendar.setup({
+            inputField: "MainContent_tbEnd",
+            trigger: "btEnd",
+            onSelect: function () { this.hide() },
+            showTime: 24,
+            dateFormat: "%Y-%m-%d %I:%M"
+        });
+    //]]></script>
+
     <div class="buttons">
         <asp:Button ID="btCancel" runat="server" Text="Annuler" CssClass="but" onclick="btCancel_Click" />
-        <asp:Button ID="btSubmit" runat="server" Text="Valider" CssClass="but" onclick="btSubmit_Click" />
+        <asp:Button ID="btSubmit" runat="server" Text="Ouvrir" CssClass="but" onclick="btSubmit_Click" />
     </div>
 </asp:Content>

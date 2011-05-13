@@ -106,7 +106,16 @@ namespace PIManager.Professor
         /// <param name="e">Arguments of the event</param>
         protected void btSubmit_Click(object sender, EventArgs e)
         {
+            string res = "";
 
+            foreach(int id in myIdsToOpen)
+                res += id + ", ";
+
+            res += tbStart.Text + ", " + tbEnd.Text;
+
+            test.Text = res;
+
+            myProjectAccess.openRegistration(myIdsToOpen);
         }
     }
 }

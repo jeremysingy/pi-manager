@@ -66,9 +66,9 @@
                                                     <li><a href="/Professor/VisualizationInscription.aspx">Inscriptions</a></li>
                                                 </ul>
                                             </li>
-                                            <li><a href="AddProject.aspx">Saisir un projet</a></li>
-                                            <li><a href="ManageProjects.aspx">Modifier/supprimer des projets</a></li>
-                                            <li><a href="OpenProject.aspx">Ouvrir les inscriptions</a></li>
+                                            <li><a href="/Professor/AddProject.aspx">Saisir un projet</a></li>
+                                            <li><a href="/Professor/ManageProjects.aspx">Modifier/supprimer des projets</a></li>
+                                            <li><a href="/Professor/OpenProject.aspx">Ouvrir les inscriptions</a></li>
                                             <li>
                                                 <asp:LoginStatus ID="LoginStatus" runat="server" LoginText="Connexion" LogoutText="Déconnexion" LogoutPageUrl="~/Account/Login.aspx" LogoutAction="Redirect" />
                                             </li>
