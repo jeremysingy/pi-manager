@@ -85,14 +85,12 @@ namespace PIManager.Professor
         /// </summary>
         protected void createSessions()
         {
+            //Session["parentId"] = myParentId = Request.QueryString["id"] == null ? -1 : int.Parse(Request.QueryString["id"]);
             int parentId = Request.QueryString["parent"] == null ? -1 : int.Parse(Request.QueryString["parent"]);
-
-            Session["hasParent"] = myHasParent = parentId > 0;
-
-            if (myHasParent)
+            if (parentId > 0)
             {
-                Session["hasParent"] = myHasParent = true;
                 Session["parentProj"] = myParentProject = myProjectAccess.getProject(parentId);
+                Session["hasParent"] = myHasParent = true;
             }
             
             Session["projectTechnos"] = myProjectTechnos = new List<Technology>();

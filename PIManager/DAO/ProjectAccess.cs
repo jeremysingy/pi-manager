@@ -180,7 +180,7 @@ namespace PIManager.DAO
                         param.Add("@PK_PERSON", idPerson);
 
                         object personProject = myDBManager.doSelectScalar(query, connection, transaction, param);
-                        if (personProject != null)
+                        if (personProject == DBNull.Value)
                         {
                             // saves the inscription of the student on the project
                             query = "UPDATE Person SET pk_project = @PK_PROJECT WHERE pk_person = @PK_PERSON;";
