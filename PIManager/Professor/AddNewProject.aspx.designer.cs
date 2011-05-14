@@ -211,6 +211,42 @@ namespace PIManager.Professor {
         protected global::System.Web.UI.WebControls.DropDownList listClients;
         
         /// <summary>
+        /// lbImage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbImage;
+        
+        /// <summary>
+        /// uploadImage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.FileUpload uploadImage;
+        
+        /// <summary>
+        /// ValidateImage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator ValidateImage;
+        
+        /// <summary>
+        /// lbErrorImage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbErrorImage;
+        
+        /// <summary>
         /// btCancel control.
         /// </summary>
         /// <remarks>

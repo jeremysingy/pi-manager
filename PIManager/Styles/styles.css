@@ -1153,6 +1153,11 @@ text-decoration: none;
     color: #FF0000;
 }
 
+.art-content input.bigger, .art-content textarea.bigger
+{
+    width: 350px;
+}
+
 .art-content input.buttoncal
 {
     width: 30px;

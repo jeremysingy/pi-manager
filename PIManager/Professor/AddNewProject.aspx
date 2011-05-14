@@ -61,8 +61,9 @@
     </asp:RegularExpressionValidator>
     <br />
     <asp:Label ID="lbDescription" runat="server" Text="Description :" AssociatedControlID="tbDescription" />
-    <asp:TextBox ID="tbDescription" runat="server" TextMode="MultiLine"></asp:TextBox>
-    <br /><br />
+    <asp:TextBox ID="tbDescription" runat="server" TextMode="MultiLine" CssClass="bigger"></asp:TextBox>
+    <br />
+    <br />
     <asp:Label ID="lbTechnologies" runat="server" Text="Technologies :" AssociatedControlID="listTechnologies" />
     <asp:GridView ID="gridTechnologies" runat="server" AutoGenerateColumns="False" OnRowDeleting="onRowDeleting">
         <Columns>
@@ -95,6 +96,20 @@
     <br />
     <asp:Label ID="lbClients" runat="server" Text="Client :" AssociatedControlID="listClients" />
     <asp:DropDownList ID="listClients" runat="server" DataValueField="Id" DataTextField="CompleteName"></asp:DropDownList>
+    <br />
+    <br />
+    <asp:Label ID="lbImage" runat="server" Text="Ajouter une image :" AssociatedControlID="uploadImage" />
+    <asp:FileUpload ID="uploadImage" runat="server" CssClass="bigger" />
+    <br />
+    <br />
+    <asp:RegularExpressionValidator ID="ValidateImage" runat="server" 
+        ControlToValidate="uploadImage" 
+        ValidationExpression="[a-zA-Z0_9].*\b(.jpeg|.JPEG|.jpg|.JPG|.png|.PNG|.gif|.GIF|.bmp|BMP)\b" 
+        Display="Dynamic"
+        CssClass="error">Seuls les fichiers jpg/png/gif/bmp sont autorisés<br /><br />
+    </asp:RegularExpressionValidator>
+    
+    <asp:Label ID="lbErrorImage" runat="server" Visible="false" CssClass="error">Le type d'image n'est pas valide ou la taille dépasse 512 kB</asp:Label>
     <br />
     <div class="buttons">
         <asp:Button ID="btCancel" runat="server" Text="Annuler" CssClass="but" onclick="btCancel_Click" />

@@ -79,3 +79,201 @@
 2011-05-13 18:51:16,319 [27] DEBUG PIManager.Professor.AddNewProject [(null)] - GET requestSystem.Collections.Generic.List`1[PIManager.Models.Technology]
 2011-05-13 18:51:30,433 [23] DEBUG PIManager.Professor.AddNewProject [(null)] - Page_Load!
 2011-05-13 18:52:38,560 [23] ERROR PIManager.Professor.AddNewProject [(null)] - Error loading page: Object reference not set to an instance of an object.
+2011-05-14 12:21:00,273 [51] ERROR PIManager.ModifyProject [(null)] - Error loading page: Value cannot be null.
+Parameter name: String
+2011-05-14 12:24:05,709 [61] ERROR PIManager.ModifyProject [(null)] - Error loading page: Value cannot be null.
+Parameter name: String
+2011-05-14 12:27:56,159 [53] ERROR PIManager.ModifyProject [(null)] - Error loading page: Value cannot be null.
+Parameter name: String
+2011-05-14 14:43:14,003 [72] ERROR PIManager.Professor.GetImage [(null)] - Error loading page: Thread was being aborted.
+System.Threading.ThreadAbortException: Thread was being aborted.
+   at System.Threading.Thread.AbortInternal()
+   at System.Threading.Thread.Abort(Object stateInfo)
+   at System.Web.HttpResponse.End()
+   at PIManager.Professor.GetImage.Page_Load(Object sender, EventArgs e) in D:\Visual_Studio_Projects\PIManager\PIManager\Professor\GetImage.aspx.cs:line 42
+2011-05-14 14:43:21,210 [78] ERROR PIManager.Professor.GetImage [(null)] - Error loading page: Thread was being aborted.
+System.Threading.ThreadAbortException: Thread was being aborted.
+   at System.Threading.Thread.AbortInternal()
+   at System.Threading.Thread.Abort(Object stateInfo)
+   at System.Web.HttpResponse.End()
+   at PIManager.Professor.GetImage.Page_Load(Object sender, EventArgs e) in D:\Visual_Studio_Projects\PIManager\PIManager\Professor\GetImage.aspx.cs:line 42
+2011-05-14 14:43:24,336 [109] ERROR PIManager.Professor.GetImage [(null)] - Error loading page: Invalid attempt to read when no data is present.
+System.InvalidOperationException: Invalid attempt to read when no data is present.
+   at System.Data.SqlClient.SqlDataReader.GetValue(Int32 i)
+   at System.Data.SqlClient.SqlDataReader.get_Item(String name)
+   at PIManager.DAO.ProjectAccess.getImage(Int32 id) in D:\Visual_Studio_Projects\PIManager\PIManager\DAO\ProjectAccess.cs:line 623
+   at PIManager.Professor.GetImage.Page_Load(Object sender, EventArgs e) in D:\Visual_Studio_Projects\PIManager\PIManager\Professor\GetImage.aspx.cs:line 40
+2011-05-14 14:43:27,265 [72] ERROR PIManager.Professor.GetImage [(null)] - Error loading page: Invalid attempt to read when no data is present.
+System.InvalidOperationException: Invalid attempt to read when no data is present.
+   at System.Data.SqlClient.SqlDataReader.GetValue(Int32 i)
+   at System.Data.SqlClient.SqlDataReader.get_Item(String name)
+   at PIManager.DAO.ProjectAccess.getImage(Int32 id) in D:\Visual_Studio_Projects\PIManager\PIManager\DAO\ProjectAccess.cs:line 623
+   at PIManager.Professor.GetImage.Page_Load(Object sender, EventArgs e) in D:\Visual_Studio_Projects\PIManager\PIManager\Professor\GetImage.aspx.cs:line 40
+2011-05-14 14:43:38,370 [78] ERROR PIManager.Professor.GetImage [(null)] - Error loading page: Unable to cast object of type 'System.DBNull' to type 'System.Byte[]'.
+System.InvalidCastException: Unable to cast object of type 'System.DBNull' to type 'System.Byte[]'.
+   at PIManager.DAO.ProjectAccess.getImage(Int32 id) in D:\Visual_Studio_Projects\PIManager\PIManager\DAO\ProjectAccess.cs:line 623
+   at PIManager.Professor.GetImage.Page_Load(Object sender, EventArgs e) in D:\Visual_Studio_Projects\PIManager\PIManager\Professor\GetImage.aspx.cs:line 40
+2011-05-14 14:43:41,010 [79] ERROR PIManager.Professor.GetImage [(null)] - Error loading page: Thread was being aborted.
+System.Threading.ThreadAbortException: Thread was being aborted.
+   at System.Threading.Thread.AbortInternal()
+   at System.Threading.Thread.Abort(Object stateInfo)
+   at System.Web.HttpResponse.End()
+   at PIManager.Professor.GetImage.Page_Load(Object sender, EventArgs e) in D:\Visual_Studio_Projects\PIManager\PIManager\Professor\GetImage.aspx.cs:line 42
+2011-05-14 14:44:34,361 [78] ERROR PIManager.Professor.GetImage [(null)] - Error loading page: Thread was being aborted.
+System.Threading.ThreadAbortException: Thread was being aborted.
+   at System.Threading.Thread.AbortInternal()
+   at System.Threading.Thread.Abort(Object stateInfo)
+   at System.Web.HttpResponse.End()
+   at PIManager.Professor.GetImage.Page_Load(Object sender, EventArgs e) in D:\Visual_Studio_Projects\PIManager\PIManager\Professor\GetImage.aspx.cs:line 42
+2011-05-14 14:46:22,242 [78] ERROR PIManager.Professor.GetImage [(null)] - Error loading page: Thread was being aborted.
+System.Threading.ThreadAbortException: Thread was being aborted.
+   at System.Threading.Thread.AbortInternal()
+   at System.Threading.Thread.Abort(Object stateInfo)
+   at System.Web.HttpResponse.End()
+   at PIManager.Professor.GetImage.Page_Load(Object sender, EventArgs e) in D:\Visual_Studio_Projects\PIManager\PIManager\Professor\GetImage.aspx.cs:line 42
+2011-05-14 14:47:31,806 [83] ERROR PIManager.Professor.GetImage [(null)] - Error loading page: Thread was being aborted.
+System.Threading.ThreadAbortException: Thread was being aborted.
+   at System.Threading.Thread.AbortInternal()
+   at System.Threading.Thread.Abort(Object stateInfo)
+   at System.Web.HttpResponse.End()
+   at PIManager.Professor.GetImage.Page_Load(Object sender, EventArgs e) in D:\Visual_Studio_Projects\PIManager\PIManager\Professor\GetImage.aspx.cs:line 42
+2011-05-14 14:47:51,648 [102] ERROR PIManager.Professor.GetImage [(null)] - Error loading page: Thread was being aborted.
+System.Threading.ThreadAbortException: Thread was being aborted.
+   at System.Threading.Thread.AbortInternal()
+   at System.Threading.Thread.Abort(Object stateInfo)
+   at System.Web.HttpResponse.End()
+   at PIManager.Professor.GetImage.Page_Load(Object sender, EventArgs e) in D:\Visual_Studio_Projects\PIManager\PIManager\Professor\GetImage.aspx.cs:line 42
+2011-05-14 14:48:06,352 [102] ERROR PIManager.Professor.GetImage [(null)] - Error loading page: Thread was being aborted.
+System.Threading.ThreadAbortException: Thread was being aborted.
+   at System.Threading.Thread.AbortInternal()
+   at System.Threading.Thread.Abort(Object stateInfo)
+   at System.Web.HttpResponse.End()
+   at PIManager.Professor.GetImage.Page_Load(Object sender, EventArgs e) in D:\Visual_Studio_Projects\PIManager\PIManager\Professor\GetImage.aspx.cs:line 42
+2011-05-14 14:49:21,913 [78] ERROR PIManager.Professor.GetImage [(null)] - Error loading page: Thread was being aborted.
+System.Threading.ThreadAbortException: Thread was being aborted.
+   at System.Threading.Thread.AbortInternal()
+   at System.Threading.Thread.Abort(Object stateInfo)
+   at System.Web.HttpResponse.End()
+   at PIManager.Professor.GetImage.Page_Load(Object sender, EventArgs e) in D:\Visual_Studio_Projects\PIManager\PIManager\Professor\GetImage.aspx.cs:line 42
+2011-05-14 14:49:42,953 [76] ERROR PIManager.Professor.GetImage [(null)] - Error loading page: Thread was being aborted.
+System.Threading.ThreadAbortException: Thread was being aborted.
+   at System.Threading.Thread.AbortInternal()
+   at System.Threading.Thread.Abort(Object stateInfo)
+   at System.Web.HttpResponse.End()
+   at PIManager.Professor.GetImage.Page_Load(Object sender, EventArgs e) in D:\Visual_Studio_Projects\PIManager\PIManager\Professor\GetImage.aspx.cs:line 42
+2011-05-14 14:51:10,094 [104] ERROR PIManager.Professor.GetImage [(null)] - Error loading page: Thread was being aborted.
+System.Threading.ThreadAbortException: Thread was being aborted.
+   at System.Threading.Thread.AbortInternal()
+   at System.Threading.Thread.Abort(Object stateInfo)
+   at System.Web.HttpResponse.End()
+   at PIManager.Professor.GetImage.Page_Load(Object sender, EventArgs e) in D:\Visual_Studio_Projects\PIManager\PIManager\Professor\GetImage.aspx.cs:line 42
+2011-05-14 14:51:18,933 [78] ERROR PIManager.Professor.GetImage [(null)] - Error loading page: Unable to cast object of type 'System.DBNull' to type 'System.Byte[]'.
+System.InvalidCastException: Unable to cast object of type 'System.DBNull' to type 'System.Byte[]'.
+   at PIManager.DAO.ProjectAccess.getImage(Int32 id) in D:\Visual_Studio_Projects\PIManager\PIManager\DAO\ProjectAccess.cs:line 623
+   at PIManager.Professor.GetImage.Page_Load(Object sender, EventArgs e) in D:\Visual_Studio_Projects\PIManager\PIManager\Professor\GetImage.aspx.cs:line 40
+2011-05-14 14:52:05,058 [78] ERROR PIManager.Professor.GetImage [(null)] - Error loading page: Unable to cast object of type 'System.DBNull' to type 'System.Byte[]'.
+System.InvalidCastException: Unable to cast object of type 'System.DBNull' to type 'System.Byte[]'.
+   at PIManager.DAO.ProjectAccess.getImage(Int32 id) in D:\Visual_Studio_Projects\PIManager\PIManager\DAO\ProjectAccess.cs:line 623
+   at PIManager.Professor.GetImage.Page_Load(Object sender, EventArgs e) in D:\Visual_Studio_Projects\PIManager\PIManager\Professor\GetImage.aspx.cs:line 40
+2011-05-14 15:01:10,076 [72] ERROR PIManager.Professor.GetImage [(null)] - Error loading page: Thread was being aborted.
+System.Threading.ThreadAbortException: Thread was being aborted.
+   at System.Threading.Thread.AbortInternal()
+   at System.Threading.Thread.Abort(Object stateInfo)
+   at System.Web.HttpResponse.End()
+   at PIManager.Professor.GetImage.Page_Load(Object sender, EventArgs e) in D:\Visual_Studio_Projects\PIManager\PIManager\Professor\GetImage.aspx.cs:line 42
+2011-05-14 15:03:58,494 [74] ERROR PIManager.Professor.GetImage [(null)] - Error loading page: Thread was being aborted.
+System.Threading.ThreadAbortException: Thread was being aborted.
+   at System.Threading.Thread.AbortInternal()
+   at System.Threading.Thread.Abort(Object stateInfo)
+   at System.Web.HttpResponse.End()
+   at PIManager.Professor.GetImage.Page_Load(Object sender, EventArgs e) in D:\Visual_Studio_Projects\PIManager\PIManager\Professor\GetImage.aspx.cs:line 42
+2011-05-14 15:38:15,749 [83] ERROR PIManager.Professor.GetImage [(null)] - Error loading page: Thread was being aborted.
+System.Threading.ThreadAbortException: Thread was being aborted.
+   at System.Threading.Thread.AbortInternal()
+   at System.Threading.Thread.Abort(Object stateInfo)
+   at System.Web.HttpResponse.End()
+   at PIManager.Professor.GetImage.Page_Load(Object sender, EventArgs e) in D:\Visual_Studio_Projects\PIManager\PIManager\Professor\GetImage.aspx.cs:line 42
+2011-05-14 15:39:36,389 [83] ERROR PIManager.Professor.GetImage [(null)] - Error loading page: Thread was being aborted.
+System.Threading.ThreadAbortException: Thread was being aborted.
+   at System.Threading.Thread.AbortInternal()
+   at System.Threading.Thread.Abort(Object stateInfo)
+   at System.Web.HttpResponse.End()
+   at PIManager.Professor.GetImage.Page_Load(Object sender, EventArgs e) in D:\Visual_Studio_Projects\PIManager\PIManager\Professor\GetImage.aspx.cs:line 42
+2011-05-14 15:39:40,242 [76] ERROR PIManager.Professor.GetImage [(null)] - Error loading page: Thread was being aborted.
+System.Threading.ThreadAbortException: Thread was being aborted.
+   at System.Threading.Thread.AbortInternal()
+   at System.Threading.Thread.Abort(Object stateInfo)
+   at System.Web.HttpResponse.End()
+   at PIManager.Professor.GetImage.Page_Load(Object sender, EventArgs e) in D:\Visual_Studio_Projects\PIManager\PIManager\Professor\GetImage.aspx.cs:line 42
+2011-05-14 15:39:43,115 [84] ERROR PIManager.Professor.GetImage [(null)] - Error loading page: Thread was being aborted.
+System.Threading.ThreadAbortException: Thread was being aborted.
+   at System.Threading.Thread.AbortInternal()
+   at System.Threading.Thread.Abort(Object stateInfo)
+   at System.Web.HttpResponse.End()
+   at PIManager.Professor.GetImage.Page_Load(Object sender, EventArgs e) in D:\Visual_Studio_Projects\PIManager\PIManager\Professor\GetImage.aspx.cs:line 42
+2011-05-14 15:39:49,900 [73] ERROR PIManager.Professor.GetImage [(null)] - Error loading page: Thread was being aborted.
+System.Threading.ThreadAbortException: Thread was being aborted.
+   at System.Threading.Thread.AbortInternal()
+   at System.Threading.Thread.Abort(Object stateInfo)
+   at System.Web.HttpResponse.End()
+   at PIManager.Professor.GetImage.Page_Load(Object sender, EventArgs e) in D:\Visual_Studio_Projects\PIManager\PIManager\Professor\GetImage.aspx.cs:line 42
+2011-05-14 15:46:17,499 [57] ERROR PIManager.Professor.GetImage [(null)] - Error loading page: Thread was being aborted.
+System.Threading.ThreadAbortException: Thread was being aborted.
+   at System.Threading.Thread.AbortInternal()
+   at System.Threading.Thread.Abort(Object stateInfo)
+   at System.Web.HttpResponse.End()
+   at PIManager.Professor.GetImage.Page_Load(Object sender, EventArgs e) in D:\Visual_Studio_Projects\PIManager\PIManager\Professor\GetImage.aspx.cs:line 42
+2011-05-14 15:46:53,434 [109] ERROR PIManager.Professor.GetImage [(null)] - Error loading page: Thread was being aborted.
+System.Threading.ThreadAbortException: Thread was being aborted.
+   at System.Threading.Thread.AbortInternal()
+   at System.Threading.Thread.Abort(Object stateInfo)
+   at System.Web.HttpResponse.End()
+   at PIManager.Professor.GetImage.Page_Load(Object sender, EventArgs e) in D:\Visual_Studio_Projects\PIManager\PIManager\Professor\GetImage.aspx.cs:line 42
+2011-05-14 15:47:50,805 [78] ERROR PIManager.Professor.GetImage [(null)] - Error loading page: Thread was being aborted.
+System.Threading.ThreadAbortException: Thread was being aborted.
+   at System.Threading.Thread.AbortInternal()
+   at System.Threading.Thread.Abort(Object stateInfo)
+   at System.Web.HttpResponse.End()
+   at PIManager.Professor.GetImage.Page_Load(Object sender, EventArgs e) in D:\Visual_Studio_Projects\PIManager\PIManager\Professor\GetImage.aspx.cs:line 42
+2011-05-14 15:51:58,606 [108] ERROR PIManager.Professor.GetImage [(null)] - Error loading page: Thread was being aborted.
+System.Threading.ThreadAbortException: Thread was being aborted.
+   at System.Threading.Thread.AbortInternal()
+   at System.Threading.Thread.Abort(Object stateInfo)
+   at System.Web.HttpResponse.End()
+   at PIManager.Professor.GetImage.Page_Load(Object sender, EventArgs e) in D:\Visual_Studio_Projects\PIManager\PIManager\Professor\GetImage.aspx.cs:line 42
+2011-05-14 15:52:02,936 [108] ERROR PIManager.Professor.GetImage [(null)] - Error loading page: Thread was being aborted.
+System.Threading.ThreadAbortException: Thread was being aborted.
+   at System.Threading.Thread.AbortInternal()
+   at System.Threading.Thread.Abort(Object stateInfo)
+   at System.Web.HttpResponse.End()
+   at PIManager.Professor.GetImage.Page_Load(Object sender, EventArgs e) in D:\Visual_Studio_Projects\PIManager\PIManager\Professor\GetImage.aspx.cs:line 42
+2011-05-14 15:52:19,872 [66] ERROR PIManager.Professor.GetImage [(null)] - Error loading page: Thread was being aborted.
+System.Threading.ThreadAbortException: Thread was being aborted.
+   at System.Threading.Thread.AbortInternal()
+   at System.Threading.Thread.Abort(Object stateInfo)
+   at System.Web.HttpResponse.End()
+   at PIManager.Professor.GetImage.Page_Load(Object sender, EventArgs e) in D:\Visual_Studio_Projects\PIManager\PIManager\Professor\GetImage.aspx.cs:line 42
+2011-05-14 15:52:29,332 [100] ERROR PIManager.Professor.GetImage [(null)] - Error loading page: Thread was being aborted.
+System.Threading.ThreadAbortException: Thread was being aborted.
+   at System.Threading.Thread.AbortInternal()
+   at System.Threading.Thread.Abort(Object stateInfo)
+   at System.Web.HttpResponse.End()
+   at PIManager.Professor.GetImage.Page_Load(Object sender, EventArgs e) in D:\Visual_Studio_Projects\PIManager\PIManager\Professor\GetImage.aspx.cs:line 42
+2011-05-14 16:21:45,753 [67] ERROR PIManager.Professor.GetImage [(null)] - Error loading page: Thread was being aborted.
+System.Threading.ThreadAbortException: Thread was being aborted.
+   at System.Threading.Thread.AbortInternal()
+   at System.Threading.Thread.Abort(Object stateInfo)
+   at System.Web.HttpResponse.End()
+   at PIManager.Professor.GetImage.Page_Load(Object sender, EventArgs e) in D:\Visual_Studio_Projects\PIManager\PIManager\GetImage.aspx.cs:line 42
+2011-05-14 16:21:53,564 [67] ERROR PIManager.Professor.GetImage [(null)] - Error loading page: Thread was being aborted.
+System.Threading.ThreadAbortException: Thread was being aborted.
+   at System.Threading.Thread.AbortInternal()
+   at System.Threading.Thread.Abort(Object stateInfo)
+   at System.Web.HttpResponse.End()
+   at PIManager.Professor.GetImage.Page_Load(Object sender, EventArgs e) in D:\Visual_Studio_Projects\PIManager\PIManager\GetImage.aspx.cs:line 42
+2011-05-14 16:21:56,382 [15] ERROR PIManager.Professor.GetImage [(null)] - Error loading page: Thread was being aborted.
+System.Threading.ThreadAbortException: Thread was being aborted.
+   at System.Threading.Thread.AbortInternal()
+   at System.Threading.Thread.Abort(Object stateInfo)
+   at System.Web.HttpResponse.End()
+   at PIManager.Professor.GetImage.Page_Load(Object sender, EventArgs e) in D:\Visual_Studio_Projects\PIManager\PIManager\GetImage.aspx.cs:line 42

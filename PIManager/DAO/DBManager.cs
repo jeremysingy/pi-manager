@@ -91,6 +91,16 @@ namespace PIManager.DAO
             return command.ExecuteNonQuery();
         }
 
+        /*public int doUpdate(string query, SqlConnection connection, SqlTransaction transaction, List<SqlParameter> paramList)
+        {
+            SqlCommand command = new SqlCommand(query, connection, transaction);
+
+            foreach (var param in paramList)
+                command.Parameters.Add(param);
+
+            return command.ExecuteNonQuery();
+        }*/
+
         /// <summary>
         /// Perform a delete query
         /// </summary>
@@ -118,8 +128,6 @@ namespace PIManager.DAO
         public int doInsert(string query, SqlConnection connection, SqlTransaction transaction, Dictionary<string, object> param)
         {
             query += " SET @newId = SCOPE_IDENTITY()";
-            //SqlConnection connection = new SqlConnection(DB_CONNECTION_STRING);
-            //SqlTransaction transaction = connection.BeginTransaction(isolationLevel);
 
             SqlCommand command = new SqlCommand(query, connection, transaction);
 
@@ -130,11 +138,8 @@ namespace PIManager.DAO
             idParam.Direction = ParameterDirection.Output;
             command.Parameters.Add(idParam);
 
-            //SqlParameterCollection s = new SqlParameterCollection();
-
             command.ExecuteNonQuery();
 
-            //transaction.Commit();
             return (int)idParam.Value;
         }
 

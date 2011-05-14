@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using PIManager.DAO;
 using log4net;
 using PIManager.Models;
+using System.IO;
 
 namespace PIManager.Professor
 {
@@ -184,9 +185,15 @@ namespace PIManager.Professor
         /// <param name="e">Arguments of the event</param>
         protected void btSubmit_Click(object sender, EventArgs e)
         {
-            /*if (myProjectTechnos.Count == 0)
+            if (myProjectTechnos.Count == 0)
             {
                 lbErrorTechnos.Visible = true;
+                return;
+            }
+
+            if (!validateImage(uploadImage.PostedFile))
+            {
+                lbErrorImage.Visible = true;
                 return;
             }
 
@@ -199,10 +206,28 @@ namespace PIManager.Professor
                                              int.Parse(listClients.SelectedValue),
                                              parentId);
 
-            myProjectAccess.addProject(newProject, myProjectTechnos);
-            Response.Redirect("Default.aspx");*/
+            byte[] rawImage;
+            using (var binaryReader = new BinaryReader(uploadImage.PostedFile.InputStream))
+            {
+                rawImage = binaryReader.ReadBytes(uploadImage.PostedFile.ContentLength);
+            }
+
+            myProjectAccess.addProject(newProject, myProjectTechnos, rawImage);
+            //Response.Redirect("Default.aspx");
 
             test.Text = tbDescription.Text;
+        }
+
+        private bool validateImage(HttpPostedFile imageFile)
+        {
+            if (imageFile.ContentLength == 0)
+                return true;
+
+            return imageFile.ContentLength <= 512 * 1024 &&
+                   (imageFile.ContentType == "image/gif" ||
+                    imageFile.ContentType == "image/png" ||
+                    imageFile.ContentType == "image/jpeg" ||
+                    imageFile.ContentType == "image/bmp");
         }
     }
 }

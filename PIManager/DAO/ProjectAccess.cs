@@ -158,7 +158,7 @@ namespace PIManager.DAO
             bool saveDone = false;
             string query = "SELECT count(*) FROM Project WHERE pk_project = @PK_PROJECT" +
                            " AND description_XML.value(N'(//student)[1]', 'integer') > (SELECT COUNT(*) FROM Person WHERE Person.pk_project = Project.pk_project);";
-                        
+            
             Dictionary<string, object> param = new Dictionary<string, object>();
             param.Add("@PK_PROJECT", idProject);
 
@@ -409,7 +409,7 @@ namespace PIManager.DAO
                 "description_xml.value('(//abreviation)[1]', 'varchar(50)') AS abreviation, " +
                 "description_xml.query('//description/*') AS description, " +
                 "description_xml.value('(//student)[1]', 'int') AS nbstudents, " +
-                "pk_person, pk_parent " +
+                "image, pk_person, pk_parent " +
                 "FROM Project " +
                 "WHERE pk_project = @id";
 
@@ -436,13 +436,14 @@ namespace PIManager.DAO
                 int nbStudents = (int)reader["nbstudents"];
                 int clientId = (int)reader["pk_person"];
                 int parentId = reader.IsDBNull(reader.GetOrdinal("pk_parent")) ? -1 : (int)reader["pk_parent"];
+                bool hasImage = !reader.IsDBNull(reader.GetOrdinal("image"));
 
                 reader.Close();
 
                 // Get the technologies of the project
                 SqlDataReader readerTechnos = myDBManager.doSelect(queryTechnos, connection, transaction, param);
 
-                Project project = new Project(id, name, abreviation, desc, nbStudents, clientId, parentId);
+                Project project = new Project(id, name, abreviation, desc, nbStudents, clientId, parentId, hasImage);
 
                 while (readerTechnos.Read())
                     project.AddTechnologyId((int)readerTechnos["pk_techno"]);
@@ -459,7 +460,8 @@ namespace PIManager.DAO
         /// </summary>
         /// <param name="newProject">The new project to add</param>
         /// <param name="projectTechnos">The list if technologies associated with this new project</param>
-        public void addProject(Project newProject, List<Technology> projectTechnos)
+        /// <param name="rawImage">Bytes representing the image posted to add to the description of the project</param>
+        public void addProject(Project newProject, List<Technology> projectTechnos, byte[] rawImage)
         {
             using (SqlConnection connection = myDBManager.newConnection())
             {
@@ -471,6 +473,16 @@ namespace PIManager.DAO
                 paramCreateProj.Add(new SqlParameter("@abreviation", newProject.Abreviation));
                 paramCreateProj.Add(new SqlParameter("@nbstudents", newProject.NbStudents));
                 paramCreateProj.Add(new SqlParameter("@description", newProject.Description));
+
+                if (rawImage.Length == 0)
+                {
+                    SqlParameter nullParam = new SqlParameter("@image", SqlDbType.VarBinary);
+                    nullParam.Value = DBNull.Value;
+                    paramCreateProj.Add(nullParam);
+                }
+                else
+                    paramCreateProj.Add(new SqlParameter("@image", rawImage));
+                
                 paramCreateProj.Add(new SqlParameter("@clientid", newProject.ClientId));
 
                 // Output parameter to get the new id
@@ -501,8 +513,9 @@ namespace PIManager.DAO
         /// <param name="oldProject">The informations of the project before modifying it</param>
         /// <param name="newProject">The new informations to put for this project</param>
         /// <param name="projectTechnos">The list if technologies associated with this project</param>
+        /// <param name="rawImage">Image posted to add to the description of the project</param>
         /// <returns>true if the project has been added, false otherwise (the project doesn't exist or has been modified before by someone else)</returns>
-        public bool modifyProject(Project oldProject, Project newProject, List<Technology> projectTechnos)
+        public bool modifyProject(Project oldProject, Project newProject, List<Technology> projectTechnos, byte[] rawImage)
         {
             // Query to get the current project stored in DB
             string selectQuery = "SELECT pk_project, " +
@@ -546,6 +559,16 @@ namespace PIManager.DAO
                 paramUpdateProj.Add(new SqlParameter("@abreviation", newProject.Abreviation));
                 paramUpdateProj.Add(new SqlParameter("@nbstudents", newProject.NbStudents));
                 paramUpdateProj.Add(new SqlParameter("@description", newProject.Description));
+
+                if (rawImage.Length == 0)
+                {
+                    SqlParameter nullParam = new SqlParameter("@image", SqlDbType.VarBinary);
+                    nullParam.Value = DBNull.Value;
+                    paramUpdateProj.Add(nullParam);
+                }
+                else
+                    paramUpdateProj.Add(new SqlParameter("@image", rawImage));
+
                 paramUpdateProj.Add(new SqlParameter("@clientid", newProject.ClientId));
 
                 myDBManager.executeProcedure("dbo.update_project", connection, transaction, paramUpdateProj);
@@ -555,7 +578,6 @@ namespace PIManager.DAO
                 paramUpdateTechnos.Add(new SqlParameter("@technologies", transformTechnologies(projectTechnos)));
 
                 myDBManager.executeProcedure("dbo.update_technos", connection, transaction, paramUpdateTechnos);
-
                 transaction.Commit();
 
                 return true;
@@ -582,6 +604,33 @@ namespace PIManager.DAO
 
                 transaction.Commit();
             }
+        }
+
+        public byte[] getImage(int id)
+        {
+            // Query for the attributes of the projects
+            string query = "SELECT image FROM Project WHERE pk_project = @id";
+
+            byte[] rawImage = null;
+
+            using (SqlConnection connection = myDBManager.newConnection())
+            {
+                connection.Open();
+                SqlTransaction transaction = connection.BeginTransaction(IsolationLevel.ReadCommitted);
+
+                Dictionary<string, object> param = new Dictionary<string, object>();
+                param.Add("@id", id);
+
+                SqlDataReader reader = myDBManager.doSelect(query, connection, transaction, param);
+                reader.Read();
+
+                rawImage = (byte[])reader["image"];
+
+                reader.Close();
+                transaction.Commit();
+            }
+
+            return rawImage;
         }
 
         /// <summary>

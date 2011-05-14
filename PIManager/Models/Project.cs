@@ -20,6 +20,7 @@ namespace PIManager.Models
         private List<Person> myInscriptions = new List<Person>();
         private int myParentId;
 		private List<Technology> myTechnology;
+        private bool myHasImage;
 
         /// <summary>
         /// Constructor
@@ -88,7 +89,24 @@ namespace PIManager.Models
         /// <param name="nbStudents">Number of students for this project</param>
         /// <param name="clientId">Id of the client of this project</param>
         /// <param name="parentId">Id of the parent of this project</param>
-        public Project(int id, string name, string abreviation, string desc, int nbStudents, int clientId, int parentId)
+        public Project(int id, string name, string abreviation, string desc, int nbStudents, int clientId, int parentId) :
+            this(id, name, abreviation, desc, nbStudents, clientId, parentId, false)
+        {
+
+        }
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="id">Id of the project</param>
+        /// <param name="name">Name of the project</param>
+        /// <param name="abreviation">Abreviation of the project</param>
+        /// <param name="desc">Description of the project</param>
+        /// <param name="nbStudents">Number of students for this project</param>
+        /// <param name="clientId">Id of the client of this project</param>
+        /// <param name="parentId">Id of the parent of this project</param>
+        /// <param name="hasImage">true if the project has an image, false otherwise</param>
+        public Project(int id, string name, string abreviation, string desc, int nbStudents, int clientId, int parentId, bool hasImage)
         {
             myId = id;
             myName = name;
@@ -97,8 +115,9 @@ namespace PIManager.Models
             myNbStudents = nbStudents;
             myClientId = clientId;
             myParentId = parentId;
-			myInscriptions = new List<Person>();
+            myInscriptions = new List<Person>();
             myTechnology = new List<Technology>();
+            myHasImage = hasImage;
         }
 
         /// <summary>
@@ -191,6 +210,15 @@ namespace PIManager.Models
         }
 
         /// <summary>
+        /// true if the project has an image, false otherwise
+        /// </summary>
+        public bool HasImage
+        {
+            get { return myHasImage; }
+            set { myHasImage = value; }
+        }
+
+        /// <summary>
         /// Add a registered person to this project
         /// </summary>
         /// <param name="person">The person to add</param>
@@ -198,11 +226,6 @@ namespace PIManager.Models
         {
             myInscriptions.Add(person);
         }
-		
-		/*public void AddTechnologyInMyTechnology(Technology technology)
-        {
-            myTechnology.Add(technology);
-        }*/
 
         /// <summary>
         /// Return true if this project is equivalent to the other project.

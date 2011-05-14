@@ -4,6 +4,7 @@ using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting.Web;
 using PIManager.Models;
 using System.Collections.Generic;
+using System.Web;
 
 namespace PIManagerTest
 {
@@ -85,7 +86,7 @@ namespace PIManagerTest
                 if (techno.Value.Equals(".NET 2010") || techno.Value.Equals("SQL Server 2008 R2"))
                     projectTechnos.Add(techno.Value);
 
-            target.addProject(newProject, projectTechnos);
+            target.addProject(newProject, projectTechnos, new byte[0]);
 
             List<Project> projects = target.getProjects();
             foreach (var proj in projects)

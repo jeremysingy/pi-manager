@@ -84,10 +84,6 @@
     <add key="VBdocman_linkForExternalNotInFramework"><![CDATA[0]]></add>
     <add key="VBdocman_allowMacrosInComments"><![CDATA[0]]></add>
     <add key="VBdocman_emptyOutputFolder"><![CDATA[0]]></add>
-    <add key="VBdocman_comModules_About.aspx.cs"><![CDATA[On]]></add>
-    <add key="VBdocman_comModules_About.aspx.designer.cs"><![CDATA[On]]></add>
-    <add key="VBdocman_comModules_Account...AddProject.aspx.cs"><![CDATA[On]]></add>
-    <add key="VBdocman_comModules_Account...AddProject.aspx.designer.cs"><![CDATA[On]]></add>
     <add key="VBdocman_comModules_Account...ChangePassword.aspx.cs"><![CDATA[On]]></add>
     <add key="VBdocman_comModules_Account...ChangePassword.aspx.designer.cs"><![CDATA[On]]></add>
     <add key="VBdocman_comModules_Account...ChangePasswordSuccess.aspx.cs"><![CDATA[On]]></add>
@@ -117,6 +113,8 @@
     <add key="VBdocman_comModules_Professor...AddProject.aspx.designer.cs"><![CDATA[On]]></add>
     <add key="VBdocman_comModules_Professor...Default.aspx.cs"><![CDATA[On]]></add>
     <add key="VBdocman_comModules_Professor...Default.aspx.designer.cs"><![CDATA[On]]></add>
+    <add key="VBdocman_comModules_Professor...GetImage.aspx.cs"><![CDATA[On]]></add>
+    <add key="VBdocman_comModules_Professor...GetImage.aspx.designer.cs"><![CDATA[On]]></add>
     <add key="VBdocman_comModules_Professor...ManageProjects.aspx.cs"><![CDATA[On]]></add>
     <add key="VBdocman_comModules_Professor...ManageProjects.aspx.designer.cs"><![CDATA[On]]></add>
     <add key="VBdocman_comModules_Professor...ModifyProject.aspx.cs"><![CDATA[On]]></add>
