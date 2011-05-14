@@ -277,3 +277,21 @@ System.Threading.ThreadAbortException: Thread was being aborted.
    at System.Threading.Thread.Abort(Object stateInfo)
    at System.Web.HttpResponse.End()
    at PIManager.Professor.GetImage.Page_Load(Object sender, EventArgs e) in D:\Visual_Studio_Projects\PIManager\PIManager\GetImage.aspx.cs:line 42
+2011-05-14 16:25:17,293 [75] ERROR PIManager.ManageProjects [(null)] - Error loading page: Cannot open database "pimanager" requested by the login. The login failed.
+Login failed for user 'pi_professor'.
+2011-05-14 16:25:43,079 [69] ERROR PIManager.ManageProjects [(null)] - Error loading page: Cannot open database "pimanager" requested by the login. The login failed.
+Login failed for user 'pi_professor'.
+2011-05-14 16:25:51,487 [69] ERROR PIManager.ManageProjects [(null)] - Error loading page: Cannot open database "pimanager" requested by the login. The login failed.
+Login failed for user 'pi_professor'.
+2011-05-14 16:45:14,958 [7] ERROR PIManager.Professor.GetImage [(null)] - Error loading page: Thread was being aborted.
+System.Threading.ThreadAbortException: Thread was being aborted.
+   at System.Threading.Thread.AbortInternal()
+   at System.Threading.Thread.Abort(Object stateInfo)
+   at System.Web.HttpResponse.End()
+   at PIManager.Professor.GetImage.Page_Load(Object sender, EventArgs e) in D:\Visual_Studio_Projects\PIManager\PIManager\GetImage.aspx.cs:line 42
+2011-05-14 18:13:28,435 [101] ERROR PIManager.Professor.GetImage [(null)] - Error loading page: Thread was being aborted.
+System.Threading.ThreadAbortException: Thread was being aborted.
+   at System.Threading.Thread.AbortInternal()
+   at System.Threading.Thread.Abort(Object stateInfo)
+   at System.Web.HttpResponse.End()
+   at PIManager.Professor.GetImage.Page_Load(Object sender, EventArgs e) in D:\Visual_Studio_Projects\PIManager\PIManager\GetImage.aspx.cs:line 42

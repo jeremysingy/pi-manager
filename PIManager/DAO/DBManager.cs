@@ -8,6 +8,8 @@ using System.Data;
 using System.IO;
 using log4net;
 using PIManager.Models;
+using PIManager.Login;
+using System.Web.Security;
 
 namespace PIManager.DAO
 {
@@ -17,9 +19,15 @@ namespace PIManager.DAO
     public class DBManager
     {
         /// <summary>
+        /// Current user logged in to the applicaiton
+        /// </summary>
+        //MemberShipPIUser myConnectedUser;
+
+        /// <summary>
         /// Connection string to access the database
         /// </summary>
-        public static readonly string DB_CONNECTION_STRING = ConfigurationManager.ConnectionStrings["PIDBConnection"].ToString();
+        public static readonly string CONNECTION_STRING_PROFESSOR = ConfigurationManager.ConnectionStrings["PIProfConnection"].ToString();
+        public static readonly string CONNECTION_STRING_STUDENT   = ConfigurationManager.ConnectionStrings["PIStudConnection"].ToString();
 
         /// <summary>
         /// Get acces to the unique logger instance
@@ -35,7 +43,10 @@ namespace PIManager.DAO
         /// </summary>
         public SqlConnection newConnection()
         {
-            return new SqlConnection(DB_CONNECTION_STRING);
+            if (Roles.IsUserInRole("professor"))
+                return new SqlConnection(CONNECTION_STRING_PROFESSOR);
+            else
+                return new SqlConnection(CONNECTION_STRING_STUDENT);
         }
 
         /// <summary>
@@ -171,7 +182,7 @@ namespace PIManager.DAO
 
             string query = "SELECT pk_person FROM Person WHERE login like @login and password like @pass;";
 
-            SqlConnection connection = new SqlConnection(DB_CONNECTION_STRING); //TODO change with anonymous user with limited rigth
+            SqlConnection connection = new SqlConnection(CONNECTION_STRING_PROFESSOR); //TODO change with anonymous user with limited rigth
 
             connection.Open();
 
@@ -213,7 +224,7 @@ namespace PIManager.DAO
             int person_type = -1;
             string query = "SELECT role FROM Person WHERE pk_person = @pk_person;";
 
-            SqlConnection connection = new SqlConnection(DB_CONNECTION_STRING); //TODO change with anonymous user with limited rigth
+            SqlConnection connection = new SqlConnection(CONNECTION_STRING_PROFESSOR); //TODO change with anonymous user with limited rigth
             connection.Open();
 
             SqlTransaction transaction = connection.BeginTransaction(IsolationLevel.ReadCommitted, "getTypePerson");
@@ -248,7 +259,7 @@ namespace PIManager.DAO
 
         public SqlDataReader getProjectInscriptions()
         {
-            SqlConnection connection = new SqlConnection(DB_CONNECTION_STRING);
+            SqlConnection connection = new SqlConnection(CONNECTION_STRING_PROFESSOR);
 
             connection.Open();
 
@@ -280,7 +291,7 @@ namespace PIManager.DAO
 
 		public SqlDataReader getFullProjects()
         {
-            SqlConnection connection = new SqlConnection(DB_CONNECTION_STRING);
+            SqlConnection connection = new SqlConnection(CONNECTION_STRING_PROFESSOR);
 
             connection.Open();
 
@@ -311,7 +322,7 @@ namespace PIManager.DAO
 
         public SqlDataReader getPersonName(int pk_person)
         {
-            SqlConnection connection = new SqlConnection(DB_CONNECTION_STRING);
+            SqlConnection connection = new SqlConnection(CONNECTION_STRING_PROFESSOR);
 
             connection.Open();
 
@@ -344,7 +355,7 @@ namespace PIManager.DAO
 
         public SqlDataReader getProjectGroup(int pk_project)
         {
-            SqlConnection connection = new SqlConnection(DB_CONNECTION_STRING);
+            SqlConnection connection = new SqlConnection(CONNECTION_STRING_PROFESSOR);
 
             connection.Open();
 
@@ -378,7 +389,7 @@ namespace PIManager.DAO
 
         public SqlDataReader getTechnologyProject(int pk_project)
         {
-            SqlConnection connection = new SqlConnection(DB_CONNECTION_STRING);
+            SqlConnection connection = new SqlConnection(CONNECTION_STRING_PROFESSOR);
 
             connection.Open();
 
