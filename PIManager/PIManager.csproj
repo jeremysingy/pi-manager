@@ -68,6 +68,9 @@
     <Content Include="Professor\AddProject.aspx" />
     <Content Include="Professor\OpenProject.aspx" />
     <Content Include="Scripts\calendar.js" />
+    <Content Include="Scripts\tiny_mce.js" />
+    <Content Include="Scripts\tiny_mce_popup.js" />
+    <Content Include="Scripts\tiny_mce_src.js" />
     <Content Include="Student\AddDocument.aspx" />
     <Content Include="Images\01.png" />
     <Content Include="Images\02.png" />

@@ -33,3 +33,49 @@
 2011-05-13 14:23:24,021 [136] DEBUG PIManager.DAO.ProjectAccess [(null)] - [@date_close, 2011-05-30 14:20]
 2011-05-13 14:23:24,021 [136] DEBUG PIManager.DAO.ProjectAccess [(null)] - [@year, 2011]
 2011-05-13 14:23:24,021 [136] DEBUG PIManager.DAO.ProjectAccess [(null)] - UPDATE Project SET pk_period = @idperiod WHERE pk_project IN (3,9))
+2011-05-13 16:45:44,648 [17] ERROR PIManager.Professor.AddNewProject [(null)] - Error loading page: Object reference not set to an instance of an object.
+2011-05-13 16:46:07,945 [14] ERROR PIManager.Professor.AddNewProject [(null)] - Error loading page: Object reference not set to an instance of an object.
+2011-05-13 16:48:03,799 [22] ERROR PIManager.Professor.AddNewProject [(null)] - Error loading page: Object reference not set to an instance of an object.
+2011-05-13 17:18:49,694 [86] ERROR PIManager.Professor.AddNewProject [(null)] - Error loading page: Object reference not set to an instance of an object.
+2011-05-13 17:20:14,494 [87] ERROR PIManager.Professor.AddNewProject [(null)] - Error loading page: Object reference not set to an instance of an object.
+2011-05-13 17:21:26,941 [21] ERROR PIManager.Professor.AddNewProject [(null)] - Error loading page: Object reference not set to an instance of an object.
+2011-05-13 17:23:08,934 [87] ERROR PIManager.Professor.AddNewProject [(null)] - Error loading page: Object reference not set to an instance of an object.
+2011-05-13 17:23:36,604 [87] ERROR PIManager.Professor.AddNewProject [(null)] - Error loading page: Object reference not set to an instance of an object.
+2011-05-13 17:24:00,571 [21] ERROR PIManager.Professor.AddNewProject [(null)] - Error loading page: Object reference not set to an instance of an object.
+2011-05-13 17:25:43,165 [20] ERROR PIManager.Professor.AddNewProject [(null)] - Error loading page: Object reference not set to an instance of an object.
+2011-05-13 17:29:04,671 [21] ERROR PIManager.Professor.AddNewProject [(null)] - Error loading page: Object reference not set to an instance of an object.
+2011-05-13 17:30:53,750 [21] ERROR PIManager.Professor.AddNewProject [(null)] - Error loading page: Object reference not set to an instance of an object.
+2011-05-13 17:32:09,805 [22] ERROR PIManager.Professor.AddNewProject [(null)] - Error loading page: Object reference not set to an instance of an object.
+2011-05-13 17:38:14,511 [17] ERROR PIManager.Professor.AddNewProject [(null)] - Error loading page: Object reference not set to an instance of an object.
+2011-05-13 17:38:32,099 [87] ERROR PIManager.Professor.AddNewProject [(null)] - Error loading page: Object reference not set to an instance of an object.
+2011-05-13 17:41:50,336 [87] ERROR PIManager.Professor.AddNewProject [(null)] - Error loading page: Object reference not set to an instance of an object.
+2011-05-13 17:43:21,816 [17] ERROR PIManager.Professor.AddNewProject [(null)] - Error loading page: Object reference not set to an instance of an object.
+2011-05-13 17:51:16,844 [4] ERROR PIManager.Professor.AddNewProject [(null)] - Error loading page: Object reference not set to an instance of an object.
+2011-05-13 17:52:13,684 [88] ERROR PIManager.Professor.AddNewProject [(null)] - Error loading page: Object reference not set to an instance of an object.
+2011-05-13 17:56:09,977 [14] ERROR PIManager.Professor.AddNewProject [(null)] - Error loading page: Object reference not set to an instance of an object.
+2011-05-13 17:57:14,598 [21] ERROR PIManager.Professor.AddNewProject [(null)] - Error loading page: Object reference not set to an instance of an object.
+2011-05-13 17:58:53,793 [14] ERROR PIManager.Professor.AddNewProject [(null)] - Error loading page: Object reference not set to an instance of an object.
+2011-05-13 17:59:56,543 [86] ERROR PIManager.Professor.AddNewProject [(null)] - Error loading page: Object reference not set to an instance of an object.
+2011-05-13 18:02:05,195 [22] ERROR PIManager.Professor.AddNewProject [(null)] - Error loading page: Object reference not set to an instance of an object.
+2011-05-13 18:37:10,883 [24] ERROR PIManager.Professor.AddNewProject [(null)] - Error loading page: Object reference not set to an instance of an object.
+2011-05-13 18:37:23,837 [24] ERROR PIManager.Professor.AddNewProject [(null)] - Error loading page: Object reference not set to an instance of an object.
+2011-05-13 18:37:40,068 [25] ERROR PIManager.Professor.AddNewProject [(null)] - Error loading page: Object reference not set to an instance of an object.
+2011-05-13 18:38:00,446 [25] ERROR PIManager.Professor.AddNewProject [(null)] - Error loading page: Object reference not set to an instance of an object.
+2011-05-13 18:39:08,566 [9] ERROR PIManager.Professor.AddNewProject [(null)] - Error loading page: Object reference not set to an instance of an object.
+2011-05-13 18:41:10,375 [23] ERROR PIManager.Professor.AddNewProject [(null)] - Error loading page: Object reference not set to an instance of an object.
+2011-05-13 18:42:57,174 [6] DEBUG PIManager.Professor.AddNewProject [(null)] - Created session technos: System.Collections.Generic.List`1[PIManager.Models.Technology]
+2011-05-13 18:42:59,863 [10] ERROR PIManager.Professor.AddNewProject [(null)] - Error loading page: Object reference not set to an instance of an object.
+2011-05-13 18:45:53,086 [9] DEBUG PIManager.Professor.AddNewProject [(null)] - GET requestSystem.Collections.Generic.List`1[PIManager.Models.Technology]
+2011-05-13 18:45:56,014 [9] ERROR PIManager.Professor.AddNewProject [(null)] - Error loading page: Object reference not set to an instance of an object.
+2011-05-13 18:46:37,033 [23] ERROR PIManager.Professor.AddNewProject [(null)] - Error loading page: Object reference not set to an instance of an object.
+2011-05-13 18:48:38,772 [30] DEBUG PIManager.Professor.AddNewProject [(null)] - GET requestSystem.Collections.Generic.List`1[PIManager.Models.Technology]
+2011-05-13 18:49:07,985 [30] DEBUG PIManager.Professor.AddNewProject [(null)] - GET requestSystem.Collections.Generic.List`1[PIManager.Models.Technology]
+2011-05-13 18:49:09,272 [30] ERROR PIManager.Professor.AddNewProject [(null)] - Error loading page: Object reference not set to an instance of an object.
+2011-05-13 18:49:49,913 [30] DEBUG PIManager.Professor.AddNewProject [(null)] - Page_Load!
+2011-05-13 18:49:50,216 [30] DEBUG PIManager.Professor.AddNewProject [(null)] - GET requestSystem.Collections.Generic.List`1[PIManager.Models.Technology]
+2011-05-13 18:49:52,398 [32] DEBUG PIManager.Professor.AddNewProject [(null)] - Page_Load!
+2011-05-13 18:49:52,399 [32] ERROR PIManager.Professor.AddNewProject [(null)] - Error loading page: Object reference not set to an instance of an object.
+2011-05-13 18:51:16,188 [27] DEBUG PIManager.Professor.AddNewProject [(null)] - Page_Load!
+2011-05-13 18:51:16,319 [27] DEBUG PIManager.Professor.AddNewProject [(null)] - GET requestSystem.Collections.Generic.List`1[PIManager.Models.Technology]
+2011-05-13 18:51:30,433 [23] DEBUG PIManager.Professor.AddNewProject [(null)] - Page_Load!
+2011-05-13 18:52:38,560 [23] ERROR PIManager.Professor.AddNewProject [(null)] - Error loading page: Object reference not set to an instance of an object.

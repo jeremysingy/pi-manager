@@ -67,8 +67,8 @@ namespace PIManager.Professor
                 if (!IsPostBack)
                 {
                     createSessions();
-                    List<Person> persons = myPersonAccess.getPersons(2);
 
+                    List<Person> persons = myPersonAccess.getPersons(2);
                     fillFields(persons);
                 }
                 else
@@ -85,13 +85,11 @@ namespace PIManager.Professor
         /// </summary>
         protected void createSessions()
         {
-            //Session["parentId"] = myParentId = Request.QueryString["id"] == null ? -1 : int.Parse(Request.QueryString["id"]);
             int parentId = Request.QueryString["parent"] == null ? -1 : int.Parse(Request.QueryString["parent"]);
-            if (parentId > 0)
-            {
+            Session["hasParent"] = myHasParent = parentId > 0;
+
+            if (myHasParent)
                 Session["parentProj"] = myParentProject = myProjectAccess.getProject(parentId);
-                Session["hasParent"] = myHasParent = true;
-            }
             
             Session["projectTechnos"] = myProjectTechnos = new List<Technology>();
             Session["technologies"] = myTechnologies = myTechnoAccess.getTechnologies();
@@ -186,7 +184,7 @@ namespace PIManager.Professor
         /// <param name="e">Arguments of the event</param>
         protected void btSubmit_Click(object sender, EventArgs e)
         {
-            if (myProjectTechnos.Count == 0)
+            /*if (myProjectTechnos.Count == 0)
             {
                 lbErrorTechnos.Visible = true;
                 return;
@@ -202,7 +200,9 @@ namespace PIManager.Professor
                                              parentId);
 
             myProjectAccess.addProject(newProject, myProjectTechnos);
-            Response.Redirect("Default.aspx");
+            Response.Redirect("Default.aspx");*/
+
+            test.Text = tbDescription.Text;
         }
     }
 }

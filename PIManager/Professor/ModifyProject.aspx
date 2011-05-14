@@ -1,7 +1,27 @@
 ﻿<%@ Page Title="Modification d'un projet" Language="C#" MasterPageFile="~/Professor/Professor.master"
     AutoEventWireup="true" CodeBehind="ModifyProject.aspx.cs" Inherits="PIManager.ModifyProject" ValidateRequest="false" %>
 
-<asp:Content ID="HeaderContent" runat="server" ContentPlaceHolderID="HeadContent"></asp:Content>
+<asp:Content ID="HeaderContent" runat="server" ContentPlaceHolderID="HeadContent">
+<script type="text/javascript" src="../Scripts/tiny_mce/tiny_mce.js"></script>
+<script type="text/javascript" >
+    tinyMCE.init({
+        theme: "advanced",
+        mode: "textareas",
+        plugins: "pimanager",
+        theme_advanced_buttons1: "bullist,numlist,|,undo,redo",
+        theme_advanced_buttons2: "",
+        theme_advanced_buttons3: "",
+        theme_advanced_toolbar_location: "top",
+        theme_advanced_toolbar_align: "center",
+        theme_advanced_styles: "Code=codeStyle;Quote=quoteStyle",
+        entity_encoding: "raw",
+        add_unload_trigger: false,
+        remove_linebreaks: false,
+        inline_styles: false,
+        convert_fonts_to_spans: false
+    });
+</script>
+</asp:Content>
 
 <asp:Content ID="BodyContent" runat="server" ContentPlaceHolderID="MainContent">
     <h2>Modification du projet :</h2>
