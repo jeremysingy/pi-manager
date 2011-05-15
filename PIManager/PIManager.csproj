@@ -68,6 +68,7 @@
     <Content Include="Professor\AddNewProject.aspx" />
     <Content Include="Professor\AddProject.aspx" />
     <Content Include="Professor\OpenProject.aspx" />
+    <Content Include="Professor\VisualizationHistory.aspx" />
     <Content Include="Student\AddDocument.aspx" />
     <Content Include="Images\01.png" />
     <Content Include="Images\02.png" />
@@ -191,6 +192,13 @@
     </Compile>
     <Compile Include="Professor\OpenProject.aspx.designer.cs">
       <DependentUpon>OpenProject.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Professor\VisualizationHistory.aspx.cs">
+      <DependentUpon>VisualizationHistory.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Professor\VisualizationHistory.aspx.designer.cs">
+      <DependentUpon>VisualizationHistory.aspx</DependentUpon>
     </Compile>
     <Compile Include="Student\AddDocument.aspx.cs">
       <DependentUpon>AddDocument.aspx</DependentUpon>

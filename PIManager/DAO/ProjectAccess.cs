@@ -560,8 +560,7 @@ namespace PIManager.DAO
                 string name = (string)reader["title"];
                 int clientID = (int)reader["pk_person"];
 
-                Project project = new Project(id, name, "", 0);
-                project.ClientID = clientID;
+                Project project = new Project(id, name, "", "", 0, clientID);
                 projects.Add(project);
 
             }
@@ -632,6 +631,93 @@ namespace PIManager.DAO
             reader.Close();
 
             return technologys;
+        }
+
+        public Stack<Project> getHistoryProject(int choosed_project)
+        {
+            Stack<Project> projectHistory = new Stack<Project>();
+
+            string child_query = "SELECT pk_child, description_xml.value('(//title)[1]', 'varchar(80)') AS title  FROM project pr, project_speed ps WHERE ps.pk_project = @pk_project AND ps.pk_child = pr.pk_project";
+
+            string parent_query = "SELECT pk_parent FROM project WHERE pk_project = @pk_project";
+
+            string projectName_query = "SELECT description_xml.value('(//title)[1]', 'varchar(80)') AS title FROM project WHERE pk_project = @pk_project";
+
+            using (SqlConnection connection = myDBManager.newConnection())
+            {
+                connection.Open();
+                SqlTransaction transaction = connection.BeginTransaction(IsolationLevel.ReadCommitted, "showHistory");
+
+
+                Dictionary<string, object> param_child_query = new Dictionary<string, object>();
+                param_child_query.Add("@pk_project", choosed_project);
+
+                SqlDataReader readerChild = myDBManager.doSelect(child_query, connection, transaction, param_child_query);
+                //Child
+                while (readerChild.Read())
+                {
+                    int id_project = (int)readerChild["pk_child"];
+                    string project_name = (string)readerChild["title"];
+
+                    projectHistory.Push(new Project(id_project, project_name, "", "", -1, -1));
+
+                }
+
+                readerChild.Close();
+
+
+                //choosed
+                Dictionary<string, object> param_projectName = new Dictionary<string, object>();
+                param_projectName.Add("@pk_project", choosed_project);
+
+                string projectName = (string)myDBManager.doSelectScalar(projectName_query, connection, transaction, param_projectName);
+
+                projectHistory.Push(new Project(choosed_project, projectName, "", "", -1, -1));
+
+
+                //parent
+                SqlDataReader parentReader = null;
+                int pk_current_project = choosed_project;
+
+                bool finish = false;
+
+                do
+                {
+                    Dictionary<string, object> param_parent_project = new Dictionary<string, object>();
+                    param_parent_project.Add("@pk_project", pk_current_project);
+
+                    object o = myDBManager.doSelectScalar(parent_query, connection, transaction, param_parent_project);
+
+                    int id_project;
+
+                    
+                    if (!DBNull.Value.Equals(o))
+                    {
+                        id_project = (int)o;
+                    }
+                    else
+                    {
+                        finish = true;
+                        break;
+                    }
+
+                    param_projectName = new Dictionary<string, object>();
+                    param_projectName.Add("@pk_project", id_project);
+
+                    string project_name = (string)myDBManager.doSelectScalar(projectName_query, connection, transaction, param_projectName);
+
+                    pk_current_project = id_project;
+
+                    projectHistory.Push(new Project(id_project, project_name, "", "", -1, -1));
+
+
+                } while (!finish);
+
+
+                transaction.Commit();
+            }
+
+            return projectHistory;
         }
     }
 }
