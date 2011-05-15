@@ -21,6 +21,11 @@ namespace PIManager.Visualization
         ProjectAccess projectAccess; // reference to ProjectAccess
         MemberShipPIUser user; // user that is logged in
 
+        /// <summary>
+        /// Loads the page displaying the list of projects opened for the inscription.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void Page_Load(object sender, EventArgs e)
         {
             user = (MemberShipPIUser)Membership.GetUser();

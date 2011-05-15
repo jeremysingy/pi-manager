@@ -9,7 +9,9 @@
 
 namespace PIManager.Visualization {
     
-    
+    /// <summary>
+    /// This class manages the creation of the list of projects opened for the inscription.
+    /// </summary>
     public partial class VisuProjectStudent {
         
         /// <summary>

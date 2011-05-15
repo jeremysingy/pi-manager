@@ -614,6 +614,11 @@ namespace PIManager.DAO
             }
         }
 
+        /// <summary>
+        /// Gets the image added to the given project.
+        /// </summary>
+        /// <param name="id">id of the project</param>
+        /// <returns>image as byte array</returns>
         public byte[] getImage(int id)
         {
             // Query for the attributes of the projects
