@@ -284,23 +284,27 @@ namespace PIManager.Login
 
             int pk_person = -1;
 
-            string query = "SELECT pk_person FROM Person WHERE login like @login and password like @pass;";
+            string query = "SELECT pk_person FROM Person WHERE Person.login = @login AND Person.password = HASHBYTES('MD5', @pass)";
 
             SqlConnection connection = dbmanager.newConnection();
-
             connection.Open();
 
             SqlTransaction transaction = connection.BeginTransaction(IsolationLevel.ReadCommitted, "Login");
 
-            Dictionary<string, object> param = new Dictionary<string, object>();
-            param.Add("@login", username);
-            param.Add("@pass", password);
+            List<SqlParameter> param = new List<SqlParameter>();
+            SqlParameter loginParam = new SqlParameter("@login", username);
+            loginParam.SqlDbType = SqlDbType.VarChar;
+            SqlParameter passParam = new SqlParameter("@pass", password);
+            passParam.SqlDbType = SqlDbType.VarChar;
+
+            param.Add(loginParam);
+            param.Add(passParam);
 
             object o = dbmanager.doSelectScalar(query, connection, transaction, param);
 
             connection.Close();
 
-            if (!DBNull.Value.Equals(o))
+            if (o != null && !DBNull.Value.Equals(o))
             {
                 pk_person = (int)o;
             }

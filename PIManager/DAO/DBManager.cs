@@ -24,10 +24,14 @@ namespace PIManager.DAO
         //MemberShipPIUser myConnectedUser;
 
         /// <summary>
-        /// Connection string to access the database
+        /// Connection string to access the database as a professor
         /// </summary>
         public static readonly string CONNECTION_STRING_PROFESSOR = ConfigurationManager.ConnectionStrings["PIProfConnection"].ToString();
-        public static readonly string CONNECTION_STRING_STUDENT   = ConfigurationManager.ConnectionStrings["PIStudConnection"].ToString();
+
+        /// <summary>
+        /// Connection string to access the database as a student
+        /// </summary>
+        public static readonly string CONNECTION_STRING_STUDENT = ConfigurationManager.ConnectionStrings["PIStudConnection"].ToString();
 
         /// <summary>
         /// Get acces to the unique logger instance
@@ -81,6 +85,25 @@ namespace PIManager.DAO
 
             foreach (var pair in param)
                 command.Parameters.AddWithValue(pair.Key, pair.Value);
+
+            return command.ExecuteScalar();
+        }
+
+        /// <summary>
+        /// Perform a select query returning a scalar value
+        /// </summary>
+        /// <param name="query">Query to execute</param>
+        /// <param name="connection">Connection to use</param>
+        /// <param name="transaction">Transaction to use</param>
+        /// <param name="paramList">List of parameters to put for this query</param>
+        /// <returns>The object resulting of this query</returns>
+        public object doSelectScalar(string query, SqlConnection connection, SqlTransaction transaction, List<SqlParameter> paramList)
+        {
+            SqlCommand command = new SqlCommand(query, connection, transaction);
+
+            foreach (var param in paramList)
+                command.Parameters.Add(param);
+
             return command.ExecuteScalar();
         }
         
