@@ -19,7 +19,7 @@ namespace PIManager.Models
         private int myClientId;
         private List<Person> myInscriptions = new List<Person>();
         private int myParentId;
-		private List<Technology> myTechnology;
+		private List<Technology> myTechnology = new List<Technology>();
         private bool myHasImage;
 
         /// <summary>
@@ -115,8 +115,6 @@ namespace PIManager.Models
             myNbStudents = nbStudents;
             myClientId = clientId;
             myParentId = parentId;
-            myInscriptions = new List<Person>();
-            myTechnology = new List<Technology>();
             myHasImage = hasImage;
         }
 
@@ -216,6 +214,20 @@ namespace PIManager.Models
         {
             get { return myHasImage; }
             set { myHasImage = value; }
+           }
+
+        /// <summary>
+        /// List of technology of this project
+        /// </summary>
+        public List<Technology> Technology
+        {
+            get { return myTechnology; }
+            set { myTechnology = value; }
+        }
+
+        public void AddTechnologyInMyTechnology(Technology technology)
+        {
+            myTechnology.Add(technology);
         }
 
         /// <summary>

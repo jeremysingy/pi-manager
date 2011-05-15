@@ -685,36 +685,49 @@ namespace PIManager.DAO
         {
             Hashtable projects = new Hashtable();
 
-            SqlDataReader reader = myDBManager.getProjectInscriptions();
-
-            while (reader.Read())
+            using (SqlConnection connection = myDBManager.newConnection())
             {
-                int id = (int)reader["pk_project"];
-                string name = (string)reader["title"];
-                string firstname = (string)reader["firstname"];
-                string lastname = (string)reader["lastname"];
 
-                if (projects.ContainsKey(id))
+                string query = "SELECT pr.pk_project, description_xml.value('(//title)[1]', 'varchar(80)') AS title, firstname, lastname FROM project pr, person pe WHERE pr.pk_project = pe.pk_project";
+
+                connection.Open();
+
+                SqlTransaction transaction = connection.BeginTransaction(IsolationLevel.ReadCommitted, "showInscriptions");
+
+                Dictionary<string, object> empty = new Dictionary<string,object>();
+
+                SqlDataReader reader = myDBManager.doSelect(query, connection, transaction, empty);
+
+                while (reader.Read())
                 {
-                    Project project = (Project)projects[id];
-                    Person person = new Person(0, lastname, firstname, "", "", 1);
-                    project.AddPersonInInscriptions(person);
-                    projects.Remove(id);
-                    projects.Add(id, project);
+                    int id = (int)reader["pk_project"];
+                    string name = (string)reader["title"];
+                    string firstname = (string)reader["firstname"];
+                    string lastname = (string)reader["lastname"];
+
+                    if (projects.ContainsKey(id))
+                    {
+                        Project project = (Project)projects[id];
+                        Person person = new Person(0, lastname, firstname, "", "", 1);
+                        project.AddPersonInInscriptions(person);
+                        projects.Remove(id);
+                        projects.Add(id, project);
+                    }
+                    else
+                    {
+                        Project project = new Project(id, name, "", "", 0, -1);
+                        Person person = new Person(0, lastname, firstname, "", "", 1);
+
+                        project.AddPersonInInscriptions(person);
+
+                        projects.Add(id, project);
+                    }
+
                 }
-                else
-                {
-                    Project project = new Project(id, name, "", "", 0, -1);
-                    Person person = new Person(0, lastname, firstname, "", "", 1);
 
-                    project.AddPersonInInscriptions(person);
-
-                    projects.Add(id, project);
-                }
-
+                reader.Close();
+                transaction.Commit();
             }
-
-            reader.Close();
 
             return projects;
         }
@@ -727,16 +740,32 @@ namespace PIManager.DAO
         {
             List<Project> projects = new List<Project>();
 
-            SqlDataReader reader = myDBManager.getFullProjects();
+            string query = "SELECT pr.pk_project, description_xml.value('(//title)[1]', 'varchar(80)') AS title, pe.pk_person FROM project pr, person pe, period time WHERE pr.pk_person = pe.pk_person AND pr.pk_period = time.pk_period AND date_close < getdate()";
 
-            while (reader.Read())
+            using (SqlConnection connection = myDBManager.newConnection())
             {
-                int id = (int)reader["pk_project"];
-                string name = (string)reader["title"];
-                int clientID = (int)reader["pk_person"];
-            }
 
-            reader.Close();
+
+                connection.Open();
+
+                SqlTransaction transaction = connection.BeginTransaction(IsolationLevel.ReadCommitted, "showProjects");
+
+                Dictionary<string, object> empty = new Dictionary<string, object>();
+
+                SqlDataReader reader = myDBManager.doSelect(query, connection, transaction, empty);
+
+                while (reader.Read())
+                {
+                    int id = (int)reader["pk_project"];
+                    string name = (string)reader["title"];
+                    int clientID = (int)reader["pk_person"];
+                    Project project = new Project(id, name, "", "", 0, clientID);
+                    projects.Add(project);
+                }
+
+                reader.Close();
+                transaction.Commit();
+            }
 
             return projects;
         }
@@ -750,19 +779,34 @@ namespace PIManager.DAO
         {
             string personName = "";
 
-            SqlDataReader reader = myDBManager.getPersonName(pk_person);
+            string query = "SELECT firstname, lastname FROM person  WHERE pk_person = @pk_person";
 
-            while (reader.Read())
+            using (SqlConnection connection = myDBManager.newConnection())
             {
 
-                string firstname = (string)reader["firstname"];
-                string lastname = (string)reader["lastname"];
+                connection.Open();
 
-                personName += firstname + " " + lastname;
+                SqlTransaction transaction = connection.BeginTransaction(IsolationLevel.ReadCommitted, "showPeronName");
 
+                Dictionary<string, object> param = new Dictionary<string, object>();
+
+                param.Add("@pk_person", pk_person);
+
+                SqlDataReader reader = myDBManager.doSelect(query, connection, transaction, param);
+
+                while (reader.Read())
+                {
+
+                    string firstname = (string)reader["firstname"];
+                    string lastname = (string)reader["lastname"];
+
+                    personName += firstname + " " + lastname;
+
+                }
+
+                reader.Close();
+                transaction.Commit();
             }
-
-            reader.Close();
 
             return personName;
         }
@@ -776,20 +820,35 @@ namespace PIManager.DAO
         {
             List<Person> persons = new List<Person>();
 
-            SqlDataReader reader = myDBManager.getProjectGroup(pk_project);
-
-            while (reader.Read())
+            using (SqlConnection connection = myDBManager.newConnection())
             {
 
-                string firstname = (string)reader["firstname"];
-                string lastname = (string)reader["lastname"];
+                connection.Open();
 
-                persons.Add(new Person(0, lastname, firstname, "", "", 1));
+                SqlTransaction transaction = connection.BeginTransaction(IsolationLevel.ReadCommitted, "getProjectGroup");
 
+                string query = "SELECT firstname, lastname FROM person  WHERE pk_project = @pk_project";
+
+                Dictionary<string, object> param = new Dictionary<string, object>();
+
+                param.Add("@pk_project", pk_project);
+
+                SqlDataReader reader = myDBManager.doSelect(query, connection, transaction, param);
+
+                while (reader.Read())
+                {
+
+                    string firstname = (string)reader["firstname"];
+                    string lastname = (string)reader["lastname"];
+
+                    persons.Add(new Person(0, lastname, firstname, "", "", 1));
+
+                }
+
+                reader.Close();
+
+                transaction.Commit();
             }
-
-            reader.Close();
-
             return persons;
         }
 
@@ -802,7 +861,21 @@ namespace PIManager.DAO
         {
             List<Technology> technologys = new List<Technology>();
 
-            SqlDataReader reader = myDBManager.getTechnologyProject(pk_project);
+            SqlConnection connection = myDBManager.newConnection();
+
+            connection.Open();
+
+            SqlTransaction transaction = connection.BeginTransaction(IsolationLevel.ReadCommitted, "getTechnologyProject");
+
+            string query = "SELECT name FROM project_techno prt, technology t  WHERE prt.pk_project = @pk_project AND prt.pk_techno = t.pk_technology";
+
+
+            Dictionary<string, object> param = new Dictionary<string, object>();
+
+            param.Add("@pk_project", pk_project);
+
+            SqlDataReader reader = myDBManager.doSelect(query, connection, transaction, param);
+
 
             while (reader.Read())
             {
@@ -820,6 +893,97 @@ namespace PIManager.DAO
         }
 
         /// <summary>
+        /// Get the history of one project
+        /// </summary>
+        /// <param name="choosed_project">Primary key of the project</param>
+        /// <returns>Stack of the history</returns>
+        public Stack<Project> getHistoryProject(int choosed_project)
+        {
+            Stack<Project> projectHistory = new Stack<Project>();
+
+            string child_query = "SELECT pk_child, description_xml.value('(//title)[1]', 'varchar(80)') AS title  FROM project pr, project_speed ps WHERE ps.pk_project = @pk_project AND ps.pk_child = pr.pk_project";
+
+            string parent_query = "SELECT pk_parent FROM project WHERE pk_project = @pk_project";
+
+            string projectName_query = "SELECT description_xml.value('(//title)[1]', 'varchar(80)') AS title FROM project WHERE pk_project = @pk_project";
+
+            using (SqlConnection connection = myDBManager.newConnection())
+            {
+                connection.Open();
+                SqlTransaction transaction = connection.BeginTransaction(IsolationLevel.ReadCommitted, "showHistory");
+
+
+                Dictionary<string, object> param_child_query = new Dictionary<string, object>();
+                param_child_query.Add("@pk_project", choosed_project);
+
+                SqlDataReader readerChild = myDBManager.doSelect(child_query, connection, transaction, param_child_query);
+                //Child
+                while (readerChild.Read())
+                {
+                    int id_project = (int)readerChild["pk_child"];
+                    string project_name = (string)readerChild["title"];
+
+                    projectHistory.Push(new Project(id_project, project_name, "", "", -1, -1));
+
+                }
+
+                readerChild.Close();
+
+
+                //choosed
+                Dictionary<string, object> param_projectName = new Dictionary<string, object>();
+                param_projectName.Add("@pk_project", choosed_project);
+
+                string projectName = (string)myDBManager.doSelectScalar(projectName_query, connection, transaction, param_projectName);
+
+                projectHistory.Push(new Project(choosed_project, projectName, "", "", -1, -1));
+
+
+                //parent
+                int pk_current_project = choosed_project;
+
+                bool finish = false;
+
+                do
+                {
+                    Dictionary<string, object> param_parent_project = new Dictionary<string, object>();
+                    param_parent_project.Add("@pk_project", pk_current_project);
+
+                    object o = myDBManager.doSelectScalar(parent_query, connection, transaction, param_parent_project);
+
+                    int id_project;
+
+                    
+                    if (!DBNull.Value.Equals(o))
+                    {
+                        id_project = (int)o;
+                    }
+                    else
+                    {
+                        finish = true;
+                        break;
+                    }
+
+                    param_projectName = new Dictionary<string, object>();
+                    param_projectName.Add("@pk_project", id_project);
+
+                    string project_name = (string)myDBManager.doSelectScalar(projectName_query, connection, transaction, param_projectName);
+
+                    pk_current_project = id_project;
+
+                    projectHistory.Push(new Project(id_project, project_name, "", "", -1, -1));
+
+
+                } while (!finish);
+
+
+                transaction.Commit();
+            }
+
+            return projectHistory;
+        }
+        
+         /// <summary>
         /// Transform a list of technologies in the XML form undestood by the stored procedure
         /// </summary>
         /// <param name="technologies">List of technologies to transform</param>
@@ -843,5 +1007,6 @@ namespace PIManager.DAO
         {
             return String.Join(",", ids);
         }
+
     }
 }

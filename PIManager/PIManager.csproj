@@ -69,6 +69,7 @@
     <Content Include="Professor\AddNewProject.aspx" />
     <Content Include="Professor\AddProject.aspx" />
     <Content Include="Professor\OpenProject.aspx" />
+    <Content Include="Professor\VisualizationHistory.aspx" />
     <Content Include="Scripts\calendar.js" />
     <Content Include="Scripts\tiny_mce.js" />
     <Content Include="Scripts\tiny_mce_popup.js" />
@@ -189,6 +190,13 @@
     </Compile>
     <Compile Include="Professor\OpenProject.aspx.designer.cs">
       <DependentUpon>OpenProject.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Professor\VisualizationHistory.aspx.cs">
+      <DependentUpon>VisualizationHistory.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Professor\VisualizationHistory.aspx.designer.cs">
+      <DependentUpon>VisualizationHistory.aspx</DependentUpon>
     </Compile>
     <Compile Include="Student\AddDocument.aspx.cs">
       <DependentUpon>AddDocument.aspx</DependentUpon>
