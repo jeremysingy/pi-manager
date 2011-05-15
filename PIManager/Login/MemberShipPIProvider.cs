@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Security;
 using PIManager.DAO;
+using System.Data.SqlClient;
+using System.Data;
 
 namespace PIManager.Login
 {
@@ -280,7 +282,28 @@ namespace PIManager.Login
 
             DBManager dbmanager = new DBManager();
 
-            int pk_person = dbmanager.getPerson(username, password);
+            int pk_person = -1;
+
+            string query = "SELECT pk_person FROM Person WHERE login like @login and password like @pass;";
+
+            SqlConnection connection = dbmanager.newConnection();
+
+            connection.Open();
+
+            SqlTransaction transaction = connection.BeginTransaction(IsolationLevel.ReadCommitted, "Login");
+
+            Dictionary<string, object> param = new Dictionary<string, object>();
+            param.Add("@login", username);
+            param.Add("@pass", password);
+
+            object o = dbmanager.doSelectScalar(query, connection, transaction, param);
+
+            connection.Close();
+
+            if (!DBNull.Value.Equals(o))
+            {
+                pk_person = (int)o;
+            }
 
             if (pk_person != -1)
             {
@@ -288,7 +311,28 @@ namespace PIManager.Login
 
                 int roleID = -1;
 
-                roleID = dbmanager.getPersonType(pk_person);
+                string query_role = "SELECT role FROM Person WHERE pk_person = @pk_person;";
+
+                SqlConnection connection_role = dbmanager.newConnection();
+                connection_role.Open();
+
+                SqlTransaction transaction_role = connection_role.BeginTransaction(IsolationLevel.ReadCommitted, "getTypePerson");
+
+                Dictionary<string, object> param_role = new Dictionary<string, object>();
+                param_role.Add("@pk_person", pk_person);
+
+                object o_role = dbmanager.doSelectScalar(query_role, connection_role, transaction_role, param_role);
+
+                connection_role.Close();
+
+                if (!DBNull.Value.Equals(o_role))
+                {
+                    roleID = (int)o;
+                }
+                else
+                {
+                    ok = false;
+                }
 
                 // add user in role if not in
                 if (roleID == 1)

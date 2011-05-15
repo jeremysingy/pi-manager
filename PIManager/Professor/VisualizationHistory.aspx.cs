@@ -31,7 +31,15 @@ namespace PIManager.Professor
 
                 if (!choosed_pass)
                 {
-                    string toAdd = "<div style='margin-left: " + margin + "px;'>" + project_name + "</div>\n";
+                    string toAdd = "";
+                    if (pk_project == choosed_project)
+                    {
+                        toAdd = "<div style='margin-left: " + margin + "px;'><strong>" + project_name + "</strong></div>\n";
+                    }
+                    else
+                    {
+                        toAdd = "<div style='margin-left: " + margin + "px;'>" + project_name + "</div>\n";
+                    }
                     margin += 20;
                     historyMsg.Text += toAdd;
 

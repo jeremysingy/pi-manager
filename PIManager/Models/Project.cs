@@ -215,20 +215,20 @@ namespace PIManager.Models
             get { return myHasImage; }
             set { myHasImage = value; }
            }
-           
-           public void AddPersonInInscriptions(Person person)
-        {
-            myInscriptions.Add(person);
-        }
 
-
+        /// <summary>
+        /// List of technology of this project
+        /// </summary>
         public List<Technology> Technology
         {
             get { return myTechnology; }
             set { myTechnology = value; }
         }
-		
-		public void AddTechnologyInMyTechnology(Technology technology)
+
+        public void AddTechnologyInMyTechnology(Technology technology)
+        {
+            myTechnology.Add(technology);
+        }
 
         /// <summary>
         /// Add a registered person to this project

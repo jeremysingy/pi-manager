@@ -7,5 +7,8 @@
         Liste des projets
     </h2>
     <asp:Label ID="historyMsg" runat="server" CssClass="message" />
+    <br />
+    <br />
+    <a href="/Professor/VisualizationGroup.aspx">Retour</a>
 
 </asp:Content>
