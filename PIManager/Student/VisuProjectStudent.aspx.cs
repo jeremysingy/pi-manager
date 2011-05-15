@@ -198,17 +198,24 @@ namespace PIManager.Visualization
             // Loads xslt file and executes the transformation to html. Result is stored in a StringWriter.
             XPathDocument doc = new XPathDocument(new StringReader("<description>"+project.Description+"</description>"));
             XslCompiledTransform xslt = new XslCompiledTransform();
-            
-            xslt.Load(path);
-            
             StringWriter sw = new StringWriter();
-            xslt.Transform(doc, null, sw);
 
-            // adds the description to the actual page (TODO: change to load it on another page !)
-            //projectDescription.Text = sw.ToString();
+            xslt.Load(path);
+
+            // get image from database
+            byte[] image = projectAccess.getImage(idProject);
+
+            if (image != null)
+            {
+                // /!\ TODO: ne fonctionne pas !!!!
+                XsltArgumentList argsList = new XsltArgumentList();
+                argsList.AddParam("IMAGE", "", image);
+                xslt.Transform(doc, argsList, sw);
+            }
+            else
+                xslt.Transform(doc, null, sw);
 
             descriptionPanel.Controls.Add(new LiteralControl(sw.ToString()));
-
         }
     }
 }

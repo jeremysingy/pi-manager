@@ -39,12 +39,14 @@ namespace PIManager.DAO
         /// <returns>List of projects opened for inscription</returns>
         public List<Project> getProjectList()
         {
+            string currentDate = System.DateTime.Now.ToString();
             string query = "SELECT pk_project, " +
                            "description_XML.query('data(//title)') AS title, " +
                            "description_xml.value('(//abreviation)[1]', 'varchar(50)') AS abreviation, " +
                            "description_XML.value(N'(//student)[1]', 'integer') AS nbStudent " +
-                           "FROM pimanager.dbo.Project " +
-                           "WHERE description_XML.value(N'(//student)[1]', 'integer') > (SELECT COUNT(*) FROM Person WHERE Person.pk_project = Project.pk_project);";
+                           "FROM pimanager.dbo.Project LEFT JOIN pimanager.dbo.Period ON pimanager.dbo.Project.pk_period = pimanager.dbo.Period.pk_period " +
+                           "WHERE description_XML.value(N'(//student)[1]', 'integer') > (SELECT COUNT(*) FROM Person WHERE Person.pk_project = Project.pk_project) " +
+                           "AND pimanager.dbo.Project.pk_period IS NOT NULL AND @currentDate > pimanager.dbo.Period.date_open AND @currentDate < pimanager.dbo.Period.date_close;";
 
             List<Project> projectList = new List<Project>();
 
@@ -52,12 +54,18 @@ namespace PIManager.DAO
             {
                 SqlTransaction transaction = null;
                 SqlDataReader reader = null;
+                SqlCommand command = null;
                 try
                 {
                     connection.Open();
-                    transaction = connection.BeginTransaction(IsolationLevel.ReadCommitted);
+                    transaction = connection.BeginTransaction(IsolationLevel.ReadCommitted, "getProjectList");
+                    command = connection.CreateCommand();
+                    command.Connection = connection;
+                    command.Transaction = transaction;
+                    command.CommandText = query;
+                    command.Parameters.Add("@currentDate", SqlDbType.DateTime).Value = currentDate;
 
-                    reader = myDBManager.doSelect(query, connection, transaction, new Dictionary<string, object>());
+                    reader = command.ExecuteReader();
 
                     // if there is no project available, return an empty list.
                     if (!reader.HasRows) return projectList;
@@ -624,7 +632,9 @@ namespace PIManager.DAO
                 SqlDataReader reader = myDBManager.doSelect(query, connection, transaction, param);
                 reader.Read();
 
-                rawImage = (byte[])reader["image"];
+                object o = reader["image"];
+                if(o != System.DBNull.Value)
+                    rawImage = (byte[])o;
 
                 reader.Close();
                 transaction.Commit();
