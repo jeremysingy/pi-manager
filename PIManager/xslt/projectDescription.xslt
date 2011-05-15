@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet id="projectDescription" version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
   <xsl:output version="4.0" method="html" encoding="UTF-8" />
-  
+  <xsl:param name="IMAGE"></xsl:param>
   <!--  Template that generates the whole HTML page. It applies the different templates that 
          matches here (in this case only "project".-->
   <xsl:template match="/">  
@@ -15,6 +15,11 @@
       <body>
         <div id="page">
           <xsl:apply-templates />
+          <img>
+            <xsl:attribute name="src">
+              <xsl:value-of select="$IMAGE"/>
+            </xsl:attribute>
+          </img>
         </div>
       </body>
     </html>

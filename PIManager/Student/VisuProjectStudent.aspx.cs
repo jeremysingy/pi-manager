@@ -207,15 +207,29 @@ namespace PIManager.Visualization
 
             if (image != null)
             {
-                // /!\ TODO: ne fonctionne pas !!!!
+                string encodedImage = "data:image/jpg;base64,";
+                encodedImage += base64Encode(image);
                 XsltArgumentList argsList = new XsltArgumentList();
-                argsList.AddParam("IMAGE", "", image);
+                argsList.AddParam("IMAGE", "", encodedImage);
                 xslt.Transform(doc, argsList, sw);
             }
             else
                 xslt.Transform(doc, null, sw);
 
             descriptionPanel.Controls.Add(new LiteralControl(sw.ToString()));
+        }
+
+        private string base64Encode(byte[] bytes)
+        {
+            try
+            {
+                string encodedData = Convert.ToBase64String(bytes);
+                return encodedData;
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Error in base64Encode " + e.Message);
+            }
         }
     }
 }
