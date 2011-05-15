@@ -116,7 +116,9 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="xslt\projectDescription.css" />
-    <Content Include="xslt\projectDescription.xslt" />
+    <Content Include="xslt\projectDescription.xslt">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="xslt\projectDescriptionPDF.xsl" />
   </ItemGroup>
   <ItemGroup>
