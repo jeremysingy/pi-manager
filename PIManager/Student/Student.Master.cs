@@ -33,7 +33,6 @@ namespace PIManager.Student
                 if (user == null)
                     Response.Redirect("/Account/Login.aspx");
                 List<Int32> inscriptions = projectAccess.getInscriptions(user.PkPerson);
-                    Response.Redirect("/Account/Login.aspx");
                 if (inscriptions.Count != 0)
                     addDocumentLink.Visible = true;
                 else

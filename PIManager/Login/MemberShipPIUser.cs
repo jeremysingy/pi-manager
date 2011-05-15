@@ -6,126 +6,156 @@ using System.Web.Security;
 
 namespace PIManager.Login
 {
+    /// <summary>
+    /// Represent a connected user
+    /// </summary>
     public class MemberShipPIUser : MembershipUser
     {
-        public MemberShipPIUser()
+        /// <summary>
+        /// Constructeur
+        /// </summary>
+        /// <param name="pkPerson">Primary key of the person connected</param>
+        /// <param name="userName">User name of the person connected</param>
+        /// <param name="isOnline">true if person is online, false otherwise</param>
+        public MemberShipPIUser(int pkPerson, string userName, bool isOnline)
         {
+            PkPerson = pkPerson;
+            UserName = userName;
+            IsOnline = isOnline;
         }
 
-        private string myComment;
+        /*protected string myComment;
 
-        public string Comment
+        public override string Comment
         {
             get { return myComment; }
             set { myComment = value; }
         }
 
-        private DateTime myCreationDate;
+        protected DateTime myCreationDate;
 
-        public DateTime CreationDate
+        public override DateTime CreationDate
         {
             get { return myCreationDate; }
-            set { myCreationDate = value; }
+            //set { myCreationDate = value; }
         }
 
-        private string myEmail;
+        protected string myEmail;
 
-        public string Email
+        public override string Email
         {
             get { return myEmail; }
             set { myEmail = value; }
         }
 
-        private bool myIsApproved;
+        protected bool myIsApproved;
 
-        public bool IsApproved
+        public override bool IsApproved
         {
             get { return myIsApproved; }
             set { myIsApproved = value; }
         }
 
-        private bool myIsLockedOut;
+        protected bool myIsLockedOut;
 
-        public bool IsLockedOut
+        public override bool IsLockedOut
         {
             get { return myIsLockedOut; }
             set { myIsLockedOut = value; }
-        }
+        }*/
 
-        private bool myIsOnline;
+        /// <summary>
+        /// true if the person is online, false otherwise
+        /// </summary>
+        protected bool myIsOnline;
 
-        public bool IsOnline
+        /// <summary>
+        /// true if the person is online, false otherwise
+        /// </summary>
+        public new bool IsOnline
         {
             get { return myIsOnline; }
             set { myIsOnline = value; }
         }
 
-        private DateTime myLastActivityDate;
+        /*protected DateTime myLastActivityDate;
 
-        public DateTime LastActivityDate
+        public override DateTime LastActivityDate
         {
             get { return myLastActivityDate; }
             set { myLastActivityDate = value; }
         }
 
-        private DateTime myLastLockoutDate;
+        protected DateTime myLastLockoutDate;
 
-        public DateTime LastLockoutDate
+        public override DateTime LastLockoutDate
         {
             get { return myLastLockoutDate; }
             set { myLastLockoutDate = value; }
         }
 
-        private DateTime myLastLoginDate;
+        protected DateTime myLastLoginDate;
 
-        public DateTime LastLoginDate
+        public override DateTime LastLoginDate
         {
             get { return myLastLoginDate; }
             set { myLastLoginDate = value; }
         }
 
-        private DateTime myLastPasswordChangedDate;
+        protected DateTime myLastPasswordChangedDate;
 
-        public DateTime LastPasswordChangedDate
+        public override DateTime LastPasswordChangedDate
         {
             get { return myLastPasswordChangedDate; }
             set { myLastPasswordChangedDate = value; }
         }
 
-        private string myPasswordQuestion;
+        protected string myPasswordQuestion;
 
-        public string PasswordQuestion
+        public override string PasswordQuestion
         {
             get { return myPasswordQuestion; }
             set { myPasswordQuestion = value; }
         }
 
-        private string myProviderName;
+        protected string myProviderName;
 
-        public string ProviderName
+        public override string ProviderName
         {
             get { return myProviderName; }
             set { myProviderName = value; }
         }
 
-        private object myProviderUserKey;
+        protected object myProviderUserKey;
 
-        public object ProviderUserKey
+        public override object ProviderUserKey
         {
             get { return myProviderUserKey; }
             set { myProviderUserKey = value; }
-        }
+        }*/
 
-        private string myUserName;
+        /// <summary>
+        /// User name of the person
+        /// </summary>
+        protected string myUserName;
 
-        public string UserName
+        /// <summary>
+        /// User name of the person
+        /// </summary>
+        public new string UserName
         {
             get { return myUserName; }
             set { myUserName = value; }
         }
 
-        private int myPkPerson;
+        /// <summary>
+        /// Primary key of the person
+        /// </summary>
+        protected int myPkPerson;
 
+        /// <summary>
+        /// Primary key of the person
+        /// </summary>
         public int PkPerson
         {
             get { return myPkPerson; }

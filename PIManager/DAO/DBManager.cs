@@ -8,6 +8,8 @@ using System.Data;
 using System.IO;
 using log4net;
 using PIManager.Models;
+using PIManager.Login;
+using System.Web.Security;
 
 namespace PIManager.DAO
 {
@@ -17,26 +19,44 @@ namespace PIManager.DAO
     public class DBManager
     {
         /// <summary>
+        /// Current user logged in to the applicaiton
+        /// </summary>
+        //MemberShipPIUser myConnectedUser;
+
+        /// <summary>
         /// Connection string to access the database
         /// </summary>
-        public static readonly string DB_CONNECTION_STRING = ConfigurationManager.ConnectionStrings["PIDBConnection"].ToString();
+        public static readonly string CONNECTION_STRING_PROFESSOR = ConfigurationManager.ConnectionStrings["PIProfConnection"].ToString();
+        public static readonly string CONNECTION_STRING_STUDENT   = ConfigurationManager.ConnectionStrings["PIStudConnection"].ToString();
 
         /// <summary>
         /// Get acces to the unique logger instance
         /// </summary>
         private static readonly ILog log = LogManager.GetLogger(typeof(DBManager));
 
+        public static ILog getLog() {
+            return log;
+        }
+
         /// <summary>
         /// Create a new connection to the database
         /// </summary>
         public SqlConnection newConnection()
         {
-            return new SqlConnection(DB_CONNECTION_STRING);
+            if (Roles.IsUserInRole("professor"))
+                return new SqlConnection(CONNECTION_STRING_PROFESSOR);
+            else
+                return new SqlConnection(CONNECTION_STRING_STUDENT);
         }
 
         /// <summary>
         /// Perform a select query
         /// </summary>
+        /// <param name="query">Query to execute</param>
+        /// <param name="connection">Connection to use</param>
+        /// <param name="transaction">Transaction to use</param>
+        /// <param name="param">Parameters to put for this query</param>
+        /// <returns>The SqlDataReader to read to result of this query</returns>
         public SqlDataReader doSelect(string query, SqlConnection connection, SqlTransaction transaction, Dictionary<string, object> param)
         {
             SqlCommand command = new SqlCommand(query, connection, transaction);
@@ -47,6 +67,14 @@ namespace PIManager.DAO
             return command.ExecuteReader();
         }
 
+        /// <summary>
+        /// Perform a select query returning a scalar value
+        /// </summary>
+        /// <param name="query">Query to execute</param>
+        /// <param name="connection">Connection to use</param>
+        /// <param name="transaction">Transaction to use</param>
+        /// <param name="param">Parameters to put for this query</param>
+        /// <returns>The object resulting of this query</returns>
         public object doSelectScalar(string query, SqlConnection connection, SqlTransaction transaction, Dictionary<string, object> param)
         {
             SqlCommand command = new SqlCommand(query, connection, transaction);
@@ -58,13 +86,12 @@ namespace PIManager.DAO
         
         /// <summary>
         /// Perform an update query
+        /// </summary>
         /// <param name="query">Query to execute</param>
         /// <param name="connection">Connection to use</param>
         /// <param name="transaction">Transaction to use</param>
         /// <param name="param">Parameters to put for this query</param>
-        /// </summary>
-        
-
+        /// <returns>The number of rows affected by the query</returns>
         public int doUpdate(string query, SqlConnection connection, SqlTransaction transaction, Dictionary<string, object> param)
         {
             SqlCommand command = new SqlCommand(query, connection, transaction);
@@ -75,13 +102,23 @@ namespace PIManager.DAO
             return command.ExecuteNonQuery();
         }
 
+        /*public int doUpdate(string query, SqlConnection connection, SqlTransaction transaction, List<SqlParameter> paramList)
+        {
+            SqlCommand command = new SqlCommand(query, connection, transaction);
+
+            foreach (var param in paramList)
+                command.Parameters.Add(param);
+
+            return command.ExecuteNonQuery();
+        }*/
+
         /// <summary>
         /// Perform a delete query
+        /// </summary>
         /// <param name="query">Query to execute</param>
         /// <param name="connection">Connection to use</param>
         /// <param name="transaction">Transaction to use</param>
         /// <param name="param">Parameters to put for this query</param>
-        /// </summary>
         public int doDelete(string query, SqlConnection connection, SqlTransaction transaction, Dictionary<string, object> param)
         {
             SqlCommand command = new SqlCommand(query, connection, transaction);
@@ -94,16 +131,14 @@ namespace PIManager.DAO
 
         /// <summary>
         /// Perform an insert query
+        /// </summary>
         /// <param name="query">Query to execute</param>
         /// <param name="connection">Connection to use</param>
         /// <param name="transaction">Transaction to use</param>
         /// <param name="param">Parameters to put for this query</param>
-        /// </summary>
         public int doInsert(string query, SqlConnection connection, SqlTransaction transaction, Dictionary<string, object> param)
         {
             query += " SET @newId = SCOPE_IDENTITY()";
-            //SqlConnection connection = new SqlConnection(DB_CONNECTION_STRING);
-            //SqlTransaction transaction = connection.BeginTransaction(isolationLevel);
 
             SqlCommand command = new SqlCommand(query, connection, transaction);
 
@@ -114,21 +149,18 @@ namespace PIManager.DAO
             idParam.Direction = ParameterDirection.Output;
             command.Parameters.Add(idParam);
 
-            //SqlParameterCollection s = new SqlParameterCollection();
-
             command.ExecuteNonQuery();
 
-            //transaction.Commit();
             return (int)idParam.Value;
         }
 
         /// <summary>
         /// Execute a stored procedure
+        /// </summary>
         /// <param name="name">Name of the stored procedure to execute</param>
         /// <param name="connection">Connection to use</param>
         /// <param name="transaction">Transaction to use</param>
         /// <param name="paramList">Parameters to put for this stored procedure</param>
-        /// </summary>
         public void executeProcedure(string name, SqlConnection connection, SqlTransaction transaction, List<SqlParameter> paramList)
         {
             SqlCommand command = new SqlCommand(name, connection, transaction);
@@ -150,7 +182,7 @@ namespace PIManager.DAO
 
             string query = "SELECT pk_person FROM Person WHERE login like @login and password like @pass;";
 
-            SqlConnection connection = new SqlConnection(DB_CONNECTION_STRING); //TODO change with anonymous user with limited rigth
+            SqlConnection connection = new SqlConnection(CONNECTION_STRING_PROFESSOR); //TODO change with anonymous user with limited rigth
 
             connection.Open();
 
@@ -192,7 +224,7 @@ namespace PIManager.DAO
             int person_type = -1;
             string query = "SELECT role FROM Person WHERE pk_person = @pk_person;";
 
-            SqlConnection connection = new SqlConnection(DB_CONNECTION_STRING); //TODO change with anonymous user with limited rigth
+            SqlConnection connection = new SqlConnection(CONNECTION_STRING_PROFESSOR); //TODO change with anonymous user with limited rigth
             connection.Open();
 
             SqlTransaction transaction = connection.BeginTransaction(IsolationLevel.ReadCommitted, "getTypePerson");
@@ -227,7 +259,7 @@ namespace PIManager.DAO
 
         public SqlDataReader getProjectInscriptions()
         {
-            SqlConnection connection = new SqlConnection(DB_CONNECTION_STRING);
+            SqlConnection connection = new SqlConnection(CONNECTION_STRING_PROFESSOR);
 
             connection.Open();
 
@@ -256,9 +288,10 @@ namespace PIManager.DAO
             return sqldatareader;
         }
 		
+
 		public SqlDataReader getFullProjects()
         {
-            SqlConnection connection = new SqlConnection(DB_CONNECTION_STRING);
+            SqlConnection connection = new SqlConnection(CONNECTION_STRING_PROFESSOR);
 
             connection.Open();
 
@@ -289,7 +322,7 @@ namespace PIManager.DAO
 
         public SqlDataReader getPersonName(int pk_person)
         {
-            SqlConnection connection = new SqlConnection(DB_CONNECTION_STRING);
+            SqlConnection connection = new SqlConnection(CONNECTION_STRING_PROFESSOR);
 
             connection.Open();
 
@@ -322,7 +355,7 @@ namespace PIManager.DAO
 
         public SqlDataReader getProjectGroup(int pk_project)
         {
-            SqlConnection connection = new SqlConnection(DB_CONNECTION_STRING);
+            SqlConnection connection = new SqlConnection(CONNECTION_STRING_PROFESSOR);
 
             connection.Open();
 
@@ -356,7 +389,7 @@ namespace PIManager.DAO
 
         public SqlDataReader getTechnologyProject(int pk_project)
         {
-            SqlConnection connection = new SqlConnection(DB_CONNECTION_STRING);
+            SqlConnection connection = new SqlConnection(CONNECTION_STRING_PROFESSOR);
 
             connection.Open();
 

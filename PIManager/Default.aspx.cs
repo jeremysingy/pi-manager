@@ -8,8 +8,17 @@ using System.Web.UI.WebControls;
 
 namespace PIManager
 {
+    /// <summary>
+    /// Default page class
+    /// </summary>
     public partial class _Default : System.Web.UI.Page
     {
+        /// <summary>
+        /// Called when the page is loaded.
+        /// Create all roles regarding the current login
+        /// </summary>
+        /// <param name="sender">Sender object of the event</param>
+        /// <param name="e">Arguments of the event</param>
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!Roles.RoleExists("student"))
@@ -29,7 +38,5 @@ namespace PIManager
                 Server.Transfer("Professor/Default.aspx");
             }
         }
-
-
     }
 }

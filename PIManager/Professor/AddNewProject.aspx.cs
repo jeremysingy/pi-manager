@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using PIManager.DAO;
 using log4net;
 using PIManager.Models;
+using System.IO;
 
 namespace PIManager.Professor
 {
@@ -20,14 +21,39 @@ namespace PIManager.Professor
         /// </summary>
         private static readonly ILog log = LogManager.GetLogger(typeof(AddNewProject));
 
+        /// <summary>
+        /// True if the project has a parent, false otherwise
+        /// </summary>
         protected bool myHasParent = false;
 
+        /// <summary>
+        /// Give access to the project
+        /// </summary>
         protected ProjectAccess myProjectAccess = new ProjectAccess();
+
+        /// <summary>
+        /// Give access to the technologies
+        /// </summary>
         protected TechnologyAccess myTechnoAccess = new TechnologyAccess();
+
+        /// <summary>
+        /// Give access to the person
+        /// </summary>
         protected PersonAccess myPersonAccess = new PersonAccess();
 
+        /// <summary>
+        /// Reference to the parent project (if any)
+        /// </summary>
         protected Project myParentProject = null;
+
+        /// <summary>
+        /// Technologies added to the project
+        /// </summary>
         protected List<Technology> myProjectTechnos;
+
+        /// <summary>
+        /// All technologies to put in the list
+        /// </summary>
         protected Dictionary<int, Technology> myTechnologies;
 
         /// <summary>
@@ -42,8 +68,8 @@ namespace PIManager.Professor
                 if (!IsPostBack)
                 {
                     createSessions();
-                    List<Person> persons = myPersonAccess.getPersons(2);
 
+                    List<Person> persons = myPersonAccess.getPersons(2);
                     fillFields(persons);
                 }
                 else
@@ -60,13 +86,11 @@ namespace PIManager.Professor
         /// </summary>
         protected void createSessions()
         {
-            //Session["parentId"] = myParentId = Request.QueryString["id"] == null ? -1 : int.Parse(Request.QueryString["id"]);
             int parentId = Request.QueryString["parent"] == null ? -1 : int.Parse(Request.QueryString["parent"]);
-            if (parentId > 0)
-            {
+            Session["hasParent"] = myHasParent = parentId > 0;
+
+            if (myHasParent)
                 Session["parentProj"] = myParentProject = myProjectAccess.getProject(parentId);
-                Session["hasParent"] = myHasParent = true;
-            }
             
             Session["projectTechnos"] = myProjectTechnos = new List<Technology>();
             Session["technologies"] = myTechnologies = myTechnoAccess.getTechnologies();
@@ -167,6 +191,12 @@ namespace PIManager.Professor
                 return;
             }
 
+            if (!validateImage(uploadImage.PostedFile))
+            {
+                lbErrorImage.Visible = true;
+                return;
+            }
+
             int parentId = myHasParent ? myParentProject.Id : -1;
 
             Project newProject = new Project(tbTitle.Text,
@@ -176,8 +206,28 @@ namespace PIManager.Professor
                                              int.Parse(listClients.SelectedValue),
                                              parentId);
 
-            myProjectAccess.addProject(newProject, myProjectTechnos);
-            Response.Redirect("Default.aspx");
+            byte[] rawImage;
+            using (var binaryReader = new BinaryReader(uploadImage.PostedFile.InputStream))
+            {
+                rawImage = binaryReader.ReadBytes(uploadImage.PostedFile.ContentLength);
+            }
+
+            myProjectAccess.addProject(newProject, myProjectTechnos, rawImage);
+            //Response.Redirect("Default.aspx");
+
+            test.Text = tbDescription.Text;
+        }
+
+        private bool validateImage(HttpPostedFile imageFile)
+        {
+            if (imageFile.ContentLength == 0)
+                return true;
+
+            return imageFile.ContentLength <= 512 * 1024 &&
+                   (imageFile.ContentType == "image/gif" ||
+                    imageFile.ContentType == "image/png" ||
+                    imageFile.ContentType == "image/jpeg" ||
+                    imageFile.ContentType == "image/bmp");
         }
     }
 }

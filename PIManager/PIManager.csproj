@@ -22,6 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\PIManager.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -54,12 +55,12 @@
     <Reference Include="System.Web.ApplicationServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="About.aspx" />
-    <Content Include="Account\AddProject.aspx" />
     <Content Include="Account\ChangePassword.aspx" />
     <Content Include="Account\ChangePasswordSuccess.aspx" />
     <Content Include="Account\Login.aspx" />
     <Content Include="Account\Register.aspx" />
+    <Content Include="Images\noimage.png" />
+    <Content Include="GetImage.aspx" />
     <Content Include="Professor\VisualizationGroup.aspx" />
     <Content Include="Images\logo_eia.png" />
     <Content Include="Lib\log4net.dll" />
@@ -69,6 +70,10 @@
     <Content Include="Professor\AddProject.aspx" />
     <Content Include="Professor\OpenProject.aspx" />
     <Content Include="Professor\VisualizationHistory.aspx" />
+    <Content Include="Scripts\calendar.js" />
+    <Content Include="Scripts\tiny_mce.js" />
+    <Content Include="Scripts\tiny_mce_popup.js" />
+    <Content Include="Scripts\tiny_mce_src.js" />
     <Content Include="Student\AddDocument.aspx" />
     <Content Include="Images\01.png" />
     <Content Include="Images\02.png" />
@@ -116,20 +121,6 @@
     <Content Include="xslt\projectDescriptionPDF.xsl" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="About.aspx.cs">
-      <DependentUpon>About.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="About.aspx.designer.cs">
-      <DependentUpon>About.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Account\AddProject.aspx.cs">
-      <DependentUpon>AddProject.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Account\AddProject.aspx.designer.cs">
-      <DependentUpon>AddProject.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Account\ChangePassword.aspx.cs">
       <DependentUpon>ChangePassword.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -157,6 +148,13 @@
     </Compile>
     <Compile Include="Account\Register.aspx.designer.cs">
       <DependentUpon>Register.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="GetImage.aspx.cs">
+      <DependentUpon>GetImage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="GetImage.aspx.designer.cs">
+      <DependentUpon>GetImage.aspx</DependentUpon>
     </Compile>
     <Compile Include="Professor\VisualizationGroup.aspx.cs">
       <DependentUpon>VisualizationGroup.aspx</DependentUpon>
@@ -293,6 +291,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Calendar\" />
     <Folder Include="Visualization\" />
   </ItemGroup>
   <ItemGroup>

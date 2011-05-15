@@ -10,6 +10,9 @@ using System.Web.SessionState;
 
 namespace PIManager
 {
+    /// <summary>
+    /// Global configuration of PIManager
+    /// </summary>
     public class Global : System.Web.HttpApplication
     {
 

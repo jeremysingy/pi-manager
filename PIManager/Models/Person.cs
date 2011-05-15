@@ -36,41 +36,62 @@ namespace PIManager.Models
             myRole = role;
         }
 
+        /// <summary>
+        /// Id of the person
+        /// </summary>
         public int Id
         {
             get { return myId; }
             set { myId = value; }
         }
 
+        /// <summary>
+        /// Last name of the person
+        /// </summary>
         public string LastName
         {
             get { return myLastName; }
             set { myLastName = value; }
         }
 
+        /// <summary>
+        /// First name of the person
+        /// </summary>
         public string FirstName
         {
             get { return myFirstName; }
             set { myFirstName = value; }
         }
 
+        /// <summary>
+        /// Complete name of the person (equivalent to LastName FirstName)
+        /// </summary>
         public string CompleteName
         {
             get { return myFirstName + " " + myLastName; }
         }
 
+        /// <summary>
+        /// Email of the person
+        /// </summary>
         public string Email
         {
             get { return myEmail; }
             set { myEmail = value; }
         }
 
+        /// <summary>
+        /// Login of the person
+        /// </summary>
         public string Login
         {
             get { return myLogin; }
             set { myLogin = value; }
         }
 
+        /// <summary>
+        /// Role of the person (1 = student 2 = professor)
+        /// </summary>
         public int Role
         {
             get { return myRole; }

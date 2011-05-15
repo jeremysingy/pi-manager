@@ -12,3 +12,286 @@
 2011-05-12 20:22:22,462 [133] ERROR PIManager.Professor.OpenProject [(null)] - Error loading page: The data in the CheckBoxField 'Name' could not be parsed as a boolean value.  Try using a BoundField instead.
 2011-05-12 20:23:13,528 [124] ERROR PIManager.Professor.OpenProject [(null)] - Error loading page: The data in the CheckBoxField 'Name' could not be parsed as a boolean value.  Try using a BoundField instead.
 2011-05-12 20:23:15,968 [133] ERROR PIManager.Professor.OpenProject [(null)] - Error loading page: The data in the CheckBoxField 'Name' could not be parsed as a boolean value.  Try using a BoundField instead.
+2011-05-13 10:23:10,303 [10] ERROR PIManager.Professor.AddNewProject [(null)] - Error loading page: Object reference not set to an instance of an object.
+2011-05-13 10:24:35,549 [10] ERROR PIManager.Professor.AddNewProject [(null)] - Error loading page: Object reference not set to an instance of an object.
+2011-05-13 11:13:27,893 [4] ERROR PIManager.Professor.AddNewProject [(null)] - Error loading page: Object reference not set to an instance of an object.
+2011-05-13 11:23:31,841 [16] ERROR PIManager.DAO.DBManager [(null)] - Error saving inscription of student: Input string was not in a correct format.
+2011-05-13 13:25:13,087 [153] DEBUG PIManager.DAO.ProjectAccess [(null)] - [@date_open, 09.05.2011 01:20:00]
+2011-05-13 13:25:13,122 [153] DEBUG PIManager.DAO.ProjectAccess [(null)] - [@date_close, 17.05.2011 01:20:00]
+2011-05-13 13:25:13,122 [153] DEBUG PIManager.DAO.ProjectAccess [(null)] - [@year, 2011]
+2011-05-13 13:49:13,633 [145] DEBUG PIManager.DAO.ProjectAccess [(null)] - [@date_open, 02.05.2011 13:45:00]
+2011-05-13 13:49:13,646 [145] DEBUG PIManager.DAO.ProjectAccess [(null)] - [@date_close, 30.05.2011 13:45:00]
+2011-05-13 13:49:13,646 [145] DEBUG PIManager.DAO.ProjectAccess [(null)] - [@year, 2011]
+2011-05-13 13:50:56,395 [150] DEBUG PIManager.DAO.ProjectAccess [(null)] - [@date_open, 2011-05-02 13:50]
+2011-05-13 13:50:56,423 [150] DEBUG PIManager.DAO.ProjectAccess [(null)] - [@date_close, 2011-05-27 13:50]
+2011-05-13 13:50:56,423 [150] DEBUG PIManager.DAO.ProjectAccess [(null)] - [@year, 2011]
+2011-05-13 14:21:42,393 [104] DEBUG PIManager.DAO.ProjectAccess [(null)] - [@date_open, 2011-05-09 14:20]
+2011-05-13 14:21:42,417 [104] DEBUG PIManager.DAO.ProjectAccess [(null)] - [@date_close, 2011-05-26 14:20]
+2011-05-13 14:21:42,417 [104] DEBUG PIManager.DAO.ProjectAccess [(null)] - [@year, 2011]
+2011-05-13 14:21:42,417 [104] DEBUG PIManager.DAO.ProjectAccess [(null)] - UPDATE Project SET pk_period = @idperiod WHERE pk_project IN (0,1))
+2011-05-13 14:23:23,993 [136] DEBUG PIManager.DAO.ProjectAccess [(null)] - [@date_open, 2011-05-02 14:20]
+2011-05-13 14:23:24,021 [136] DEBUG PIManager.DAO.ProjectAccess [(null)] - [@date_close, 2011-05-30 14:20]
+2011-05-13 14:23:24,021 [136] DEBUG PIManager.DAO.ProjectAccess [(null)] - [@year, 2011]
+2011-05-13 14:23:24,021 [136] DEBUG PIManager.DAO.ProjectAccess [(null)] - UPDATE Project SET pk_period = @idperiod WHERE pk_project IN (3,9))
+2011-05-13 16:45:44,648 [17] ERROR PIManager.Professor.AddNewProject [(null)] - Error loading page: Object reference not set to an instance of an object.
+2011-05-13 16:46:07,945 [14] ERROR PIManager.Professor.AddNewProject [(null)] - Error loading page: Object reference not set to an instance of an object.
+2011-05-13 16:48:03,799 [22] ERROR PIManager.Professor.AddNewProject [(null)] - Error loading page: Object reference not set to an instance of an object.
+2011-05-13 17:18:49,694 [86] ERROR PIManager.Professor.AddNewProject [(null)] - Error loading page: Object reference not set to an instance of an object.
+2011-05-13 17:20:14,494 [87] ERROR PIManager.Professor.AddNewProject [(null)] - Error loading page: Object reference not set to an instance of an object.
+2011-05-13 17:21:26,941 [21] ERROR PIManager.Professor.AddNewProject [(null)] - Error loading page: Object reference not set to an instance of an object.
+2011-05-13 17:23:08,934 [87] ERROR PIManager.Professor.AddNewProject [(null)] - Error loading page: Object reference not set to an instance of an object.
+2011-05-13 17:23:36,604 [87] ERROR PIManager.Professor.AddNewProject [(null)] - Error loading page: Object reference not set to an instance of an object.
+2011-05-13 17:24:00,571 [21] ERROR PIManager.Professor.AddNewProject [(null)] - Error loading page: Object reference not set to an instance of an object.
+2011-05-13 17:25:43,165 [20] ERROR PIManager.Professor.AddNewProject [(null)] - Error loading page: Object reference not set to an instance of an object.
+2011-05-13 17:29:04,671 [21] ERROR PIManager.Professor.AddNewProject [(null)] - Error loading page: Object reference not set to an instance of an object.
+2011-05-13 17:30:53,750 [21] ERROR PIManager.Professor.AddNewProject [(null)] - Error loading page: Object reference not set to an instance of an object.
+2011-05-13 17:32:09,805 [22] ERROR PIManager.Professor.AddNewProject [(null)] - Error loading page: Object reference not set to an instance of an object.
+2011-05-13 17:38:14,511 [17] ERROR PIManager.Professor.AddNewProject [(null)] - Error loading page: Object reference not set to an instance of an object.
+2011-05-13 17:38:32,099 [87] ERROR PIManager.Professor.AddNewProject [(null)] - Error loading page: Object reference not set to an instance of an object.
+2011-05-13 17:41:50,336 [87] ERROR PIManager.Professor.AddNewProject [(null)] - Error loading page: Object reference not set to an instance of an object.
+2011-05-13 17:43:21,816 [17] ERROR PIManager.Professor.AddNewProject [(null)] - Error loading page: Object reference not set to an instance of an object.
+2011-05-13 17:51:16,844 [4] ERROR PIManager.Professor.AddNewProject [(null)] - Error loading page: Object reference not set to an instance of an object.
+2011-05-13 17:52:13,684 [88] ERROR PIManager.Professor.AddNewProject [(null)] - Error loading page: Object reference not set to an instance of an object.
+2011-05-13 17:56:09,977 [14] ERROR PIManager.Professor.AddNewProject [(null)] - Error loading page: Object reference not set to an instance of an object.
+2011-05-13 17:57:14,598 [21] ERROR PIManager.Professor.AddNewProject [(null)] - Error loading page: Object reference not set to an instance of an object.
+2011-05-13 17:58:53,793 [14] ERROR PIManager.Professor.AddNewProject [(null)] - Error loading page: Object reference not set to an instance of an object.
+2011-05-13 17:59:56,543 [86] ERROR PIManager.Professor.AddNewProject [(null)] - Error loading page: Object reference not set to an instance of an object.
+2011-05-13 18:02:05,195 [22] ERROR PIManager.Professor.AddNewProject [(null)] - Error loading page: Object reference not set to an instance of an object.
+2011-05-13 18:37:10,883 [24] ERROR PIManager.Professor.AddNewProject [(null)] - Error loading page: Object reference not set to an instance of an object.
+2011-05-13 18:37:23,837 [24] ERROR PIManager.Professor.AddNewProject [(null)] - Error loading page: Object reference not set to an instance of an object.
+2011-05-13 18:37:40,068 [25] ERROR PIManager.Professor.AddNewProject [(null)] - Error loading page: Object reference not set to an instance of an object.
+2011-05-13 18:38:00,446 [25] ERROR PIManager.Professor.AddNewProject [(null)] - Error loading page: Object reference not set to an instance of an object.
+2011-05-13 18:39:08,566 [9] ERROR PIManager.Professor.AddNewProject [(null)] - Error loading page: Object reference not set to an instance of an object.
+2011-05-13 18:41:10,375 [23] ERROR PIManager.Professor.AddNewProject [(null)] - Error loading page: Object reference not set to an instance of an object.
+2011-05-13 18:42:57,174 [6] DEBUG PIManager.Professor.AddNewProject [(null)] - Created session technos: System.Collections.Generic.List`1[PIManager.Models.Technology]
+2011-05-13 18:42:59,863 [10] ERROR PIManager.Professor.AddNewProject [(null)] - Error loading page: Object reference not set to an instance of an object.
+2011-05-13 18:45:53,086 [9] DEBUG PIManager.Professor.AddNewProject [(null)] - GET requestSystem.Collections.Generic.List`1[PIManager.Models.Technology]
+2011-05-13 18:45:56,014 [9] ERROR PIManager.Professor.AddNewProject [(null)] - Error loading page: Object reference not set to an instance of an object.
+2011-05-13 18:46:37,033 [23] ERROR PIManager.Professor.AddNewProject [(null)] - Error loading page: Object reference not set to an instance of an object.
+2011-05-13 18:48:38,772 [30] DEBUG PIManager.Professor.AddNewProject [(null)] - GET requestSystem.Collections.Generic.List`1[PIManager.Models.Technology]
+2011-05-13 18:49:07,985 [30] DEBUG PIManager.Professor.AddNewProject [(null)] - GET requestSystem.Collections.Generic.List`1[PIManager.Models.Technology]
+2011-05-13 18:49:09,272 [30] ERROR PIManager.Professor.AddNewProject [(null)] - Error loading page: Object reference not set to an instance of an object.
+2011-05-13 18:49:49,913 [30] DEBUG PIManager.Professor.AddNewProject [(null)] - Page_Load!
+2011-05-13 18:49:50,216 [30] DEBUG PIManager.Professor.AddNewProject [(null)] - GET requestSystem.Collections.Generic.List`1[PIManager.Models.Technology]
+2011-05-13 18:49:52,398 [32] DEBUG PIManager.Professor.AddNewProject [(null)] - Page_Load!
+2011-05-13 18:49:52,399 [32] ERROR PIManager.Professor.AddNewProject [(null)] - Error loading page: Object reference not set to an instance of an object.
+2011-05-13 18:51:16,188 [27] DEBUG PIManager.Professor.AddNewProject [(null)] - Page_Load!
+2011-05-13 18:51:16,319 [27] DEBUG PIManager.Professor.AddNewProject [(null)] - GET requestSystem.Collections.Generic.List`1[PIManager.Models.Technology]
+2011-05-13 18:51:30,433 [23] DEBUG PIManager.Professor.AddNewProject [(null)] - Page_Load!
+2011-05-13 18:52:38,560 [23] ERROR PIManager.Professor.AddNewProject [(null)] - Error loading page: Object reference not set to an instance of an object.
+2011-05-14 12:21:00,273 [51] ERROR PIManager.ModifyProject [(null)] - Error loading page: Value cannot be null.
+Parameter name: String
+2011-05-14 12:24:05,709 [61] ERROR PIManager.ModifyProject [(null)] - Error loading page: Value cannot be null.
+Parameter name: String
+2011-05-14 12:27:56,159 [53] ERROR PIManager.ModifyProject [(null)] - Error loading page: Value cannot be null.
+Parameter name: String
+2011-05-14 14:43:14,003 [72] ERROR PIManager.Professor.GetImage [(null)] - Error loading page: Thread was being aborted.
+System.Threading.ThreadAbortException: Thread was being aborted.
+   at System.Threading.Thread.AbortInternal()
+   at System.Threading.Thread.Abort(Object stateInfo)
+   at System.Web.HttpResponse.End()
+   at PIManager.Professor.GetImage.Page_Load(Object sender, EventArgs e) in D:\Visual_Studio_Projects\PIManager\PIManager\Professor\GetImage.aspx.cs:line 42
+2011-05-14 14:43:21,210 [78] ERROR PIManager.Professor.GetImage [(null)] - Error loading page: Thread was being aborted.
+System.Threading.ThreadAbortException: Thread was being aborted.
+   at System.Threading.Thread.AbortInternal()
+   at System.Threading.Thread.Abort(Object stateInfo)
+   at System.Web.HttpResponse.End()
+   at PIManager.Professor.GetImage.Page_Load(Object sender, EventArgs e) in D:\Visual_Studio_Projects\PIManager\PIManager\Professor\GetImage.aspx.cs:line 42
+2011-05-14 14:43:24,336 [109] ERROR PIManager.Professor.GetImage [(null)] - Error loading page: Invalid attempt to read when no data is present.
+System.InvalidOperationException: Invalid attempt to read when no data is present.
+   at System.Data.SqlClient.SqlDataReader.GetValue(Int32 i)
+   at System.Data.SqlClient.SqlDataReader.get_Item(String name)
+   at PIManager.DAO.ProjectAccess.getImage(Int32 id) in D:\Visual_Studio_Projects\PIManager\PIManager\DAO\ProjectAccess.cs:line 623
+   at PIManager.Professor.GetImage.Page_Load(Object sender, EventArgs e) in D:\Visual_Studio_Projects\PIManager\PIManager\Professor\GetImage.aspx.cs:line 40
+2011-05-14 14:43:27,265 [72] ERROR PIManager.Professor.GetImage [(null)] - Error loading page: Invalid attempt to read when no data is present.
+System.InvalidOperationException: Invalid attempt to read when no data is present.
+   at System.Data.SqlClient.SqlDataReader.GetValue(Int32 i)
+   at System.Data.SqlClient.SqlDataReader.get_Item(String name)
+   at PIManager.DAO.ProjectAccess.getImage(Int32 id) in D:\Visual_Studio_Projects\PIManager\PIManager\DAO\ProjectAccess.cs:line 623
+   at PIManager.Professor.GetImage.Page_Load(Object sender, EventArgs e) in D:\Visual_Studio_Projects\PIManager\PIManager\Professor\GetImage.aspx.cs:line 40
+2011-05-14 14:43:38,370 [78] ERROR PIManager.Professor.GetImage [(null)] - Error loading page: Unable to cast object of type 'System.DBNull' to type 'System.Byte[]'.
+System.InvalidCastException: Unable to cast object of type 'System.DBNull' to type 'System.Byte[]'.
+   at PIManager.DAO.ProjectAccess.getImage(Int32 id) in D:\Visual_Studio_Projects\PIManager\PIManager\DAO\ProjectAccess.cs:line 623
+   at PIManager.Professor.GetImage.Page_Load(Object sender, EventArgs e) in D:\Visual_Studio_Projects\PIManager\PIManager\Professor\GetImage.aspx.cs:line 40
+2011-05-14 14:43:41,010 [79] ERROR PIManager.Professor.GetImage [(null)] - Error loading page: Thread was being aborted.
+System.Threading.ThreadAbortException: Thread was being aborted.
+   at System.Threading.Thread.AbortInternal()
+   at System.Threading.Thread.Abort(Object stateInfo)
+   at System.Web.HttpResponse.End()
+   at PIManager.Professor.GetImage.Page_Load(Object sender, EventArgs e) in D:\Visual_Studio_Projects\PIManager\PIManager\Professor\GetImage.aspx.cs:line 42
+2011-05-14 14:44:34,361 [78] ERROR PIManager.Professor.GetImage [(null)] - Error loading page: Thread was being aborted.
+System.Threading.ThreadAbortException: Thread was being aborted.
+   at System.Threading.Thread.AbortInternal()
+   at System.Threading.Thread.Abort(Object stateInfo)
+   at System.Web.HttpResponse.End()
+   at PIManager.Professor.GetImage.Page_Load(Object sender, EventArgs e) in D:\Visual_Studio_Projects\PIManager\PIManager\Professor\GetImage.aspx.cs:line 42
+2011-05-14 14:46:22,242 [78] ERROR PIManager.Professor.GetImage [(null)] - Error loading page: Thread was being aborted.
+System.Threading.ThreadAbortException: Thread was being aborted.
+   at System.Threading.Thread.AbortInternal()
+   at System.Threading.Thread.Abort(Object stateInfo)
+   at System.Web.HttpResponse.End()
+   at PIManager.Professor.GetImage.Page_Load(Object sender, EventArgs e) in D:\Visual_Studio_Projects\PIManager\PIManager\Professor\GetImage.aspx.cs:line 42
+2011-05-14 14:47:31,806 [83] ERROR PIManager.Professor.GetImage [(null)] - Error loading page: Thread was being aborted.
+System.Threading.ThreadAbortException: Thread was being aborted.
+   at System.Threading.Thread.AbortInternal()
+   at System.Threading.Thread.Abort(Object stateInfo)
+   at System.Web.HttpResponse.End()
+   at PIManager.Professor.GetImage.Page_Load(Object sender, EventArgs e) in D:\Visual_Studio_Projects\PIManager\PIManager\Professor\GetImage.aspx.cs:line 42
+2011-05-14 14:47:51,648 [102] ERROR PIManager.Professor.GetImage [(null)] - Error loading page: Thread was being aborted.
+System.Threading.ThreadAbortException: Thread was being aborted.
+   at System.Threading.Thread.AbortInternal()
+   at System.Threading.Thread.Abort(Object stateInfo)
+   at System.Web.HttpResponse.End()
+   at PIManager.Professor.GetImage.Page_Load(Object sender, EventArgs e) in D:\Visual_Studio_Projects\PIManager\PIManager\Professor\GetImage.aspx.cs:line 42
+2011-05-14 14:48:06,352 [102] ERROR PIManager.Professor.GetImage [(null)] - Error loading page: Thread was being aborted.
+System.Threading.ThreadAbortException: Thread was being aborted.
+   at System.Threading.Thread.AbortInternal()
+   at System.Threading.Thread.Abort(Object stateInfo)
+   at System.Web.HttpResponse.End()
+   at PIManager.Professor.GetImage.Page_Load(Object sender, EventArgs e) in D:\Visual_Studio_Projects\PIManager\PIManager\Professor\GetImage.aspx.cs:line 42
+2011-05-14 14:49:21,913 [78] ERROR PIManager.Professor.GetImage [(null)] - Error loading page: Thread was being aborted.
+System.Threading.ThreadAbortException: Thread was being aborted.
+   at System.Threading.Thread.AbortInternal()
+   at System.Threading.Thread.Abort(Object stateInfo)
+   at System.Web.HttpResponse.End()
+   at PIManager.Professor.GetImage.Page_Load(Object sender, EventArgs e) in D:\Visual_Studio_Projects\PIManager\PIManager\Professor\GetImage.aspx.cs:line 42
+2011-05-14 14:49:42,953 [76] ERROR PIManager.Professor.GetImage [(null)] - Error loading page: Thread was being aborted.
+System.Threading.ThreadAbortException: Thread was being aborted.
+   at System.Threading.Thread.AbortInternal()
+   at System.Threading.Thread.Abort(Object stateInfo)
+   at System.Web.HttpResponse.End()
+   at PIManager.Professor.GetImage.Page_Load(Object sender, EventArgs e) in D:\Visual_Studio_Projects\PIManager\PIManager\Professor\GetImage.aspx.cs:line 42
+2011-05-14 14:51:10,094 [104] ERROR PIManager.Professor.GetImage [(null)] - Error loading page: Thread was being aborted.
+System.Threading.ThreadAbortException: Thread was being aborted.
+   at System.Threading.Thread.AbortInternal()
+   at System.Threading.Thread.Abort(Object stateInfo)
+   at System.Web.HttpResponse.End()
+   at PIManager.Professor.GetImage.Page_Load(Object sender, EventArgs e) in D:\Visual_Studio_Projects\PIManager\PIManager\Professor\GetImage.aspx.cs:line 42
+2011-05-14 14:51:18,933 [78] ERROR PIManager.Professor.GetImage [(null)] - Error loading page: Unable to cast object of type 'System.DBNull' to type 'System.Byte[]'.
+System.InvalidCastException: Unable to cast object of type 'System.DBNull' to type 'System.Byte[]'.
+   at PIManager.DAO.ProjectAccess.getImage(Int32 id) in D:\Visual_Studio_Projects\PIManager\PIManager\DAO\ProjectAccess.cs:line 623
+   at PIManager.Professor.GetImage.Page_Load(Object sender, EventArgs e) in D:\Visual_Studio_Projects\PIManager\PIManager\Professor\GetImage.aspx.cs:line 40
+2011-05-14 14:52:05,058 [78] ERROR PIManager.Professor.GetImage [(null)] - Error loading page: Unable to cast object of type 'System.DBNull' to type 'System.Byte[]'.
+System.InvalidCastException: Unable to cast object of type 'System.DBNull' to type 'System.Byte[]'.
+   at PIManager.DAO.ProjectAccess.getImage(Int32 id) in D:\Visual_Studio_Projects\PIManager\PIManager\DAO\ProjectAccess.cs:line 623
+   at PIManager.Professor.GetImage.Page_Load(Object sender, EventArgs e) in D:\Visual_Studio_Projects\PIManager\PIManager\Professor\GetImage.aspx.cs:line 40
+2011-05-14 15:01:10,076 [72] ERROR PIManager.Professor.GetImage [(null)] - Error loading page: Thread was being aborted.
+System.Threading.ThreadAbortException: Thread was being aborted.
+   at System.Threading.Thread.AbortInternal()
+   at System.Threading.Thread.Abort(Object stateInfo)
+   at System.Web.HttpResponse.End()
+   at PIManager.Professor.GetImage.Page_Load(Object sender, EventArgs e) in D:\Visual_Studio_Projects\PIManager\PIManager\Professor\GetImage.aspx.cs:line 42
+2011-05-14 15:03:58,494 [74] ERROR PIManager.Professor.GetImage [(null)] - Error loading page: Thread was being aborted.
+System.Threading.ThreadAbortException: Thread was being aborted.
+   at System.Threading.Thread.AbortInternal()
+   at System.Threading.Thread.Abort(Object stateInfo)
+   at System.Web.HttpResponse.End()
+   at PIManager.Professor.GetImage.Page_Load(Object sender, EventArgs e) in D:\Visual_Studio_Projects\PIManager\PIManager\Professor\GetImage.aspx.cs:line 42
+2011-05-14 15:38:15,749 [83] ERROR PIManager.Professor.GetImage [(null)] - Error loading page: Thread was being aborted.
+System.Threading.ThreadAbortException: Thread was being aborted.
+   at System.Threading.Thread.AbortInternal()
+   at System.Threading.Thread.Abort(Object stateInfo)
+   at System.Web.HttpResponse.End()
+   at PIManager.Professor.GetImage.Page_Load(Object sender, EventArgs e) in D:\Visual_Studio_Projects\PIManager\PIManager\Professor\GetImage.aspx.cs:line 42
+2011-05-14 15:39:36,389 [83] ERROR PIManager.Professor.GetImage [(null)] - Error loading page: Thread was being aborted.
+System.Threading.ThreadAbortException: Thread was being aborted.
+   at System.Threading.Thread.AbortInternal()
+   at System.Threading.Thread.Abort(Object stateInfo)
+   at System.Web.HttpResponse.End()
+   at PIManager.Professor.GetImage.Page_Load(Object sender, EventArgs e) in D:\Visual_Studio_Projects\PIManager\PIManager\Professor\GetImage.aspx.cs:line 42
+2011-05-14 15:39:40,242 [76] ERROR PIManager.Professor.GetImage [(null)] - Error loading page: Thread was being aborted.
+System.Threading.ThreadAbortException: Thread was being aborted.
+   at System.Threading.Thread.AbortInternal()
+   at System.Threading.Thread.Abort(Object stateInfo)
+   at System.Web.HttpResponse.End()
+   at PIManager.Professor.GetImage.Page_Load(Object sender, EventArgs e) in D:\Visual_Studio_Projects\PIManager\PIManager\Professor\GetImage.aspx.cs:line 42
+2011-05-14 15:39:43,115 [84] ERROR PIManager.Professor.GetImage [(null)] - Error loading page: Thread was being aborted.
+System.Threading.ThreadAbortException: Thread was being aborted.
+   at System.Threading.Thread.AbortInternal()
+   at System.Threading.Thread.Abort(Object stateInfo)
+   at System.Web.HttpResponse.End()
+   at PIManager.Professor.GetImage.Page_Load(Object sender, EventArgs e) in D:\Visual_Studio_Projects\PIManager\PIManager\Professor\GetImage.aspx.cs:line 42
+2011-05-14 15:39:49,900 [73] ERROR PIManager.Professor.GetImage [(null)] - Error loading page: Thread was being aborted.
+System.Threading.ThreadAbortException: Thread was being aborted.
+   at System.Threading.Thread.AbortInternal()
+   at System.Threading.Thread.Abort(Object stateInfo)
+   at System.Web.HttpResponse.End()
+   at PIManager.Professor.GetImage.Page_Load(Object sender, EventArgs e) in D:\Visual_Studio_Projects\PIManager\PIManager\Professor\GetImage.aspx.cs:line 42
+2011-05-14 15:46:17,499 [57] ERROR PIManager.Professor.GetImage [(null)] - Error loading page: Thread was being aborted.
+System.Threading.ThreadAbortException: Thread was being aborted.
+   at System.Threading.Thread.AbortInternal()
+   at System.Threading.Thread.Abort(Object stateInfo)
+   at System.Web.HttpResponse.End()
+   at PIManager.Professor.GetImage.Page_Load(Object sender, EventArgs e) in D:\Visual_Studio_Projects\PIManager\PIManager\Professor\GetImage.aspx.cs:line 42
+2011-05-14 15:46:53,434 [109] ERROR PIManager.Professor.GetImage [(null)] - Error loading page: Thread was being aborted.
+System.Threading.ThreadAbortException: Thread was being aborted.
+   at System.Threading.Thread.AbortInternal()
+   at System.Threading.Thread.Abort(Object stateInfo)
+   at System.Web.HttpResponse.End()
+   at PIManager.Professor.GetImage.Page_Load(Object sender, EventArgs e) in D:\Visual_Studio_Projects\PIManager\PIManager\Professor\GetImage.aspx.cs:line 42
+2011-05-14 15:47:50,805 [78] ERROR PIManager.Professor.GetImage [(null)] - Error loading page: Thread was being aborted.
+System.Threading.ThreadAbortException: Thread was being aborted.
+   at System.Threading.Thread.AbortInternal()
+   at System.Threading.Thread.Abort(Object stateInfo)
+   at System.Web.HttpResponse.End()
+   at PIManager.Professor.GetImage.Page_Load(Object sender, EventArgs e) in D:\Visual_Studio_Projects\PIManager\PIManager\Professor\GetImage.aspx.cs:line 42
+2011-05-14 15:51:58,606 [108] ERROR PIManager.Professor.GetImage [(null)] - Error loading page: Thread was being aborted.
+System.Threading.ThreadAbortException: Thread was being aborted.
+   at System.Threading.Thread.AbortInternal()
+   at System.Threading.Thread.Abort(Object stateInfo)
+   at System.Web.HttpResponse.End()
+   at PIManager.Professor.GetImage.Page_Load(Object sender, EventArgs e) in D:\Visual_Studio_Projects\PIManager\PIManager\Professor\GetImage.aspx.cs:line 42
+2011-05-14 15:52:02,936 [108] ERROR PIManager.Professor.GetImage [(null)] - Error loading page: Thread was being aborted.
+System.Threading.ThreadAbortException: Thread was being aborted.
+   at System.Threading.Thread.AbortInternal()
+   at System.Threading.Thread.Abort(Object stateInfo)
+   at System.Web.HttpResponse.End()
+   at PIManager.Professor.GetImage.Page_Load(Object sender, EventArgs e) in D:\Visual_Studio_Projects\PIManager\PIManager\Professor\GetImage.aspx.cs:line 42
+2011-05-14 15:52:19,872 [66] ERROR PIManager.Professor.GetImage [(null)] - Error loading page: Thread was being aborted.
+System.Threading.ThreadAbortException: Thread was being aborted.
+   at System.Threading.Thread.AbortInternal()
+   at System.Threading.Thread.Abort(Object stateInfo)
+   at System.Web.HttpResponse.End()
+   at PIManager.Professor.GetImage.Page_Load(Object sender, EventArgs e) in D:\Visual_Studio_Projects\PIManager\PIManager\Professor\GetImage.aspx.cs:line 42
+2011-05-14 15:52:29,332 [100] ERROR PIManager.Professor.GetImage [(null)] - Error loading page: Thread was being aborted.
+System.Threading.ThreadAbortException: Thread was being aborted.
+   at System.Threading.Thread.AbortInternal()
+   at System.Threading.Thread.Abort(Object stateInfo)
+   at System.Web.HttpResponse.End()
+   at PIManager.Professor.GetImage.Page_Load(Object sender, EventArgs e) in D:\Visual_Studio_Projects\PIManager\PIManager\Professor\GetImage.aspx.cs:line 42
+2011-05-14 16:21:45,753 [67] ERROR PIManager.Professor.GetImage [(null)] - Error loading page: Thread was being aborted.
+System.Threading.ThreadAbortException: Thread was being aborted.
+   at System.Threading.Thread.AbortInternal()
+   at System.Threading.Thread.Abort(Object stateInfo)
+   at System.Web.HttpResponse.End()
+   at PIManager.Professor.GetImage.Page_Load(Object sender, EventArgs e) in D:\Visual_Studio_Projects\PIManager\PIManager\GetImage.aspx.cs:line 42
+2011-05-14 16:21:53,564 [67] ERROR PIManager.Professor.GetImage [(null)] - Error loading page: Thread was being aborted.
+System.Threading.ThreadAbortException: Thread was being aborted.
+   at System.Threading.Thread.AbortInternal()
+   at System.Threading.Thread.Abort(Object stateInfo)
+   at System.Web.HttpResponse.End()
+   at PIManager.Professor.GetImage.Page_Load(Object sender, EventArgs e) in D:\Visual_Studio_Projects\PIManager\PIManager\GetImage.aspx.cs:line 42
+2011-05-14 16:21:56,382 [15] ERROR PIManager.Professor.GetImage [(null)] - Error loading page: Thread was being aborted.
+System.Threading.ThreadAbortException: Thread was being aborted.
+   at System.Threading.Thread.AbortInternal()
+   at System.Threading.Thread.Abort(Object stateInfo)
+   at System.Web.HttpResponse.End()
+   at PIManager.Professor.GetImage.Page_Load(Object sender, EventArgs e) in D:\Visual_Studio_Projects\PIManager\PIManager\GetImage.aspx.cs:line 42
+2011-05-14 16:25:17,293 [75] ERROR PIManager.ManageProjects [(null)] - Error loading page: Cannot open database "pimanager" requested by the login. The login failed.
+Login failed for user 'pi_professor'.
+2011-05-14 16:25:43,079 [69] ERROR PIManager.ManageProjects [(null)] - Error loading page: Cannot open database "pimanager" requested by the login. The login failed.
+Login failed for user 'pi_professor'.
+2011-05-14 16:25:51,487 [69] ERROR PIManager.ManageProjects [(null)] - Error loading page: Cannot open database "pimanager" requested by the login. The login failed.
+Login failed for user 'pi_professor'.
+2011-05-14 16:45:14,958 [7] ERROR PIManager.Professor.GetImage [(null)] - Error loading page: Thread was being aborted.
+System.Threading.ThreadAbortException: Thread was being aborted.
+   at System.Threading.Thread.AbortInternal()
+   at System.Threading.Thread.Abort(Object stateInfo)
+   at System.Web.HttpResponse.End()
+   at PIManager.Professor.GetImage.Page_Load(Object sender, EventArgs e) in D:\Visual_Studio_Projects\PIManager\PIManager\GetImage.aspx.cs:line 42
+2011-05-14 18:13:28,435 [101] ERROR PIManager.Professor.GetImage [(null)] - Error loading page: Thread was being aborted.
+System.Threading.ThreadAbortException: Thread was being aborted.
+   at System.Threading.Thread.AbortInternal()
+   at System.Threading.Thread.Abort(Object stateInfo)
+   at System.Web.HttpResponse.End()
+   at PIManager.Professor.GetImage.Page_Load(Object sender, EventArgs e) in D:\Visual_Studio_Projects\PIManager\PIManager\GetImage.aspx.cs:line 42

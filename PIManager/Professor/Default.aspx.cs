@@ -7,6 +7,9 @@ using System.Web.UI.WebControls;
 
 namespace PIManager.Professor
 {
+    /// <summary>
+    /// Default page shown when a professor is connected
+    /// </summary>
     public partial class Default : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)

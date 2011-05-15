@@ -9,6 +9,8 @@ using System.Data.SqlClient;
 using System.Configuration;
 using log4net;
 using PIManager.Models;
+using System.Drawing;
+using System.IO;
 
 namespace PIManager
 {
@@ -22,12 +24,34 @@ namespace PIManager
         /// </summary>
         private static readonly ILog log = LogManager.GetLogger(typeof(ModifyProject));
 
+        /// <summary>
+        /// Give access to the project
+        /// </summary>
         protected ProjectAccess myProjectAccess = new ProjectAccess();
+
+        /// <summary>
+        /// Give access to the technologies
+        /// </summary>
         protected TechnologyAccess myTechnoAccess = new TechnologyAccess();
+
+        /// <summary>
+        /// Give access to the person
+        /// </summary>
         protected PersonAccess myPersonAccess = new PersonAccess();
-        
+
+        /// <summary>
+        /// Reference to the modified project
+        /// </summary>
         protected Project myModifiedProject;
+
+        /// <summary>
+        /// Technologies of to the project
+        /// </summary>
         protected List<Technology> myProjectTechnos;
+
+        /// <summary>
+        /// All technologies to put in the list
+        /// </summary>
         protected Dictionary<int, Technology> myTechnologies;
 
         /// <summary>
@@ -95,6 +119,11 @@ namespace PIManager
             tbAbreviation.Text = myModifiedProject.Abreviation;
             tbDescription.Text = myModifiedProject.Description;
 
+            if (myModifiedProject.HasImage)
+                previewImage.ImageUrl = "/GetImage.aspx?id=" + myModifiedProject.Id;
+            else
+                previewImage.ImageUrl = "/Images/noimage.png";
+
             gridTechnologies.DataSource = myProjectTechnos;
             gridTechnologies.DataBind();
 
@@ -156,6 +185,12 @@ namespace PIManager
                 return;
             }
 
+            if (!validateImage(uploadImage.PostedFile))
+            {
+                lbErrorImage.Visible = true;
+                return;
+            }
+
             Project newProject = new Project(myModifiedProject.Id,
                                              tbTitle.Text,
                                              tbAbreviation.Text,
@@ -163,10 +198,28 @@ namespace PIManager
                                              int.Parse(tbNbStudents.Text),
                                              int.Parse(listClients.SelectedValue));
 
-            if (myProjectAccess.modifyProject(myModifiedProject, newProject, myProjectTechnos))
+            byte[] rawImage;
+            using (var binaryReader = new BinaryReader(uploadImage.PostedFile.InputStream))
+            {
+                rawImage = binaryReader.ReadBytes(uploadImage.PostedFile.ContentLength);
+            }
+
+            if (myProjectAccess.modifyProject(myModifiedProject, newProject, myProjectTechnos, rawImage))
                 Response.Redirect("ManageProjects.aspx");
             else
                 Response.Redirect("ModifyProject.aspx?id=" + myModifiedProject.Id + "&error=1");
+        }
+
+        private bool validateImage(HttpPostedFile imageFile)
+        {
+            if (imageFile.ContentLength == 0)
+                return true;
+
+            return imageFile.ContentLength <= 512 * 1024 &&
+                   (imageFile.ContentType == "image/gif" ||
+                    imageFile.ContentType == "image/png" ||
+                    imageFile.ContentType == "image/jpeg" ||
+                    imageFile.ContentType == "image/bmp");
         }
     }
 }
