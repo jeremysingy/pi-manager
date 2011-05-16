@@ -122,8 +122,13 @@ namespace PIManager.Professor
             newProject.Controls.Add(cellClient);
 
             TableCell cellHistory = new TableCell();
-            cellHistory.Text = "<a href='/Professor/VisualizationHistory.aspx?id=" + id + "'>Voir historique</a>"; ;
+            cellHistory.Text = "<a href='/Professor/VisualizationHistory.aspx?id=" + id + "'>Voir historique</a>";
             newProject.Controls.Add(cellHistory);
+
+            TableCell cellPDF = new TableCell();
+            cellPDF.Text = "<a href='/Professor/ProjectPDF.aspx?id=" + id + "'>PDF</a>";
+            newProject.Controls.Add(cellPDF);
+
         }
 
         /// <summary>

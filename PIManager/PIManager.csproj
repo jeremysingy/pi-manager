@@ -33,6 +33,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="itextsharp, Version=5.1.0.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Lib\itextsharp.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp.xtra, Version=5.1.0.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Lib\itextsharp.xtra.dll</HintPath>
+    </Reference>
     <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Lib\log4net.dll</HintPath>
@@ -61,6 +69,9 @@
     <Content Include="Account\Register.aspx" />
     <Content Include="Images\noimage.png" />
     <Content Include="GetImage.aspx" />
+    <Content Include="Lib\itextsharp.dll" />
+    <Content Include="Lib\itextsharp.xtra.dll" />
+    <Content Include="Professor\ProjectPDF.aspx" />
     <Content Include="Professor\VisualizationGroup.aspx" />
     <Content Include="Images\logo_eia.png" />
     <Content Include="Lib\log4net.dll" />
@@ -122,6 +133,7 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="xslt\projectDescriptionPDF.xsl" />
+    <Content Include="xslt\ProjectDescriptionToText.xslt" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Account\ChangePassword.aspx.cs">
@@ -158,6 +170,13 @@
     </Compile>
     <Compile Include="GetImage.aspx.designer.cs">
       <DependentUpon>GetImage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Professor\ProjectPDF.aspx.cs">
+      <DependentUpon>ProjectPDF.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Professor\ProjectPDF.aspx.designer.cs">
+      <DependentUpon>ProjectPDF.aspx</DependentUpon>
     </Compile>
     <Compile Include="Professor\VisualizationGroup.aspx.cs">
       <DependentUpon>VisualizationGroup.aspx</DependentUpon>
