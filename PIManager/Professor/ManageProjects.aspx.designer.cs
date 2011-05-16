@@ -13,6 +13,33 @@ namespace PIManager {
     public partial class ManageProjects {
         
         /// <summary>
+        /// phAdded control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder phAdded;
+        
+        /// <summary>
+        /// phModified control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder phModified;
+        
+        /// <summary>
+        /// phDeleted control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder phDeleted;
+        
+        /// <summary>
         /// ProjectsGrid control.
         /// </summary>
         /// <remarks>

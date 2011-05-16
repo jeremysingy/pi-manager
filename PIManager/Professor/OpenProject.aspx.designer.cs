@@ -13,6 +13,15 @@ namespace PIManager.Professor {
     public partial class OpenProject {
         
         /// <summary>
+        /// phOpened control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder phOpened;
+        
+        /// <summary>
         /// ProjectsGrid control.
         /// </summary>
         /// <remarks>
@@ -20,6 +29,15 @@ namespace PIManager.Professor {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView ProjectsGrid;
+        
+        /// <summary>
+        /// lbErrorProjects control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbErrorProjects;
         
         /// <summary>
         /// lbStart control.
@@ -92,6 +110,15 @@ namespace PIManager.Professor {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CompareValidator ValidateEnd;
+        
+        /// <summary>
+        /// lbErrorDates control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbErrorDates;
         
         /// <summary>
         /// btCancel control.

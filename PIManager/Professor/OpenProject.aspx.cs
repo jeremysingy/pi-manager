@@ -50,6 +50,10 @@ namespace PIManager.Professor
                     // Bind the projects with the table
                     ProjectsGrid.DataSource = myProjects;
                     ProjectsGrid.DataBind();
+
+                    // Add eventual confirmation message
+                    if (Request.QueryString["confirm"] != null && Request.QueryString["confirm"] == "1")
+                        phOpened.Visible = true;
                 }
                 else
                     getSessions();
@@ -107,16 +111,45 @@ namespace PIManager.Professor
         /// <param name="e">Arguments of the event</param>
         protected void btSubmit_Click(object sender, EventArgs e)
         {
+            if (myIdsToOpen.Count == 0)
+            {
+                lbErrorProjects.Visible = true;
+                return;
+            }
+
+            DateTime dateOpen, dateClose;
+            if(!validateDates(out dateOpen, out dateClose))
+            {
+                lbErrorProjects.Visible = false;
+                lbErrorDates.Visible = true;
+                return;
+            }
+
+            myProjectAccess.openRegistration(myIdsToOpen, dateOpen, dateClose);
+
+            Response.Redirect("OpenProject.aspx?confirm=1");
+        }
+
+        /// <summary>
+        /// Validate the dates passed by the form
+        /// </summary>
+        /// <returns>true if the dates are correct, false otherwise</returns>
+        private bool validateDates(out DateTime dateOpen, out DateTime dateClose)
+        {
             System.Globalization.DateTimeFormatInfo format = new DateTimeFormatInfo();
             format.ShortDatePattern = "dd.MM.yyyy HH:mm";
             format.DateSeparator = ".";
 
-            DateTime dateOpen = DateTime.Parse(tbStart.Text, format);
-            DateTime dateClose = DateTime.Parse(tbEnd.Text, format);
+            bool ok1 = DateTime.TryParse(tbStart.Text, format, DateTimeStyles.None, out dateOpen);
+            bool ok2 = DateTime.TryParse(tbEnd.Text, format, DateTimeStyles.None, out dateClose);
 
-            myProjectAccess.openRegistration(myIdsToOpen, dateOpen, dateClose);
+            if (!ok1 || !ok2)
+                return false;
 
-            Response.Redirect("Default.aspx");
+            if (dateOpen.CompareTo(dateClose) >= 0)
+                return false;
+
+            return true;
         }
     }
 }

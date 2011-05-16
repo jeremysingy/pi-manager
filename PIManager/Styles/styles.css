@@ -1170,6 +1170,12 @@ text-decoration: none;
 }
 
 
+ .confirm
+ {
+     color: #22B14C;
+     font-weight: bold;
+ }
+
 /* Login styles */
 fieldset
 {
