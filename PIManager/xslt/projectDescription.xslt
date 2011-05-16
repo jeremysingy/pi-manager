@@ -1,6 +1,8 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet id="projectDescription" version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
   <xsl:output version="4.0" method="html" encoding="UTF-8" />
+  
+  <!-- Parameter to get the image to display from the C# implementation. -->
   <xsl:param name="IMAGE"></xsl:param>
   <!--  Template that generates the whole HTML page. It applies the different templates that 
          matches here (in this case only "project".-->

@@ -71,13 +71,10 @@ namespace PIManagerTest
         /// <summary>
         ///A test for addProject
         ///</summary>
-        // TODO: Ensure that the UrlToTest attribute specifies a URL to an ASP.NET page (for example,
-        // http://.../Default.aspx). This is necessary for the unit test to be executed on the web server,
-        // whether you are testing a page, web service, or a WCF service.
         [TestMethod()]
         public void addProjectTest()
         {
-            ProjectAccess target = new ProjectAccess(); // TODO: Initialize to an appropriate value
+            ProjectAccess target = new ProjectAccess();
             Project newProject = new Project("TestProject", "ab1", "<paragraph>paragraphe1</paragraph>",3,3);
             List<Technology> projectTechnos = new List<Technology>();
             TechnologyAccess technoAccess = new TechnologyAccess();

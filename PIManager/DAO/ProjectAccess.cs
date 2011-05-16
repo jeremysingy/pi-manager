@@ -44,9 +44,9 @@ namespace PIManager.DAO
                            "description_XML.query('data(//title)') AS title, " +
                            "description_xml.value('(//abreviation)[1]', 'varchar(50)') AS abreviation, " +
                            "description_XML.value(N'(//student)[1]', 'integer') AS nbStudent " +
-                           "FROM pimanager.dbo.Project LEFT JOIN pimanager.dbo.Period ON pimanager.dbo.Project.pk_period = pimanager.dbo.Period.pk_period " +
+                           "FROM pimanager.dbo.Project INNER JOIN pimanager.dbo.Period ON pimanager.dbo.Project.pk_period = pimanager.dbo.Period.pk_period " +
                            "WHERE description_XML.value(N'(//student)[1]', 'integer') > (SELECT COUNT(*) FROM Person WHERE Person.pk_project = Project.pk_project) " +
-                           "AND pimanager.dbo.Project.pk_period IS NOT NULL AND @currentDate > pimanager.dbo.Period.date_open AND @currentDate < pimanager.dbo.Period.date_close;";
+                           "AND pimanager.dbo.Project.pk_period IS NOT NULL AND @currentDate BETWEEN pimanager.dbo.Period.date_open AND pimanager.dbo.Period.date_close;";
 
             List<Project> projectList = new List<Project>();
 
