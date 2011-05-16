@@ -27,7 +27,7 @@
     <h2>Modification du projet :</h2>
     <h3><asp:Label ID="lbName" runat="server" Text="Titre" /></h3>
     <asp:PlaceHolder ID="phError" runat="server" Visible="false">
-        <p class="error">The project has been modified or deleted by another user. Please retry your modifications</p>
+        <p class="error">Le projet a été modifié par un autre utilisateur. Veuillez réessayer vos modifications.</p>
     </asp:PlaceHolder>
     <asp:Label ID="lbTitle" runat="server" Text="Titre :" AssociatedControlID="tbTitle" />
     <asp:TextBox ID="tbTitle" runat="server"></asp:TextBox>
