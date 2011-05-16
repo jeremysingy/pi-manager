@@ -72,10 +72,16 @@ namespace PIManager.Professor
             document.Add(new Paragraph("Technologies : ", new Font(Font.FontFamily.HELVETICA, 16)));
 
 
-            //TODO Techno
-            for (int i = 0; i < 2; i++)
+            for(int i = 0; i < project.Technology.Count; i++)
             {
-                document.Add(new Paragraph("Techno" + i, new Font(Font.FontFamily.HELVETICA, 12)));
+                if(i==0)
+                {
+                    document.Add(new Paragraph(project.Technology[i].Name, new Font(Font.FontFamily.HELVETICA, 12)));
+                }else
+                {
+                    document.Add(new Paragraph(", " + project.Technology[i].Name, new Font(Font.FontFamily.HELVETICA, 12)));
+                }
+                
             }
             
 
@@ -95,6 +101,7 @@ namespace PIManager.Professor
             project = projectAccess.getProject(idProject);
 
             List<Technology> technos = projectAccess.getTechnologyProject(idProject);
+            project.Technology = technos;
 
             
 
