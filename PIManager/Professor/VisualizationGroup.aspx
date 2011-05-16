@@ -10,4 +10,7 @@
     <asp:Label ID="errorLabel" runat="server" CssClass="error" />
     <asp:Table ID="ProjectsTable" runat="server" CssClass="tableAlternate"></asp:Table>
 
+    <asp:Panel ID="descriptionPanel" runat="server" CssClass="descriptionPanel">
+    </asp:Panel>
+
 </asp:Content>

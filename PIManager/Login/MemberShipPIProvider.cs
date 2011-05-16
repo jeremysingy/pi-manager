@@ -329,9 +329,9 @@ namespace PIManager.Login
 
                 connection_role.Close();
 
-                if (!DBNull.Value.Equals(o_role))
+                if (!DBNull.Value.Equals(o_role) && o_role != null)
                 {
-                    roleID = (int)o;
+                    roleID = (int)o_role;
                 }
                 else
                 {

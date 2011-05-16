@@ -29,5 +29,14 @@ namespace PIManager.Professor {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Table ProjectsTable;
+        
+        /// <summary>
+        /// descriptionPanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel descriptionPanel;
     }
 }
