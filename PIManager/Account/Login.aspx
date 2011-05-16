@@ -4,17 +4,10 @@
 <asp:Content ID="HeaderContent" runat="server" ContentPlaceHolderID="HeadContent">
 </asp:Content>
 <asp:Content ID="BodyContent" runat="server" ContentPlaceHolderID="MainContent">
-    <h2>
-        Connexion
-    </h2>
-    <p>
-        Entrez votre nom d'utilisateur et votre mot de passe.
-    </p>
-    <asp:Login ID="LoginUser" runat="server" EnableViewState="false" RenderOuterTable="false">
+    <h2>Connexion</h2>
+    <p>Entrez votre nom d'utilisateur et votre mot de passe.</p>
+    <asp:Login ID="LoginUser" runat="server" EnableViewState="false" RenderOuterTable="false" FailureText="Le nom d'utilisateur et/ou le mot de passe ne sont pas valides">
         <LayoutTemplate>
-            <span class="failureNotification">
-                <asp:Literal ID="FailureText" runat="server"></asp:Literal>
-            </span>
             <asp:ValidationSummary ID="LoginUserValidationSummary" runat="server" CssClass="failureNotification" 
                  ValidationGroup="LoginUserValidationGroup"/>
             <div class="accountInfo">
@@ -34,11 +27,13 @@
                              CssClass="failureNotification" ErrorMessage="Password is required." ToolTip="Password is required." 
                              ValidationGroup="LoginUserValidationGroup">*</asp:RequiredFieldValidator>
                     </p>
-                   
-                </fieldset>
-                <p class="submitButton">
-                    <asp:Button ID="LoginButton" runat="server" CommandName="Login" Text="Log In" ValidationGroup="LoginUserValidationGroup"/>
-                </p>
+                    <span class="failureNotification">
+                        <asp:Literal ID="FailureText" runat="server"></asp:Literal>
+                    </span>
+               </fieldset>
+            </div>
+            <div class="buttons">
+                <asp:Button ID="LoginButton" runat="server" CommandName="Login" Text="Connexion" ValidationGroup="LoginUserValidationGroup" CssClass="but" />
             </div>
         </LayoutTemplate>
     </asp:Login>

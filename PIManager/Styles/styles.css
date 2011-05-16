@@ -1139,7 +1139,7 @@ text-decoration: none;
 
 .art-content .but
 {
-    width: 80px;
+    width: 100px;
 }
 
 .art-content .buttons
@@ -1167,4 +1167,43 @@ text-decoration: none;
 {
     width: 30px;
     border: 2px solid #FF0000;
+}
+
+
+/* Login styles */
+fieldset
+{
+    width: 450px;
+    /*margin: 1em 0px;*/
+    margin: auto;
+    padding: 1em;
+    border: 1px solid #ccc;
+}
+
+fieldset p 
+{
+    margin: 2px 12px 10px 10px;
+}
+
+fieldset.login label, fieldset.register label, fieldset.changePassword label
+{
+    display: block;
+}
+
+fieldset label.inline 
+{
+    display: inline;
+}
+
+legend 
+{
+    font-size: 1.1em;
+    font-weight: 600;
+    padding: 2px 4px 8px 4px;
+}
+
+.failureNotification
+{
+    font-size: 1.2em;
+    color: Red;
 }

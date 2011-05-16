@@ -59,15 +59,9 @@
                                 <div class="art-BlockContent-body">
                                     <div>
                                         <ul>
-                                            <li>
-                                                <asp:LoginStatus ID="LoginStatus" runat="server" LoginText="Connexion" LogoutText="Déconnexion" LogoutPageUrl="~/Account/Login.aspx" LogoutAction="Redirect" />
-                                            </li>
-                                            <li>
-                                                <asp:HyperLink ID="visuProjectsLink" runat="server" NavigateUrl="/Student/VisuProjectStudent.aspx" Text="Visualiser les projets disponibles" />
-                                            </li>
-                                            <li>
-                                                <asp:HyperLink ID="addDocumentLink" runat="server" NavigateUrl="/Student/AddDocument.aspx" Text="Ajouter un document" />
-                                            </li>
+                                            <li><asp:HyperLink ID="visuProjectsLink" runat="server" NavigateUrl="/Student/VisuProjectStudent.aspx" Text="Visualiser les projets disponibles" /></li>
+                                            <li><asp:HyperLink ID="addDocumentLink" runat="server" NavigateUrl="/Student/AddDocument.aspx" Text="Ajouter un document" /></li>
+                                            <li><asp:LoginStatus ID="LoginStatus" runat="server" LoginText="Connexion" LogoutText="Déconnexion" LogoutPageUrl="~/Account/Login.aspx" LogoutAction="Redirect" /></li>
                                         </ul>
                                     </div>
                                     <div class="cleared"></div>
@@ -85,7 +79,7 @@
             <div class="art-Footer">
                 <div class="art-Footer-inner">
                     <div class="art-Footer-text">
-                        <p>Copyright &copy; 2011 EIA-FR</p>
+                        <p>Copyright &copy; 2011 EIA-FR - Groupe 1 (Monney, Savary, Singy)</p>
                     </div>
                 </div>
                 <div class="art-Footer-background"></div>

@@ -2,9 +2,6 @@
 <asp:Content ID="HeaderContent" runat="server" ContentPlaceHolderID="HeadContent">
 </asp:Content>
 <asp:Content ID="BodyContent" runat="server" ContentPlaceHolderID="MainContent">
-    <h2>
-        PI Manager - Professor
-    </h2>
-    <p>Bienvenue dans PI-Manager. Test: <%= DateTime.Now.ToString() %></p>
-  
+    <h2>Accueil PI Manager</h2>
+    <p>Bienvenue dans PI-Manager. Vous êtes connectés en tant que professeur</p>
 </asp:Content>
