@@ -213,9 +213,7 @@ namespace PIManager.Professor
             }
 
             myProjectAccess.addProject(newProject, myProjectTechnos, rawImage);
-            //Response.Redirect("Default.aspx");
-
-            test.Text = tbDescription.Text;
+            Response.Redirect("Default.aspx");
         }
 
         private bool validateImage(HttpPostedFile imageFile)

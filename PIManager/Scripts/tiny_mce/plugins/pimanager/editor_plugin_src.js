@@ -90,8 +90,8 @@
             rep(/<\/ul>/gi,"</list>");
             rep(/<ol>/gi,"<list ordered=\"true\">");
             rep(/<\/ol>/gi,"</list>");
-            rep(/<li>/gi,"<listItem>");
-            rep(/<\/li>/gi,"</listItem>");
+            rep(/<li>/gi,"<listItem><text>");
+            rep(/<\/li>/gi,"</text></listItem>");
 
 			return s; 
 		},
@@ -124,6 +124,8 @@
             rep(/<list ordered=\"false\">([\s\S]*?)<\/list>/gi,"<ul>$1</ul>");
             rep(/<listItem>/gi,"<li>");
             rep(/<\/listItem>/gi,"</li>");
+            rep(/<text>/gi,"");
+            rep(/<\/text>/gi,"");
 
 			return s; 
 		}

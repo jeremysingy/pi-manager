@@ -1116,7 +1116,7 @@ text-decoration: none;
 
 .descriptionPanel ul 
 {
-    list-style-type:circle;
+    /*list-style-type:circle;*/
 }
 
 /* Add/Modify project styles */
