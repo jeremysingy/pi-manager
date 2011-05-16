@@ -59,11 +59,9 @@ namespace PIManager.Professor
 
             document.AddTitle(title);
 
-            Project project2 = new Project(22, "Test", "T", "desc", 3, 0);
+            document.Add(new Paragraph(project.Name + " (" + project.Abreviation + ")", new Font(Font.FontFamily.HELVETICA, 20)));
 
-            document.Add(new Paragraph(project2.Name + " (" + project2.Abreviation + ")", new Font(Font.FontFamily.HELVETICA, 20)));
-
-            document.Add(new Paragraph("Nombre d'étudiants " + project2.NbStudents, new Font(Font.FontFamily.HELVETICA, 16)));
+            document.Add(new Paragraph("Nombre d'étudiants " + project.NbStudents, new Font(Font.FontFamily.HELVETICA, 16)));
 
             document.Add(new Paragraph("Description : ", new Font(Font.FontFamily.HELVETICA, 16)));
 
@@ -71,13 +69,20 @@ namespace PIManager.Professor
 
             document.Add(new Paragraph("Technologies : ", new Font(Font.FontFamily.HELVETICA, 16)));
 
-
-            //TODO Techno
-            for (int i = 0; i < 2; i++)
+            string technoStr = "";
+            for(int i = 0; i < project.Technology.Count; i++)
             {
-                document.Add(new Paragraph("Techno" + i, new Font(Font.FontFamily.HELVETICA, 12)));
+                if(i==0)
+                {
+                    technoStr += project.Technology[i].Name;
+                }else
+                {
+                    technoStr += ", " + project.Technology[i].Name;
+                }
+                
             }
-            
+
+            document.Add(new Paragraph(technoStr, new Font(Font.FontFamily.HELVETICA, 12)));
 
 
 
@@ -95,6 +100,7 @@ namespace PIManager.Professor
             project = projectAccess.getProject(idProject);
 
             List<Technology> technos = projectAccess.getTechnologyProject(idProject);
+            project.Technology = technos;
 
             
 

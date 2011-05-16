@@ -5,6 +5,15 @@
 
 <asp:Content ID="BodyContent" runat="server" ContentPlaceHolderID="MainContent">
     <h2>Modifier/Supprimer des projets</h2>
+    <asp:PlaceHolder ID="phAdded" runat="server" Visible="false">
+        <p class="confirm">Le projet a bien été ajouté.</p>
+    </asp:PlaceHolder>
+    <asp:PlaceHolder ID="phModified" runat="server" Visible="false">
+        <p class="confirm">Le projet a bien été modifié.</p>
+    </asp:PlaceHolder>
+    <asp:PlaceHolder ID="phDeleted" runat="server" Visible="false">
+        <p class="confirm">La projet a bien été supprimé.</p>
+    </asp:PlaceHolder>
     <asp:GridView ID="ProjectsGrid" runat="server" AutoGenerateColumns="false" OnRowDeleting="onRowDeleting" OnRowDataBound="onRowDataBound">
         <Columns>
             <asp:BoundField DataField="Name" HeaderText="Nom du projet" />

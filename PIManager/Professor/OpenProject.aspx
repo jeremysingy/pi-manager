@@ -11,6 +11,9 @@
 
 <asp:Content ID="BodyContent" runat="server" ContentPlaceHolderID="MainContent">
     <h2>Ouvrir les inscriptions</h2>
+    <asp:PlaceHolder ID="phOpened" runat="server" Visible="false">
+        <p class="confirm">Les projets sélectionnés ont bien été ouverts</p>
+    </asp:PlaceHolder>
     <asp:GridView ID="ProjectsGrid" runat="server" AutoGenerateColumns="false">
         <Columns>
             <asp:BoundField DataField="Name" HeaderText="Nom du projet" />
@@ -26,6 +29,8 @@
             </asp:TemplateField>
         </Columns>
     </asp:GridView>
+
+    <asp:Label ID="lbErrorProjects" runat="server" Text="Un projet au moins doit être sélectionné" Visible="false" CssClass="error" />
     <br /><br />
 
     <asp:Label ID="lbStart" runat="server" Text="Date de début :" AssociatedControlID="tbStart" />
@@ -43,7 +48,6 @@
         Operator="DataTypeCheck" Type="Date" ValidationGroup="grpDate"
         CssClass="error">
     </asp:CompareValidator>
-
     <br />
     <asp:Label ID="lbEnd" runat="server" Text="Date de fin :" AssociatedControlID="tbEnd" />
     <asp:TextBox ID="tbEnd" runat="server" />
@@ -60,7 +64,8 @@
         Type="Date" ValidationGroup="grpDate"
         CssClass="error">
     </asp:CompareValidator>
-
+    <br />
+    <asp:Label ID="lbErrorDates" runat="server" Text="La date de fin doit être supérieure à la date de début" Visible="false" CssClass="error" />
 
     <script type="text/javascript">//<![CDATA[
         var cal = Calendar.setup({

@@ -205,7 +205,7 @@ namespace PIManager
             }
 
             if (myProjectAccess.modifyProject(myModifiedProject, newProject, myProjectTechnos, rawImage))
-                Response.Redirect("ManageProjects.aspx");
+                Response.Redirect("ManageProjects.aspx?confirm=2");
             else
                 Response.Redirect("ModifyProject.aspx?id=" + myModifiedProject.Id + "&error=1");
         }

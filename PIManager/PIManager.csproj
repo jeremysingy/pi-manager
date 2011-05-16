@@ -133,7 +133,9 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="xslt\projectDescriptionPDF.xsl" />
-    <Content Include="xslt\ProjectDescriptionToText.xslt" />
+    <Content Include="xslt\ProjectDescriptionToText.xslt">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Account\ChangePassword.aspx.cs">

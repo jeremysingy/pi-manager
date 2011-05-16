@@ -39,6 +39,14 @@ namespace PIManager
                 // Bind the projects with the table
                 ProjectsGrid.DataSource = myProjects;
                 ProjectsGrid.DataBind();
+
+                // Add eventual confirmation messages
+                if (Request.QueryString["confirm"] != null && Request.QueryString["confirm"] == "1")
+                    phAdded.Visible = true;
+                if (Request.QueryString["confirm"] != null && Request.QueryString["confirm"] == "2")
+                    phModified.Visible = true;
+                if (Request.QueryString["confirm"] != null && Request.QueryString["confirm"] == "3")
+                    phDeleted.Visible = true;
             }
             catch(Exception exception)
             {
@@ -54,7 +62,7 @@ namespace PIManager
         protected void onRowDeleting(object sender, GridViewDeleteEventArgs e)
         {
             myProjectAccess.deleteProject(myProjects[e.RowIndex].Id);
-            Response.Redirect("ManageProjects.aspx");
+            Response.Redirect("ManageProjects.aspx?confirm=3");
         }
 
         /// <summary>
