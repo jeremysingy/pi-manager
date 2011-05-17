@@ -39,14 +39,13 @@ namespace PIManager.DAO
         /// <returns>List of projects opened for inscription</returns>
         public List<Project> getProjectList()
         {
-            string currentDate = System.DateTime.Now.ToString();
             string query = "SELECT pk_project, " +
                            "description_XML.query('data(//title)') AS title, " +
                            "description_xml.value('(//abreviation)[1]', 'varchar(50)') AS abreviation, " +
                            "description_XML.value(N'(//student)[1]', 'integer') AS nbStudent " +
                            "FROM pimanager.dbo.Project INNER JOIN pimanager.dbo.Period ON pimanager.dbo.Project.pk_period = pimanager.dbo.Period.pk_period " +
                            "WHERE description_XML.value(N'(//student)[1]', 'integer') > (SELECT COUNT(*) FROM Person WHERE Person.pk_project = Project.pk_project) " +
-                           "AND pimanager.dbo.Project.pk_period IS NOT NULL AND @currentDate BETWEEN pimanager.dbo.Period.date_open AND pimanager.dbo.Period.date_close;";
+                           "AND pimanager.dbo.Project.pk_period IS NOT NULL AND GETDATE() BETWEEN pimanager.dbo.Period.date_open AND pimanager.dbo.Period.date_close;";
 
             List<Project> projectList = new List<Project>();
 
@@ -59,13 +58,8 @@ namespace PIManager.DAO
                 {
                     connection.Open();
                     transaction = connection.BeginTransaction(IsolationLevel.ReadCommitted, "getProjectList");
-                    command = connection.CreateCommand();
-                    command.Connection = connection;
-                    command.Transaction = transaction;
-                    command.CommandText = query;
-                    command.Parameters.Add("@currentDate", SqlDbType.DateTime).Value = currentDate;
 
-                    reader = command.ExecuteReader();
+                    reader = myDBManager.doSelect(query, connection, transaction, new Dictionary<string, object>());
 
                     // if there is no project available, return an empty list.
                     if (!reader.HasRows) return projectList;
@@ -323,20 +317,14 @@ namespace PIManager.DAO
             using (SqlConnection connection = myDBManager.newConnection())
             {
                 SqlTransaction transaction = null;
-                SqlCommand command = null;
                 try
                 {
                     connection.Open();
 
-                    string query = "SELECT COUNT(*) FROM Period WHERE @currentDate > date_open AND @currentDate < date_close;";
+                    string query = "SELECT COUNT(*) FROM Period WHERE GETDATE() BETWEEN date_open AND date_close;";
                     transaction = connection.BeginTransaction(IsolationLevel.ReadCommitted, "periodInscriptionOpen");
-                    command = connection.CreateCommand();
-                    command.Connection = connection;
-                    command.Transaction = transaction;
-                    command.CommandText = query;
-                    command.Parameters.Add("@currentDate", SqlDbType.DateTime).Value = currentDate;
 
-                    int opened = (int)command.ExecuteScalar();
+                    int opened = (int)myDBManager.doSelectScalar(query, connection, transaction, new Dictionary<string, object>());
 
                     transaction.Commit();
 
@@ -346,9 +334,6 @@ namespace PIManager.DAO
                 {
                     if (connection != null)
                     {
-                        if (command != null)
-                            command.Cancel();
-
                         if (transaction != null)
                             transaction.Rollback();
                     }
