@@ -120,9 +120,9 @@ namespace PIManager
             tbDescription.Text = myModifiedProject.Description;
 
             if (myModifiedProject.HasImage)
-                previewImage.ImageUrl = "/GetImage.aspx?id=" + myModifiedProject.Id;
+                previewImage.ImageUrl = "~/GetImage.aspx?id=" + myModifiedProject.Id;
             else
-                previewImage.ImageUrl = "/Images/noimage.png";
+                previewImage.ImageUrl = "~/Images/noimage.png";
 
             gridTechnologies.DataSource = myProjectTechnos;
             gridTechnologies.DataBind();

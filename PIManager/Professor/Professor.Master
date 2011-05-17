@@ -62,13 +62,14 @@
                                             <li>
                                                 Visualiser
                                                 <ul>
-                                                    <li><a href="/Professor/VisualizationGroup.aspx">Projets</a></li>
-                                                    <li><a href="/Professor/VisualizationInscription.aspx">Inscriptions</a></li>
+                                                    <li>
+                                                    <asp:HyperLink ID="visualizationGroupLink" runat="server" NavigateUrl="~/Professor/VisualizationGroup.aspx" Text="Projets" /></li>
+                                                    <li><asp:HyperLink ID="visualizationInscriptionLink" runat="server" NavigateUrl="~/Professor/VisualizationInscription.aspx" Text="Inscriptions" /></li>
                                                 </ul>
                                             </li>
-                                            <li><a href="/Professor/AddProject.aspx">Saisir un projet</a></li>
-                                            <li><a href="/Professor/ManageProjects.aspx">Modifier/supprimer des projets</a></li>
-                                            <li><a href="/Professor/OpenProject.aspx">Ouvrir les inscriptions</a></li>
+                                            <li><asp:HyperLink ID="addProjectLink" runat="server" NavigateUrl="~/Professor/AddProject.aspx" Text="Saisir un projet" /></li>
+                                            <li><asp:HyperLink ID="manageProjectLink" runat="server" NavigateUrl="~/Professor/ManageProjects.aspx" Text="Modifier/supprimer des projets" /></li>
+                                            <li><asp:HyperLink ID="openProjectLink" runat="server" NavigateUrl="~/Professor/OpenProject.aspx" Text="Ouvrir les inscriptions" /></li>
                                             <li><asp:LoginStatus ID="LoginStatus" runat="server" LoginText="Connexion" LogoutText="Déconnexion" LogoutPageUrl="~/Account/Login.aspx" LogoutAction="Redirect" /></li>
                                         </ul>
                                     </div>
