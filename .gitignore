@@ -7,3 +7,4 @@
 *.cache
 
 PIManager/App_Data/*
+*.user

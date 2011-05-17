@@ -53,6 +53,12 @@ namespace PIManager.Professor
             }
         }
 
+
+        /// <summary>
+        /// Write the informations of the project in the PDF file
+        /// </summary>
+        /// <param name="document">document pdf</param>
+        /// <param name="desc">Description of the project</param>
         private void WriteDocument(Document document, string desc)
         {
             var title = "Projet : " + project.Name;
@@ -88,6 +94,11 @@ namespace PIManager.Professor
 
         }
 
+
+        /// <summary>
+        /// Transform the project from database to texte
+        /// </summary>
+        /// <param name="idProject">pk_project of the project choosed</param>
         private string getProjectFromId(int idProject)
         {
             ProjectAccess projectAccess = new ProjectAccess();
@@ -104,7 +115,7 @@ namespace PIManager.Professor
 
             
 
-            // Loads xslt file and executes the transformation to html. Result is stored in a StringWriter.
+            // Loads xslt file and executes the transformation to texte. Result is stored in a StringWriter.
             string xml = "<project>\n";
             xml += "<title>" + project.Name + "</title>\n";
             xml += "<abreviation>" + project.Abreviation + "</abreviation>\n";
