@@ -20,6 +20,9 @@ namespace PIManager.Professor
             showProjects();
         }
 
+        /// <summary>
+        /// Initialize the table
+        /// </summary>
         private void initTable()
         {
             TableHeaderRow header = new TableHeaderRow();
@@ -51,7 +54,9 @@ namespace PIManager.Professor
             header.Controls.Add(hHistory);
         }
 
-
+        /// <summary>
+        /// Create the list of project for the table
+        /// </summary>
         private void showProjects()
         {
             ProjectAccess projectAccess = new ProjectAccess();
@@ -67,7 +72,14 @@ namespace PIManager.Professor
             }
         }
 
-
+        /// <summary>
+        /// Add a line to the table with the param passed
+        /// </summary>
+        /// <param name="id">pk_project</param>
+        /// <param name="title">nom du projet</param>
+        /// <param name="technolist">List of techologies</param>
+        /// <param name="goupList">List of student in project</param>
+        /// <param name="client">name of the client of the project</param>
         private void AddTableLine(string id, string title, List<Technology> technoList, List<Person> groupList, string client)
         {
             TableRow newProject = new TableRow();
@@ -112,11 +124,11 @@ namespace PIManager.Professor
             newProject.Controls.Add(cellClient);
 
             TableCell cellHistory = new TableCell();
-            cellHistory.Text = "<a href='/Professor/VisualizationHistory.aspx?id=" + id + "'>Voir historique</a>";
+            cellHistory.Text = "<a href='VisualizationHistory.aspx?id=" + id + "'>Voir historique</a>";
             newProject.Controls.Add(cellHistory);
 
             TableCell cellPDF = new TableCell();
-            cellPDF.Text = "<a href='/Professor/ProjectPDF.aspx?id=" + id + "'>PDF</a>";
+            cellPDF.Text = "<a href='ProjectPDF.aspx?id=" + id + "'>PDF</a>";
             newProject.Controls.Add(cellPDF);
         }
 
