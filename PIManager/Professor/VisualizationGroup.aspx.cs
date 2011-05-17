@@ -16,13 +16,9 @@ namespace PIManager.Professor
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
             initTable();
-
             showProjects();
-
         }
-
 
         private void initTable()
         {
@@ -53,18 +49,14 @@ namespace PIManager.Professor
             TableCell hHistory = new TableCell();
             hHistory.Text = "Historique";
             header.Controls.Add(hHistory);
-
         }
 
 
         private void showProjects()
         {
-
-
             ProjectAccess projectAccess = new ProjectAccess();
 
             List<Project> projects = projectAccess.getFullProject();
-
 
             foreach (Project project in projects)
             {
@@ -73,8 +65,6 @@ namespace PIManager.Professor
                 List<Person> groups = projectAccess.getProjectGroup(project.Id);
                 AddTableLine(project.Id.ToString(), project.Name, technologys, groups, clientName);
             }
-
-            
         }
 
 
@@ -128,7 +118,6 @@ namespace PIManager.Professor
             TableCell cellPDF = new TableCell();
             cellPDF.Text = "<a href='/Professor/ProjectPDF.aspx?id=" + id + "'>PDF</a>";
             newProject.Controls.Add(cellPDF);
-
         }
 
         /// <summary>
@@ -151,8 +140,6 @@ namespace PIManager.Professor
             Project project = projectAccess.getProject(idProject);
 
             List<Technology> technos = projectAccess.getTechnologyProject(idProject);
-
-
 
             // Loads xslt file and executes the transformation to html. Result is stored in a StringWriter.
             string xml = "<project>\n";

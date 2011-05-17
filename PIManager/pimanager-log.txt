@@ -295,3 +295,10 @@ System.Threading.ThreadAbortException: Thread was being aborted.
    at System.Threading.Thread.Abort(Object stateInfo)
    at System.Web.HttpResponse.End()
    at PIManager.Professor.GetImage.Page_Load(Object sender, EventArgs e) in D:\Visual_Studio_Projects\PIManager\PIManager\GetImage.aspx.cs:line 42
+2011-05-17 08:41:13,804 [9] ERROR PIManager.Professor.AddNewProject [(null)] - Error loading page: Timeout expired.  The timeout period elapsed prior to completion of the operation or the server is not responding.
+2011-05-17 10:50:43,336 [173] ERROR PIManager.Professor.GetImage [(null)] - Error loading page: Thread was being aborted.
+System.Threading.ThreadAbortException: Thread was being aborted.
+   at System.Threading.Thread.AbortInternal()
+   at System.Threading.Thread.Abort(Object stateInfo)
+   at System.Web.HttpResponse.End()
+   at PIManager.Professor.GetImage.Page_Load(Object sender, EventArgs e) in D:\Visual_Studio_Projects\PIManager\PIManager\GetImage.aspx.cs:line 42
