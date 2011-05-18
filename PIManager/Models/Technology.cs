@@ -10,7 +10,14 @@ namespace PIManager.Models
     /// </summary>
     public class Technology
     {
+        /// <summary>
+        /// Id of the technology
+        /// </summary>
         private int myId;
+
+        /// <summary>
+        /// Name of the technology
+        /// </summary>
         private string myName;
 
         /// <summary>
@@ -24,12 +31,18 @@ namespace PIManager.Models
             myName = name;
         }
 
+        /// <summary>
+        /// Id of the technology
+        /// </summary>
         public int Id
         {
             get { return myId; }
             set { myId = value; }
         }
 
+        /// <summary>
+        /// Name of the technology
+        /// </summary>
         public string Name
         {
             get { return myName; }

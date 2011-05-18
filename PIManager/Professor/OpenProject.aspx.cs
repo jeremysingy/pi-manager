@@ -82,7 +82,11 @@ namespace PIManager.Professor
             myIdsToOpen = (HashSet<int>)Session["toOpen"];
         }
 
-        //protected void onCheckboxChanged(object sender, GridViewDeleteEventArgs e)
+        /// <summary>
+        /// Called when a checkbox state has changed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void onCheckboxChanged(object sender, EventArgs e)
         {
             CheckBox checkbox = (CheckBox)sender;

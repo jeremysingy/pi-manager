@@ -10,8 +10,16 @@ using PIManager.DAO;
 
 namespace PIManager.Student
 {
+    /// <summary>
+    /// Master page for the Student directory
+    /// </summary>
     public partial class Student : System.Web.UI.MasterPage
     {
+        /// <summary>
+        /// Called when the page is loaded
+        /// </summary>
+        /// <param name="sender">Sender object of the event</param>
+        /// <param name="e">Arguments of the event</param>
         protected void Page_Load(object sender, EventArgs e)
         {
             // checks if period of inscription is opened

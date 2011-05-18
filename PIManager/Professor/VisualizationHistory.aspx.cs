@@ -9,8 +9,16 @@ using PIManager.DAO;
 
 namespace PIManager.Professor
 {
+    /// <summary>
+    /// Page to visualize the history of a project
+    /// </summary>
     public partial class VisualizationHistory : System.Web.UI.Page
     {
+        /// <summary>
+        /// Called when the page is loaded
+        /// </summary>
+        /// <param name="sender">Sender object of the event</param>
+        /// <param name="e">Arguments of the event</param>
         protected void Page_Load(object sender, EventArgs e)
         {
             int choosed_project = int.Parse(Request.QueryString.Get("id"));

@@ -12,8 +12,16 @@ using System.Xml.Xsl;
 
 namespace PIManager.Professor
 {
+    /// <summary>
+    /// Page showing informations about all projects with students registered to
+    /// </summary>
     public partial class VisualizationGroup : System.Web.UI.Page
     {
+        /// <summary>
+        /// Called when the page is loaded
+        /// </summary>
+        /// <param name="sender">Sender object of the event</param>
+        /// <param name="e">Arguments of the event</param>
         protected void Page_Load(object sender, EventArgs e)
         {
             initTable();
@@ -55,7 +63,7 @@ namespace PIManager.Professor
         }
 
         /// <summary>
-        /// Create the list of project for the table
+        /// Create the list of projects for the table
         /// </summary>
         private void showProjects()
         {
@@ -75,11 +83,11 @@ namespace PIManager.Professor
         /// <summary>
         /// Add a line to the table with the param passed
         /// </summary>
-        /// <param name="id">pk_project</param>
-        /// <param name="title">nom du projet</param>
-        /// <param name="technolist">List of techologies</param>
-        /// <param name="goupList">List of student in project</param>
-        /// <param name="client">name of the client of the project</param>
+        /// <param name="id">Id of the project</param>
+        /// <param name="title">Name of the project</param>
+        /// <param name="technoList">List of techologies</param>
+        /// <param name="groupList">List of student in project</param>
+        /// <param name="client">Name of the client of the project</param>
         private void AddTableLine(string id, string title, List<Technology> technoList, List<Person> groupList, string client)
         {
             TableRow newProject = new TableRow();
@@ -135,8 +143,8 @@ namespace PIManager.Professor
         /// <summary>
         /// Displays the description of the project that is clicked.
         /// </summary>
-        /// <param name="sender">link on the project name</param>
-        /// <param name="e">arguments given to this command (project id)</param>
+        /// <param name="sender">Link on the project name</param>
+        /// <param name="e">Arguments given to this command (project id)</param>
         public void description_Click(Object sender, EventArgs e)
         {
             ProjectAccess projectAccess = new ProjectAccess();
@@ -190,6 +198,11 @@ namespace PIManager.Professor
             descriptionPanel.Controls.Add(new LiteralControl(sw.ToString()));
         }
 
+        /// <summary>
+        /// Encode an array of bytes in base 64
+        /// </summary>
+        /// <param name="bytes">Array of bytes to encode</param>
+        /// <returns>The resulting base 64 encoding</returns>
         private string base64Encode(byte[] bytes)
         {
             try

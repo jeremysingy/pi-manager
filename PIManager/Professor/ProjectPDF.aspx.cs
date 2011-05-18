@@ -15,11 +15,21 @@ using PIManager.DAO;
 
 namespace PIManager.Professor
 {
+    /// <summary>
+    /// Page to view a project description in a PDF document
+    /// </summary>
     public partial class ProjectPDF : System.Web.UI.Page
     {
-
+        /// <summary>
+        /// Project to visualize in PDF
+        /// </summary>
         private Project project;
 
+        /// <summary>
+        /// Called when the page is loaded
+        /// </summary>
+        /// <param name="sender">Sender object of the event</param>
+        /// <param name="e">Arguments of the event</param>
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -57,7 +67,7 @@ namespace PIManager.Professor
         /// <summary>
         /// Write the informations of the project in the PDF file
         /// </summary>
-        /// <param name="document">document pdf</param>
+        /// <param name="document">PDF document</param>
         /// <param name="desc">Description of the project</param>
         private void WriteDocument(Document document, string desc)
         {
@@ -81,7 +91,8 @@ namespace PIManager.Professor
                 if(i==0)
                 {
                     technoStr += project.Technology[i].Name;
-                }else
+                }
+                else
                 {
                     technoStr += ", " + project.Technology[i].Name;
                 }
@@ -89,16 +100,14 @@ namespace PIManager.Professor
             }
 
             document.Add(new Paragraph(technoStr, new Font(Font.FontFamily.HELVETICA, 12)));
-
-
-
         }
 
 
         /// <summary>
         /// Transform the project from database to texte
         /// </summary>
-        /// <param name="idProject">pk_project of the project choosed</param>
+        /// <param name="idProject">Id of the choosed project</param>
+        /// <returns>The description in XML</returns>
         private string getProjectFromId(int idProject)
         {
             ProjectAccess projectAccess = new ProjectAccess();
@@ -112,9 +121,7 @@ namespace PIManager.Professor
 
             List<Technology> technos = projectAccess.getTechnologyProject(idProject);
             project.Technology = technos;
-
             
-
             // Loads xslt file and executes the transformation to texte. Result is stored in a StringWriter.
             string xml = "<project>\n";
             xml += "<title>" + project.Name + "</title>\n";
@@ -122,10 +129,12 @@ namespace PIManager.Professor
             xml += "<description>" + project.Description + "</description>\n";
             xml += "<nbStudent>" + project.NbStudents + "</nbStudent>\n";
             xml += "<technologies>\n";
+            
             foreach (Technology techno in technos)
             {
                 xml += "<technology>" + techno.Name + "</technology>\n";
             }
+            
             xml += "</technologies>\n";
             xml += "</project>\n";
              
@@ -136,8 +145,6 @@ namespace PIManager.Professor
             xslt.Load(path);
 
             // get image from database
-            //byte[] image = projectAccess.getImage(idProject);
-
             byte[] image = null;
 
             if (image != null)

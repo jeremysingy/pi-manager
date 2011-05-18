@@ -225,10 +225,11 @@ namespace PIManager.Models
             set { myTechnology = value; }
         }
 
-        public void AddTechnologyInMyTechnology(Technology technology)
+
+        /*public void AddTechnologyInMyTechnology(Technology technology)
         {
             myTechnology.Add(technology);
-        }
+        }*/
 
         /// <summary>
         /// Add a registered person to this project

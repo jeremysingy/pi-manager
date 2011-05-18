@@ -91,6 +91,7 @@ namespace PIManager.Visualization
         /// </summary>
         /// <param name="idPerson">id of the student</param>
         /// <param name="p">project information</param>
+        /// <param name="opened">true if the project is opened, false otherwise</param>
         /// <param name="projectId">project id the student is already subscribed to</param>
         private void addProject(int idPerson, Project p, bool opened, int projectId = -1)
         {

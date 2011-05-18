@@ -10,17 +10,26 @@ using PIManager.Models;
 
 namespace PIManager.Professor
 {
+    /// <summary>
+    /// Page to view all inscriptions of a project
+    /// </summary>
     public partial class VisualizationInscription : System.Web.UI.Page
     {
+        /// <summary>
+        /// Called when the page is loaded
+        /// </summary>
+        /// <param name="sender">Sender object of the event</param>
+        /// <param name="e">Arguments of the event</param>
         protected void Page_Load(object sender, EventArgs e)
         {
             initTable();
-
             getInscriptions();
 
         }
 
-
+        /// <summary>
+        /// Init the table to view informations
+        /// </summary>
         private void initTable()
         {
             TableHeaderRow header = new TableHeaderRow();
@@ -37,6 +46,9 @@ namespace PIManager.Professor
 
         }
 
+        /// <summary>
+        /// Get inscriptions of the project
+        /// </summary>
         private void getInscriptions()
         {
             ProjectAccess projectAccess = new ProjectAccess();
@@ -67,7 +79,6 @@ namespace PIManager.Professor
 
                 TableCell cellInscription = new TableCell();
             }
-            
         }
     }
 }

@@ -19,11 +19,6 @@ namespace PIManager.DAO
     public class DBManager
     {
         /// <summary>
-        /// Current user logged in to the applicaiton
-        /// </summary>
-        //MemberShipPIUser myConnectedUser;
-
-        /// <summary>
         /// Connection string to access the database as a professor
         /// </summary>
         public static readonly string CONNECTION_STRING_PROFESSOR = ConfigurationManager.ConnectionStrings["PIProfConnection"].ToString();
@@ -38,6 +33,10 @@ namespace PIManager.DAO
         /// </summary>
         private static readonly ILog log = LogManager.GetLogger(typeof(DBManager));
 
+        /// <summary>
+        /// Get the logger for this class
+        /// </summary>
+        /// <returns>The logger of this class</returns>
         public static ILog getLog() {
             return log;
         }
