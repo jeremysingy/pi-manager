@@ -23,11 +23,11 @@ namespace PIManager.Login
         {
             get
             {
-                return "Application Name";
+                return "PIManager";
             }
             set
             {
-                
+                value = "PIManager";
             }
             
         }

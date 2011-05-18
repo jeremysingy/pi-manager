@@ -26,7 +26,7 @@
             
         <div class="art-Sheet-body">
             <div class="art-Header">
-                <div class="art-Header-jpeg"><img src="../Images/logo_eia.png" alt="Logo EIA-FR" class="rightimage" /></div>
+                <div class="art-Header-jpeg"><asp:Image runat="server" ImageUrl="~/Images/logo_eia.png" AlternateText="Logo EIA-FR" CssClass="rightimage" /></div>
                 <div class="art-Logo">
                     <h1 id="name-text" class="art-Logo-name">Gestion de projets intégrés</h1>
                     <div id="slogan-text" class="art-Logo-text">Facile et rapide</div>

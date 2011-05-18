@@ -125,16 +125,6 @@ namespace PIManager.DAO
             return command.ExecuteNonQuery();
         }
 
-        /*public int doUpdate(string query, SqlConnection connection, SqlTransaction transaction, List<SqlParameter> paramList)
-        {
-            SqlCommand command = new SqlCommand(query, connection, transaction);
-
-            foreach (var param in paramList)
-                command.Parameters.Add(param);
-
-            return command.ExecuteNonQuery();
-        }*/
-
         /// <summary>
         /// Perform a delete query
         /// </summary>
@@ -193,45 +183,6 @@ namespace PIManager.DAO
                 command.Parameters.Add(param);
 
             command.ExecuteNonQuery();
-        }
-
-
-        public int getPersonType(int pk_person)
-        {
-            int person_type = -1;
-            string query = "SELECT role FROM Person WHERE pk_person = @pk_person;";
-
-            SqlConnection connection = new SqlConnection(CONNECTION_STRING_PROFESSOR); 
-            connection.Open();
-
-            SqlTransaction transaction = connection.BeginTransaction(IsolationLevel.ReadCommitted, "getTypePerson");
-
-            try
-            {
-                SqlCommand command = new SqlCommand(query, connection, transaction);
-
-                command.Parameters.AddWithValue("@pk_person", pk_person);
-
-                SqlDataReader sqldatareader = command.ExecuteReader();
-
-                while (sqldatareader.Read())
-                {
-                    person_type = sqldatareader.GetInt32(0);
-                }
-
-                sqldatareader.Close();
-            }
-            catch (SqlException exception)
-            {
-                transaction.Rollback();
-                log.Error("Error getting person type: " + exception.Message);
-            }
-
-            transaction.Commit();
-            connection.Close();
-
-
-            return person_type;
         }
     }
 }
